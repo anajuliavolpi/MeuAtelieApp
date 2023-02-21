@@ -2,7 +2,7 @@
 //  MeuAtelieAppApp.swift
 //  MeuAtelieApp
 //
-//  Created by Adolpho Piazza on 20/02/23.
+//  Created by Ana Júlia Volpi on 20/02/23.
 //
 
 import SwiftUI

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         VStack {
             Text("Olá, MeuAtelieApp!")
-                .font(.system(size: 32))
+                .font(.system(size: 40))
         }
-        .padding()
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
