@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
+		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D029A42ED0009E0A6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CF29A42ED0009E0A6A /* ContentView.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
+		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		38A5601E29A4589900969AA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuAtelieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppApp.swift; sourceTree = "<group>"; };
@@ -72,6 +76,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3872D63E29ABFC1F001F180D /* MeuAtelieUI */ = {
+			isa = PBXGroup;
+			children = (
+				3872D63F29ABFC45001F180D /* LaunchScreen */,
+			);
+			path = MeuAtelieUI;
+			sourceTree = "<group>";
+		};
+		3872D63F29ABFC45001F180D /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		38D7F7C129A42ED0009E0A6A = {
 			isa = PBXGroup;
 			children = (
@@ -95,10 +115,12 @@
 		38D7F7CC29A42ED0009E0A6A /* MeuAtelieApp */ = {
 			isa = PBXGroup;
 			children = (
+				3872D63E29ABFC1F001F180D /* MeuAtelieUI */,
 				38A5601E29A4589900969AA4 /* Info.plist */,
 				38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */,
 				38D7F7CF29A42ED0009E0A6A /* ContentView.swift */,
 				38D7F7D129A42ED2009E0A6A /* Assets.xcassets */,
+				3872D64229ABFCA7001F180D /* Colors.xcassets */,
 				38D7F7D329A42ED2009E0A6A /* Preview Content */,
 			);
 			path = MeuAtelieApp;
@@ -234,7 +256,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */,
+				3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */,
 				38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */,
+				3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +450,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = d;
+				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,7 +480,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = d;
+				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
