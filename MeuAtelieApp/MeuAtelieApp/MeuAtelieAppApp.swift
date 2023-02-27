@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct MeuAtelieAppApp: App {
+    
+    @State var userLogIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if userLogIn {
+                MAHomeView()
+            } else {
+                MALoginView(userLogIn: $userLogIn)
+            }
         }
     }
 }
