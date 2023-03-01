@@ -15,7 +15,12 @@ struct MeuAtelieAppApp: App {
     var body: some Scene {
         WindowGroup {
             if userLogIn {
-                MAHomeView()
+                TabView {
+                    MAHomeView()
+                        .tabItem {
+                            Label("Pedidos", systemImage: "list.dash")
+                        }
+                }
             } else {
                 MALoginView(userLogIn: $userLogIn)
             }

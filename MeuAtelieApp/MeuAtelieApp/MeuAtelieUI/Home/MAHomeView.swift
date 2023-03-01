@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct MAHomeView: View {
+    
     var body: some View {
-        Text("Olá, MeuAteliêApp!")
+        NavigationView {
+            List(content: {
+                Text("Roupa")
+                Text("Linha")
+                Text("Agulha")
+            })
+            .navigationTitle("Pedidos")
+        }
     }
+    
 }
 
 struct MAHomeView_Previews: PreviewProvider {

@@ -15,41 +15,39 @@ struct MALoginView: View {
     
     var body: some View {
         ZStack {
-            Color("MAPink")
-                .ignoresSafeArea()
+            LinearGradient(colors: [.MAColors.MAPinkLightStrong,
+                                    .MAColors.MAPinkLight,
+                                    .MAColors.MAPinkLightMedium],
+                           startPoint: .leading,
+                           endPoint: .trailing)
             
             VStack {
-                Image("MeuAtelieLaunchscreen")
-                    .resizable()
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .padding(.top, 100)
+                Image.MAImages.Login.loginTextLogo
+                    .padding(.top, 50)
                 
-                Text("MeuAteliê")
-                    .font(.system(size: 24))
-                    .padding(.trailing, -50)
-                    .padding(.top, -20)
+                Image.MAImages.Login.loginTopImage
+                    .padding(.top, 28)
                 
                 TextField("Login", text: $login)
-                    .font(.system(size: 18, weight: .semibold))
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
                     .textContentType(.emailAddress)
                     .autocorrectionDisabled()
-                    .padding(.top, 40)
+                    .padding(.top, -8)
                 
                 SecureField("Senha", text: $password)
-                    .font(.system(size: 18, weight: .semibold))
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
                     .textContentType(.password)
+                    .padding(.top, 14)
+                
+                Image.MAImages.Login.loginBottomImage
+                    .padding(.top, -6)
                 
                 Spacer()
-                
-                Button("Entrar") {
-                    userLogIn = true
-                }
-                .buttonStyle(.borderedProminent)
             }
-            .padding(.horizontal, 20)
+            .padding(.top, 50)
+            .padding(.horizontal, 30)
         }
+        .ignoresSafeArea()
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
