@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,36 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
-                                <rect key="frame" x="0.0" y="824" width="390" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeuAtelieLaunchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="tlK-yd-tBC">
-                                <rect key="frame" x="70" y="257" width="250" height="250"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MALaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-mh-S0a">
+                                <rect key="frame" x="20" y="247" width="350" height="350"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="Bvg-2w-grk"/>
-                                    <constraint firstAttribute="height" constant="250" id="hkc-xg-B60"/>
+                                    <constraint firstAttribute="height" constant="350" id="VBd-Eh-eip"/>
+                                    <constraint firstAttribute="width" constant="350" id="rBN-fl-0FE"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeuAteliê" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5G-K5-OjQ">
-                                <rect key="frame" x="117.33333333333333" y="489" width="202.66666666666669" height="57"/>
-                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" name="MAPink"/>
                         <constraints>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
-                            <constraint firstItem="v5G-K5-OjQ" firstAttribute="top" secondItem="tlK-yd-tBC" secondAttribute="bottom" constant="-18" id="B0B-1e-LGe"/>
-                            <constraint firstItem="tlK-yd-tBC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ebq-Dq-MIb"/>
-                            <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="20" symbolic="YES" id="SfN-ll-jLj"/>
-                            <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
-                            <constraint firstItem="v5G-K5-OjQ" firstAttribute="trailing" secondItem="tlK-yd-tBC" secondAttribute="trailing" id="haq-JJ-pVM"/>
-                            <constraint firstItem="tlK-yd-tBC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-40" id="m9r-aI-YOm"/>
+                            <constraint firstItem="j0L-mh-S0a" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="EDG-F6-Qva"/>
+                            <constraint firstItem="j0L-mh-S0a" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SDb-rP-GLb"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -55,9 +38,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MeuAtelieLaunchscreen" width="512" height="512"/>
+        <image name="MALaunchScreen" width="500" height="500"/>
         <namedColor name="MAPink">
-            <color red="0.9882352941176471" green="0.45490196078431372" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.85882352941176465" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
