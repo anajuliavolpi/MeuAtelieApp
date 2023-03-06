@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
+		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
+		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
+		3872D64629AC04F2001F180D /* MALoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872D64529AC04F2001F180D /* MALoginView.swift */; };
+		388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076B29AEC4EF00FCE962 /* MATextField.swift */; };
+		388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076E29AEC55D00FCE962 /* Colors+Ext.swift */; };
+		388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A077029AECD6500FCE962 /* Image+Ext.swift */; };
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
-		38D7F7D029A42ED0009E0A6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CF29A42ED0009E0A6A /* ContentView.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
 		38D7F7DF29A42ED2009E0A6A /* MeuAtelieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7DE29A42ED2009E0A6A /* MeuAtelieAppTests.swift */; };
@@ -34,10 +40,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
+		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
+		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3872D64529AC04F2001F180D /* MALoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginView.swift; sourceTree = "<group>"; };
+		388A076B29AEC4EF00FCE962 /* MATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATextField.swift; sourceTree = "<group>"; };
+		388A076E29AEC55D00FCE962 /* Colors+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Ext.swift"; sourceTree = "<group>"; };
+		388A077029AECD6500FCE962 /* Image+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Ext.swift"; sourceTree = "<group>"; };
 		38A5601E29A4589900969AA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuAtelieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppApp.swift; sourceTree = "<group>"; };
-		38D7F7CF29A42ED0009E0A6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38D7F7DA29A42ED2009E0A6A /* MeuAtelieAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeuAtelieAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +84,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		383B718929AD39D800A465D8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				383B718A29AD39E800A465D8 /* MAHomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3872D63E29ABFC1F001F180D /* MeuAtelieUI */ = {
+			isa = PBXGroup;
+			children = (
+				388A076A29AEC4BD00FCE962 /* Common */,
+				3872D63F29ABFC45001F180D /* LaunchScreen */,
+				3872D64429AC04D8001F180D /* Login */,
+				383B718929AD39D800A465D8 /* Home */,
+			);
+			path = MeuAtelieUI;
+			sourceTree = "<group>";
+		};
+		3872D63F29ABFC45001F180D /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		3872D64429AC04D8001F180D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3872D64529AC04F2001F180D /* MALoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		388A076A29AEC4BD00FCE962 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				388A076D29AEC55300FCE962 /* Extensions */,
+				388A076B29AEC4EF00FCE962 /* MATextField.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		388A076D29AEC55300FCE962 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				388A076E29AEC55D00FCE962 /* Colors+Ext.swift */,
+				388A077029AECD6500FCE962 /* Image+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		38D7F7C129A42ED0009E0A6A = {
 			isa = PBXGroup;
 			children = (
@@ -95,10 +160,11 @@
 		38D7F7CC29A42ED0009E0A6A /* MeuAtelieApp */ = {
 			isa = PBXGroup;
 			children = (
+				3872D63E29ABFC1F001F180D /* MeuAtelieUI */,
 				38A5601E29A4589900969AA4 /* Info.plist */,
 				38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */,
-				38D7F7CF29A42ED0009E0A6A /* ContentView.swift */,
 				38D7F7D129A42ED2009E0A6A /* Assets.xcassets */,
+				3872D64229ABFCA7001F180D /* Colors.xcassets */,
 				38D7F7D329A42ED2009E0A6A /* Preview Content */,
 			);
 			path = MeuAtelieApp;
@@ -234,7 +300,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */,
+				3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */,
 				38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */,
+				3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +327,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38D7F7D029A42ED0009E0A6A /* ContentView.swift in Sources */,
+				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
+				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
+				383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */,
+				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
+				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +498,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = d;
+				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,7 +528,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = d;
+				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,9 +9,21 @@ import SwiftUI
 
 @main
 struct MeuAtelieAppApp: App {
+    
+    @State var userLogIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if userLogIn {
+                TabView {
+                    MAHomeView()
+                        .tabItem {
+                            Label("Pedidos", systemImage: "list.dash")
+                        }
+                }
+            } else {
+                MALoginView(userLogIn: $userLogIn)
+            }
         }
     }
 }
