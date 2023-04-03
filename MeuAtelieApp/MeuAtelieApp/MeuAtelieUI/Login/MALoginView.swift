@@ -42,13 +42,20 @@ struct MALoginView: View {
                 Image.MAImages.Login.loginBottomImage
                     .padding(.top, -6)
                 
-                Button("Entrar") {
+                Button {
                     userLogIn = true
+                } label: {
+                    Text("ENTRAR")
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .tint(.MAColors.MAPinkStrong)
+                        .font(.system(size: 18, weight: .semibold))
+                        .background(
+                            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                                .foregroundColor(.white)
+                        )
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.MAColors.MAPinkStrong)
-                .font(.system(size: 22))
-                .padding(.top, 30)
+                .padding(.top, 20)
                                 
                 Spacer()
             }
