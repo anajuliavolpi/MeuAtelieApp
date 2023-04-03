@@ -13,6 +13,7 @@ struct MAProfileView: View {
     @EnvironmentObject var networkManager: NetworkManager
     @State var userFirstName: String = ""
     @State var userLastName: String = ""
+    @State var isShowingChangePassword: Bool = false
     
     var body: some View {
         ScrollView {
@@ -83,7 +84,7 @@ struct MAProfileView: View {
             }
             
             Button {
-//                networkManager.userHasAccount = false
+                isShowingChangePassword = true
             } label: {
                 Text("Trocar de senha")
                     .frame(height: 50)
@@ -121,6 +122,9 @@ struct MAProfileView: View {
         .ignoresSafeArea()
         .onAppear {
             fetchUserData()
+        }
+        .sheet(isPresented: $isShowingChangePassword) {
+            MANewPassword()
         }
     }
     
