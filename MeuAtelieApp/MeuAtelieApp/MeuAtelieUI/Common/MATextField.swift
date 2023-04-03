@@ -39,19 +39,21 @@ struct MATextField: View {
 struct MABasicTextFieldStyle: TextFieldStyle {
     
     var image: Image? = nil
+    var backgroundColor: Color = .white
+    var foregroundTextColor: Color = .MAColors.MAPinkText
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
             configuration
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.MAColors.MAPinkText)
+                .foregroundColor(foregroundTextColor)
                 .padding()
             
             image
                 .padding()
                 .foregroundColor(Color.MAColors.MAPinkText)
         }
-        .background(.white)
+        .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .frame(height: 50)
     }
