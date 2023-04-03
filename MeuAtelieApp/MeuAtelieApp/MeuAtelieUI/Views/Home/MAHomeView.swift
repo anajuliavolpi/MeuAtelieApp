@@ -23,15 +23,9 @@ struct MAHomeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        do {
-                            try Auth.auth().signOut()
-                            networkManager.isUserLoggedIn()
-                        } catch {
-                            print("Some error on signing out: \(error)")
-                        }
+                        
                     } label: {
-                        Image(systemName: "person.crop.circle.fill.badge.xmark")
-                            .tint(.black)
+                        Text("Novo")
                     }
 
                 }

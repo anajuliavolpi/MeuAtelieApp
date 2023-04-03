@@ -21,10 +21,10 @@ struct MALoginView: View {
                                     .MAColors.MAPinkLightMedium],
                            startPoint: .leading,
                            endPoint: .trailing)
+            .ignoresSafeArea()
             
             VStack {
                 Image.MAImages.Login.loginTextLogo
-                    .padding(.top, 50)
                 
                 Image.MAImages.Login.loginTopImage
                     .padding(.top, 28)
@@ -57,13 +57,23 @@ struct MALoginView: View {
                         )
                 }
                 .padding(.top, 20)
-                                
-                Spacer()
+                
+                Button {
+                    networkManager.userHasAccount = false
+                } label: {
+                    Text("Não tem conta? Cadastre-se!")
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .tint(.MAColors.MAPinkStrong)
+                        .font(.system(size: 18, weight: .semibold))
+                        .background(
+                            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                                .foregroundColor(.white)
+                        )
+                }
             }
-            .padding(.top, 50)
             .padding(.horizontal, 30)
         }
-        .ignoresSafeArea()
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }

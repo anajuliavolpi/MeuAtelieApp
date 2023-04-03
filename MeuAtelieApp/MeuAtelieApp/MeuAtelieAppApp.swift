@@ -11,7 +11,7 @@ import Firebase
 @main
 struct MeuAtelieAppApp: App {
     
-    @StateObject var isLoggedIn: NetworkManager = NetworkManager()
+    @StateObject var networkManager: NetworkManager = NetworkManager()
     
     init() {
         FirebaseApp.configure()
@@ -19,17 +19,28 @@ struct MeuAtelieAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if isLoggedIn.isLoggedIn {
+            if networkManager.isLoggedIn {
                 TabView {
                     MAHomeView()
-                        .environmentObject(isLoggedIn)
+                        .environmentObject(networkManager)
                         .tabItem {
                             Label("Pedidos", systemImage: "list.dash")
                         }
+                    
+                    MAProfileView()
+                        .environmentObject(networkManager)
+                        .tabItem {
+                            Label("Perfil", systemImage: "person")
+                        }
                 }
             } else {
-                MALoginView()
-                    .environmentObject(isLoggedIn)
+                if networkManager.userHasAccount {
+                    MALoginView()
+                        .environmentObject(networkManager)
+                } else {
+                    MARegisterView()
+                        .environmentObject(networkManager)
+                }
             }
         }
     }

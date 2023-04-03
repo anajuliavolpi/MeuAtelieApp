@@ -9,7 +9,9 @@ import SwiftUI
 import Firebase
 
 class NetworkManager: ObservableObject {
+    
     @Published var isLoggedIn: Bool = false
+    @Published var userHasAccount: Bool = true
     
     init() {
         isUserLoggedIn()
@@ -17,5 +19,10 @@ class NetworkManager: ObservableObject {
     
     func isUserLoggedIn() {
         isLoggedIn = Auth.auth().currentUser != nil
+    }
+    
+    func signOut() {
+        isLoggedIn = Auth.auth().currentUser != nil
+        userHasAccount = true
     }
 }
