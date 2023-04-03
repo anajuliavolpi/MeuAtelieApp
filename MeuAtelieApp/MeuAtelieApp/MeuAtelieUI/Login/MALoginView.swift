@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MALoginView: View {
     
-    @Binding var userLogIn: Bool
+    @EnvironmentObject var networkManager: NetworkManager
     @State var login: String = ""
     @State var password: String = ""
     
@@ -43,7 +44,7 @@ struct MALoginView: View {
                     .padding(.top, -6)
                 
                 Button {
-                    userLogIn = true
+                    self.signIn()
                 } label: {
                     Text("ENTRAR")
                         .frame(height: 50)
@@ -68,10 +69,21 @@ struct MALoginView: View {
         }
     }
     
+    private func signIn() {
+        Auth.auth().signIn(withEmail: login, password: password) { result, error in
+            if let error {
+                print(error)
+                return
+            }
+            
+            networkManager.isUserLoggedIn()
+        }
+    }
+    
 }
 
 struct MALoginView_Previews: PreviewProvider {
     static var previews: some View {
-        MALoginView(userLogIn: .constant(false))
+        MALoginView()
     }
 }

@@ -6,23 +6,30 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct MeuAtelieAppApp: App {
     
-    @State var userLogIn: Bool = false
+    @StateObject var isLoggedIn: NetworkManager = NetworkManager()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
-            if userLogIn {
+            if isLoggedIn.isLoggedIn {
                 TabView {
                     MAHomeView()
+                        .environmentObject(isLoggedIn)
                         .tabItem {
                             Label("Pedidos", systemImage: "list.dash")
                         }
                 }
             } else {
-                MALoginView(userLogIn: $userLogIn)
+                MALoginView()
+                    .environmentObject(isLoggedIn)
             }
         }
     }

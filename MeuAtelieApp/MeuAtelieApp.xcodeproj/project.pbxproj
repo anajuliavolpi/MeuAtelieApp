@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3822E4AD29DB493A00FE8348 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3822E4AC29DB493A00FE8348 /* GoogleService-Info.plist */; };
+		3822E4B029DB4A7200FE8348 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3822E4AF29DB4A7200FE8348 /* FirebaseAuth */; };
+		3822E4B229DB4A7200FE8348 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3822E4B129DB4A7200FE8348 /* FirebaseFirestore */; };
+		3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4B429DB64E400FE8348 /* NetworkManager.swift */; };
 		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
 		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
@@ -40,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3822E4AC29DB493A00FE8348 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3822E4B429DB64E400FE8348 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
 		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -64,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3822E4B029DB4A7200FE8348 /* FirebaseAuth in Frameworks */,
+				3822E4B229DB4A7200FE8348 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3822E4B329DB64D400FE8348 /* MeuAtelieNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				3822E4B429DB64E400FE8348 /* NetworkManager.swift */,
+			);
+			path = MeuAtelieNetworking;
+			sourceTree = "<group>";
+		};
 		383B718929AD39D800A465D8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,10 +177,12 @@
 			isa = PBXGroup;
 			children = (
 				3872D63E29ABFC1F001F180D /* MeuAtelieUI */,
+				3822E4B329DB64D400FE8348 /* MeuAtelieNetworking */,
 				38A5601E29A4589900969AA4 /* Info.plist */,
 				38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */,
 				38D7F7D129A42ED2009E0A6A /* Assets.xcassets */,
 				3872D64229ABFCA7001F180D /* Colors.xcassets */,
+				3822E4AC29DB493A00FE8348 /* GoogleService-Info.plist */,
 				38D7F7D329A42ED2009E0A6A /* Preview Content */,
 			);
 			path = MeuAtelieApp;
@@ -211,6 +229,10 @@
 			dependencies = (
 			);
 			name = MeuAtelieApp;
+			packageProductDependencies = (
+				3822E4AF29DB4A7200FE8348 /* FirebaseAuth */,
+				3822E4B129DB4A7200FE8348 /* FirebaseFirestore */,
+			);
 			productName = MeuAtelieApp;
 			productReference = 38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */;
 			productType = "com.apple.product-type.application";
@@ -283,6 +305,9 @@
 				Base,
 			);
 			mainGroup = 38D7F7C129A42ED0009E0A6A;
+			packageReferences = (
+				3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 38D7F7CB29A42ED0009E0A6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -301,6 +326,7 @@
 			files = (
 				38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */,
 				3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */,
+				3822E4AD29DB493A00FE8348 /* GoogleService-Info.plist in Resources */,
 				38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */,
 				3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */,
 			);
@@ -330,6 +356,7 @@
 				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
 				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
+				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
@@ -659,6 +686,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3822E4AF29DB4A7200FE8348 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		3822E4B129DB4A7200FE8348 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 38D7F7C229A42ED0009E0A6A /* Project object */;
 }
