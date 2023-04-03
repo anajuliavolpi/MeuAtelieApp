@@ -49,6 +49,7 @@ struct MANewPassword: View {
         Auth.auth().currentUser?.updatePassword(to: newPassword) { error in
             if let error {
                 print("some error ocurred when changing password: \(error)")
+                return
             }
             
             dismiss()
