@@ -19,29 +19,33 @@ struct MeuAtelieAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if networkManager.isLoggedIn {
-                TabView {
-                    MAHomeView()
-                        .environmentObject(networkManager)
-                        .tabItem {
-                            Label("Pedidos", systemImage: "list.dash")
-                        }
-                    
-                    MAProfileView()
-                        .environmentObject(networkManager)
-                        .tabItem {
-                            Label("Perfil", systemImage: "person")
-                        }
-                }
-            } else {
-                if networkManager.userHasAccount {
-                    MALoginView()
-                        .environmentObject(networkManager)
+            ZStack {
+                if networkManager.isLoggedIn {
+                    TabView {
+                        MAHomeView()
+                            .environmentObject(networkManager)
+                            .tabItem {
+                                Label("Pedidos", systemImage: "list.dash")
+                            }
+                        
+                        MAProfileView()
+                            .environmentObject(networkManager)
+                            .tabItem {
+                                Label("Perfil", systemImage: "person")
+                            }
+                    }
                 } else {
-                    MARegisterView()
-                        .environmentObject(networkManager)
+                    if networkManager.userHasAccount {
+                        MALoginView()
+                            .environmentObject(networkManager)
+                    } else {
+                        MARegisterView()
+                            .environmentObject(networkManager)
+                    }
                 }
             }
+            .animation(.default, value: networkManager.userHasAccount)
+            .animation(.linear, value: networkManager.isLoggedIn)
         }
     }
 }
