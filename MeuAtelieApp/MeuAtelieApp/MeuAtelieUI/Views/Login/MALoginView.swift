@@ -6,71 +6,22 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct MALoginView: View {
     
+    private let viewModel: MALoginViewModel = MALoginViewModel()
     @EnvironmentObject var networkManager: NetworkManager
     @State var login: String = ""
     @State var password: String = ""
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.MAColors.MAPinkLightStrong,
-                                    .MAColors.MAPinkLight,
-                                    .MAColors.MAPinkLightMedium],
-                           startPoint: .leading,
-                           endPoint: .trailing)
-            .ignoresSafeArea()
+            backgroundView
             
             VStack {
-                Image.MAImages.Login.loginTextLogo
+                credentialsView
                 
-                Image.MAImages.Login.loginTopImage
-                    .padding(.top, 28)
-                
-                TextField("Login", text: $login)
-                    .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
-                    .textContentType(.emailAddress)
-                    .autocorrectionDisabled()
-                    .padding(.top, -8)
-                
-                SecureField("Senha", text: $password)
-                    .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
-                    .textContentType(.password)
-                    .padding(.top, 14)
-                
-                Image.MAImages.Login.loginBottomImage
-                    .padding(.top, -6)
-                
-                Button {
-                    self.signIn()
-                } label: {
-                    Text("ENTRAR")
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .tint(.MAColors.MAPinkStrong)
-                        .font(.system(size: 18, weight: .semibold))
-                        .background(
-                            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                                .foregroundColor(.white)
-                        )
-                }
-                .padding(.top, 20)
-                
-                Button {
-                    networkManager.userHasAccount = false
-                } label: {
-                    Text("Não tem conta? Cadastre-se!")
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .tint(.MAColors.MAPinkStrong)
-                        .font(.system(size: 18, weight: .semibold))
-                        .background(
-                            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                                .foregroundColor(.white)
-                        )
-                }
+                actionButtonsView
             }
             .padding(.horizontal, 30)
         }
@@ -79,14 +30,67 @@ struct MALoginView: View {
         }
     }
     
-    private func signIn() {
-        Auth.auth().signIn(withEmail: login, password: password) { result, error in
-            if let error {
-                print(error)
-                return
-            }
+    var backgroundView: some View {
+        LinearGradient(colors: viewModel.backgroundColors,
+                       startPoint: .leading,
+                       endPoint: .trailing)
+        .ignoresSafeArea()
+    }
+    
+    var credentialsView: some View {
+        Group {
+            Image.MAImages.Login.loginTextLogo
             
-            networkManager.isUserLoggedIn()
+            Image.MAImages.Login.loginTopImage
+                .padding(.top, 28)
+            
+            TextField(viewModel.loginText, text: $login)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
+                .textContentType(.emailAddress)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .padding(.top, -8)
+            
+            SecureField(viewModel.passwordText, text: $password)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
+                .textContentType(.password)
+                .padding(.top, 14)
+            
+            Image.MAImages.Login.loginBottomImage
+                .padding(.top, -6)
+        }
+    }
+    
+    var actionButtonsView: some View {
+        Group {
+            Button {
+                viewModel.signInWith(networkManager, login: login, password: password)
+            } label: {
+                Text(viewModel.enterText)
+                    .frame(height: 50)
+                    .frame(maxWidth: .infinity)
+                    .tint(.MAColors.MAPinkStrong)
+                    .font(.system(size: 18, weight: .semibold))
+                    .background(
+                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                            .foregroundColor(.white)
+                    )
+            }
+            .padding(.top, 20)
+            
+            Button {
+                networkManager.userHasAccount = false
+            } label: {
+                Text(viewModel.registerText)
+                    .frame(height: 50)
+                    .frame(maxWidth: .infinity)
+                    .tint(.MAColors.MAPinkStrong)
+                    .font(.system(size: 18, weight: .semibold))
+                    .background(
+                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                            .foregroundColor(.white)
+                    )
+            }
         }
     }
     
