@@ -23,7 +23,6 @@ struct MeuAtelieAppApp: App {
                 if networkManager.isLoggedIn {
                     TabView {
                         MAHomeView()
-                            .environmentObject(networkManager)
                             .tabItem {
                                 Label("Pedidos", systemImage: "list.dash")
                             }

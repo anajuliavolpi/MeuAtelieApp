@@ -45,7 +45,7 @@ struct MANewOrder: View {
                 .padding(.top, 16)
             
             Button {
-                create(order: MAOrders(id: UUID().uuidString, clientName: self.clientName, typeName: self.typeName, dateOfDelivery: self.dateOfDelivery))
+                create(order: MAOrderModel(id: UUID().uuidString, clientName: self.clientName, typeName: self.typeName, dateOfDelivery: self.dateOfDelivery))
             } label: {
                 Text("CRIAR")
                     .frame(height: 50)
@@ -63,7 +63,7 @@ struct MANewOrder: View {
         .padding(.horizontal, 30)
     }
     
-    private func create(order: MAOrders) {
+    private func create(order: MAOrderModel) {
         let db = Firestore.firestore()
         let ref = db.collection("Orders").document(order.id)
         ref.setData(["clientName": self.clientName, "typeName": self.typeName, "dateOfDelivery": self.dateOfDelivery]) { error in
