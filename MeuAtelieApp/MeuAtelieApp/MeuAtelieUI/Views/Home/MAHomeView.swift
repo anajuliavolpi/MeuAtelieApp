@@ -14,25 +14,9 @@ struct MAHomeView: View {
     var body: some View {
         NavigationView {
             List(viewModel.orders, id: \.id) { order in
-                VStack(alignment: .leading) {
-                    Text("Cliente: \(order.clientName)")
-                    Text("Tipo de peça: \(order.typeName)")
-                    Text("Data: \(order.dateOfDelivery)")
-                    
-                    Button {
-                        viewModel.deleteOrderWith(id: order.id)
-                    } label: {
-                        Text("Deletar pedido")
-                            .frame(height: 50)
-                            .frame(maxWidth: .infinity)
-                            .tint(.white)
-                            .font(.system(size: 18, weight: .semibold))
-                            .background(
-                                RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                                    .foregroundColor(.MAColors.MAPinkMedium)
-                            )
-                    }
-                }
+                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order, action: {
+                    viewModel.deleteOrderWith(id: order.id)
+                }))
             }
             .navigationTitle(viewModel.viewTitle)
             .toolbar {
