@@ -6,21 +6,21 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct MANewOrder: View {
     @Environment(\.dismiss) var dismiss
     
+    private let viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var clientName: String = ""
     @State var typeName: String = ""
     @State var dateOfDelivery: String = ""
     
     var body: some View {
         VStack {
-            Text("Criar novo pedido")
+            Text(viewModel.createNewOrderText)
                 .font(.system(size: 22, weight: .semibold, design: .rounded))
             
-            TextField("Cliente", text: $clientName)
+            TextField(viewModel.clientText, text: $clientName)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
                                                       backgroundColor: .MAColors.MAPinkMediumLight,
                                                       foregroundTextColor: .black))
@@ -28,7 +28,7 @@ struct MANewOrder: View {
                 .autocorrectionDisabled()
                 .padding(.top, 16)
             
-            TextField("Tipo de peça", text: $typeName)
+            TextField(viewModel.typeText, text: $typeName)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
                                                       backgroundColor: .MAColors.MAPinkMediumLight,
                                                       foregroundTextColor: .black))
@@ -36,7 +36,7 @@ struct MANewOrder: View {
                 .autocorrectionDisabled()
                 .padding(.top, 16)
             
-            TextField("Data de Entrega", text: $dateOfDelivery)
+            TextField(viewModel.deliveryDateText, text: $dateOfDelivery)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
                                                       backgroundColor: .MAColors.MAPinkMediumLight,
                                                       foregroundTextColor: .black))
@@ -44,36 +44,18 @@ struct MANewOrder: View {
                 .autocorrectionDisabled()
                 .padding(.top, 16)
             
-            Button {
-                create(order: MAOrderModel(id: UUID().uuidString, clientName: self.clientName, typeName: self.typeName, dateOfDelivery: self.dateOfDelivery))
-            } label: {
-                Text("CRIAR")
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .tint(.white)
-                    .font(.system(size: 18, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                            .foregroundColor(.MAColors.MAPinkMedium)
-                    )
+            Button(viewModel.createText) {
+                viewModel.create(order: MAOrderModel(id: UUID().uuidString,
+                                                     clientName: self.clientName,
+                                                     typeName: self.typeName,
+                                                     dateOfDelivery: self.dateOfDelivery),
+                                 dismiss)
             }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
             .padding(.top, 30)
-            
         }
         .padding(.horizontal, 30)
-    }
-    
-    private func create(order: MAOrderModel) {
-        let db = Firestore.firestore()
-        let ref = db.collection("Orders").document(order.id)
-        ref.setData(["clientName": self.clientName, "typeName": self.typeName, "dateOfDelivery": self.dateOfDelivery]) { error in
-            if let error {
-                print("some error occured on creating data for order: \(error)")
-                return
-            }
-        }
-        
-        dismiss()
     }
     
 }
