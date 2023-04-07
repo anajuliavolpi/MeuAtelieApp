@@ -11,6 +11,7 @@ import Firebase
 final class MALoginViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
+    @Published var isShowingError: Bool = false
     
     let backgroundColors: [Color] = [.MAColors.MAPinkLightStrong,
                                      .MAColors.MAPinkLight,
@@ -26,6 +27,7 @@ final class MALoginViewModel: ObservableObject {
         Auth.auth().signIn(withEmail: login, password: password) { result, error in
             self.isLoading = false
             if let error {
+                self.isShowingError = true
                 print(error)
                 return
             }
