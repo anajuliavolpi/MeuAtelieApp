@@ -25,6 +25,7 @@
 		3856D26329E0619500D68516 /* MAOrderListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26229E0619500D68516 /* MAOrderListRowViewModel.swift */; };
 		3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26429E064B500D68516 /* MANewOrderViewModel.swift */; };
 		3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26629E0681E00D68516 /* MAProfileViewModel.swift */; };
+		3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
 		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
 		3872D64629AC04F2001F180D /* MALoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872D64529AC04F2001F180D /* MALoginView.swift */; };
@@ -37,7 +38,7 @@
 		38D7F7DF29A42ED2009E0A6A /* MeuAtelieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7DE29A42ED2009E0A6A /* MeuAtelieAppTests.swift */; };
 		38D7F7E929A42ED2009E0A6A /* MeuAtelieAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7E829A42ED2009E0A6A /* MeuAtelieAppUITests.swift */; };
 		38D7F7EB29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7EA29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift */; };
-		38FFE08429DB88FF006D6953 /* MANewPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFE08329DB88FF006D6953 /* MANewPassword.swift */; };
+		38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		3856D26229E0619500D68516 /* MAOrderListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAOrderListRowViewModel.swift; sourceTree = "<group>"; };
 		3856D26429E064B500D68516 /* MANewOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrderViewModel.swift; sourceTree = "<group>"; };
 		3856D26629E0681E00D68516 /* MAProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileViewModel.swift; sourceTree = "<group>"; };
+		3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordViewModel.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
 		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3872D64529AC04F2001F180D /* MALoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginView.swift; sourceTree = "<group>"; };
@@ -90,7 +92,7 @@
 		38D7F7E429A42ED2009E0A6A /* MeuAtelieAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeuAtelieAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7E829A42ED2009E0A6A /* MeuAtelieAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppUITests.swift; sourceTree = "<group>"; };
 		38D7F7EA29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		38FFE08329DB88FF006D6953 /* MANewPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPassword.swift; sourceTree = "<group>"; };
+		38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +324,8 @@
 		38FFE08229DB88EE006D6953 /* ChangePassword */ = {
 			isa = PBXGroup;
 			children = (
-				38FFE08329DB88FF006D6953 /* MANewPassword.swift */,
+				38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */,
+				3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */,
 			);
 			path = ChangePassword;
 			sourceTree = "<group>";
@@ -470,7 +473,7 @@
 				3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */,
 				3856D25929DFB63500D68516 /* MAHomeViewModel.swift in Sources */,
 				3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */,
-				38FFE08429DB88FF006D6953 /* MANewPassword.swift in Sources */,
+				38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */,
 				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
 				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
@@ -485,6 +488,7 @@
 				3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */,
 				3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */,
 				3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */,
+				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,

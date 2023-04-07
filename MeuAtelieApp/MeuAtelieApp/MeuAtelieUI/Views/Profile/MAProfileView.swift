@@ -98,7 +98,7 @@ struct MAProfileView: View {
         }
         .ignoresSafeArea()
         .sheet(isPresented: $viewModel.isShowingChangePassword) {
-            MANewPassword()
+            MANewPasswordView()
         }
     }
     
