@@ -24,6 +24,7 @@
 		3856D26129E05DAB00D68516 /* MAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26029E05DAB00D68516 /* MAButton.swift */; };
 		3856D26329E0619500D68516 /* MAOrderListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26229E0619500D68516 /* MAOrderListRowViewModel.swift */; };
 		3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26429E064B500D68516 /* MANewOrderViewModel.swift */; };
+		3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26629E0681E00D68516 /* MAProfileViewModel.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
 		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
 		3872D64629AC04F2001F180D /* MALoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872D64529AC04F2001F180D /* MALoginView.swift */; };
@@ -72,6 +73,7 @@
 		3856D26029E05DAB00D68516 /* MAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAButton.swift; sourceTree = "<group>"; };
 		3856D26229E0619500D68516 /* MAOrderListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAOrderListRowViewModel.swift; sourceTree = "<group>"; };
 		3856D26429E064B500D68516 /* MANewOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrderViewModel.swift; sourceTree = "<group>"; };
+		3856D26629E0681E00D68516 /* MAProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileViewModel.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
 		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3872D64529AC04F2001F180D /* MALoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				38FFE08229DB88EE006D6953 /* ChangePassword */,
 				3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */,
+				3856D26629E0681E00D68516 /* MAProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
 				3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */,
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
+				3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */,
 				3856D25C29DFB68400D68516 /* MAOrderModel.swift in Sources */,
 				383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */,
 				3856D26329E0619500D68516 /* MAOrderListRowViewModel.swift in Sources */,

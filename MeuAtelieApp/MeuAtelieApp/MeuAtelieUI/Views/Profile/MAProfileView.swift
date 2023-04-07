@@ -11,9 +11,7 @@ import Firebase
 struct MAProfileView: View {
     
     @EnvironmentObject var networkManager: NetworkManager
-    @State var userFirstName: String = ""
-    @State var userLastName: String = ""
-    @State var isShowingChangePassword: Bool = false
+    @ObservedObject var viewModel: MAProfileViewModel = MAProfileViewModel()
     
     var body: some View {
         ScrollView {
@@ -24,12 +22,12 @@ struct MAProfileView: View {
                 
                 VStack {
                     HStack {
-                        Text("Olá,")
+                        Text(viewModel.helloText)
                         Spacer()
                     }
                     
                     HStack {
-                        Text(userFirstName)
+                        Text(viewModel.model?.firstName ?? "")
                             .foregroundColor(.white)
                             .font(.system(size: 60))
                         Spacer()
@@ -41,7 +39,7 @@ struct MAProfileView: View {
             }
             
             HStack {
-                Text("Confira seus dados:")
+                Text(viewModel.checkYourDataText)
                     .font(.system(size: 20, design: .rounded))
                     .padding(.leading, 30)
                 
@@ -50,7 +48,7 @@ struct MAProfileView: View {
             .padding(.top, 30)
             
             HStack {
-                Text("E-mail:")
+                Text(viewModel.emailText)
                     .font(.system(size: 16, design: .rounded))
                     .padding(.leading, 30)
                 
@@ -59,7 +57,7 @@ struct MAProfileView: View {
             .padding(.top, 28)
             
             HStack {
-                Text(Auth.auth().currentUser?.email ?? "E-mail não encontrado")
+                Text(viewModel.model?.emailAddress ?? "")
                     .font(.system(size: 16, design: .rounded))
                     .padding(.leading, 30)
                 
@@ -67,7 +65,7 @@ struct MAProfileView: View {
             }
             
             HStack {
-                Text("Nome:")
+                Text(viewModel.nameText)
                     .font(.system(size: 16, design: .rounded))
                     .padding(.leading, 30)
                 
@@ -76,73 +74,31 @@ struct MAProfileView: View {
             .padding(.top, 8)
             
             HStack {
-                Text("\(userFirstName) \(userLastName)")
+                Text(viewModel.fullNameText)
                     .font(.system(size: 16, design: .rounded))
                     .padding(.leading, 30)
                 
                 Spacer()
             }
             
-            Button {
-                isShowingChangePassword = true
-            } label: {
-                Text("Trocar de senha")
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .tint(.white)
-                    .font(.system(size: 18, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                            .foregroundColor(.MAColors.MAPinkMedium)
-                    )
+            Button(viewModel.changePasswordText) {
+                viewModel.isShowingChangePassword = true
             }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
             .padding(.horizontal, 30)
             .padding(.top, 50)
             
-            Button {
-                do {
-                    try Auth.auth().signOut()
-                    networkManager.signOut()
-                } catch {
-                    print("Some error on signing out: \(error)")
-                }
-            } label: {
-                Text("SAIR")
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .tint(.white)
-                    .font(.system(size: 18, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                            .foregroundColor(.MAColors.MAPinkMedium)
-                    )
+            Button(viewModel.exitText) {
+                viewModel.signOutWith(networkManager)
             }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
             .padding(.horizontal, 30)
         }
         .ignoresSafeArea()
-        .onAppear {
-            fetchUserData()
-        }
-        .sheet(isPresented: $isShowingChangePassword) {
+        .sheet(isPresented: $viewModel.isShowingChangePassword) {
             MANewPassword()
-        }
-    }
-    
-    private func fetchUserData() {
-        let db = Firestore.firestore()
-        let ref = db.collection("Users").document(Auth.auth().currentUser?.uid ?? "")
-        
-        ref.getDocument { snapshot, error in
-            if let error {
-                print("some error occured on fetching user data: \(error)")
-                return
-            }
-            
-            if let snapshot {
-                let data = snapshot.data()
-                self.userFirstName = data?["name"] as? String ?? ""
-                self.userLastName = data?["lastname"] as? String ?? ""
-            }
         }
     }
     
