@@ -23,17 +23,18 @@ extension View {
         }
     }
     
-    public func addMAError(state: Bool) -> some View {
+    public func addMAError(state: Bool, message: String, action: @escaping (() -> ())) -> some View {
         ZStack {
             self
                 .disabled(state)
                 .opacity(state ? 0.5 : 1)
             
             if state {
-                MAErrorView()
+                MAErrorView(buttonMessage: message, action: action)
                     .padding()
             }
         }
+        .animation(.default, value: state)
     }
     
 }

@@ -26,7 +26,11 @@ struct MALoginView: View {
             .padding(.horizontal, 30)
         }
         .addMALoading(state: viewModel.isLoading)
-        .addMAError(state: viewModel.isShowingError)
+        .addMAError(state: viewModel.isShowingError,
+                    message: viewModel.errorMessage,
+                    action: {
+            viewModel.isShowingError = false
+        })
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }

@@ -9,6 +9,10 @@ import SwiftUI
 
 struct MAErrorView: View {
     
+    var buttonMessage: String
+    var buttonTitle: String = "OK"
+    var action: (() -> ())? = nil
+    
     var body: some View {
         VStack(spacing: 20) {
             Image.MAImages.Login.loginTextLogo
@@ -17,12 +21,13 @@ struct MAErrorView: View {
                 .font(.system(size: 18, weight: .semibold, design: .rounded))
                 .foregroundColor(.MAColors.MAPinkText)
             
-            Text("Info do error aqui!")
+            Text(buttonMessage)
                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                 .foregroundColor(.MAColors.MAPinkText)
+                .multilineTextAlignment(.center)
             
-            Button("OK") {
-                print(#function)
+            Button(buttonTitle) {
+                action?()
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                             fontColor: .white))
@@ -43,6 +48,6 @@ struct MAErrorView: View {
 
 struct MAErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        MAErrorView()
+        MAErrorView(buttonMessage: "Error message here")
     }
 }

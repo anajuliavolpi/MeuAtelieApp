@@ -12,6 +12,7 @@ final class MALoginViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var isShowingError: Bool = false
+    @Published var errorMessage: String = ""
     
     let backgroundColors: [Color] = [.MAColors.MAPinkLightStrong,
                                      .MAColors.MAPinkLight,
@@ -28,7 +29,7 @@ final class MALoginViewModel: ObservableObject {
             self.isLoading = false
             if let error {
                 self.isShowingError = true
-                print(error)
+                self.errorMessage = error.localizedDescription
                 return
             }
             
