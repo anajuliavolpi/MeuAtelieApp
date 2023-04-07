@@ -10,7 +10,7 @@ import SwiftUI
 struct MANewPasswordView: View {
     @Environment(\.dismiss) var dismiss
     
-    private let viewModel: MANewPasswordViewModel = MANewPasswordViewModel()
+    @ObservedObject var viewModel: MANewPasswordViewModel = MANewPasswordViewModel()
     @State var newPassword: String = ""
     
     var body: some View {
@@ -33,6 +33,7 @@ struct MANewPasswordView: View {
                                             fontColor: .white))
             .padding(.top, 16)
         }
+        .addMALoading(state: viewModel.isLoading)
         .padding(.horizontal, 30)
     }
     

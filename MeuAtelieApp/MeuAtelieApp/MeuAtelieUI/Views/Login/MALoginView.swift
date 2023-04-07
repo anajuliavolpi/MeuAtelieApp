@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MALoginView: View {
     
-    private let viewModel: MALoginViewModel = MALoginViewModel()
+    @ObservedObject var viewModel: MALoginViewModel = MALoginViewModel()
     @EnvironmentObject var networkManager: NetworkManager
     @State var login: String = ""
     @State var password: String = ""
@@ -25,6 +25,7 @@ struct MALoginView: View {
             }
             .padding(.horizontal, 30)
         }
+        .addMALoading(state: viewModel.isLoading)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -63,34 +64,16 @@ struct MALoginView: View {
     
     var actionButtonsView: some View {
         Group {
-            Button {
+            Button(viewModel.enterText) {
                 viewModel.signInWith(networkManager, login: login, password: password)
-            } label: {
-                Text(viewModel.enterText)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .tint(.MAColors.MAPinkStrong)
-                    .font(.system(size: 18, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                            .foregroundColor(.white)
-                    )
             }
+            .buttonStyle(MABasicButtonStyle())
             .padding(.top, 20)
             
-            Button {
+            Button(viewModel.registerText) {
                 networkManager.userHasAccount = false
-            } label: {
-                Text(viewModel.registerText)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .tint(.MAColors.MAPinkStrong)
-                    .font(.system(size: 18, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                            .foregroundColor(.white)
-                    )
             }
+            .buttonStyle(MABasicButtonStyle())
         }
     }
     

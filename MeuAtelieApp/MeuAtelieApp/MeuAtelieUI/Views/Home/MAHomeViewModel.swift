@@ -10,6 +10,7 @@ import Firebase
 
 final class MAHomeViewModel: ObservableObject {
     
+    @Published var isLoading: Bool = false
     @Published var showingCreateNewOrder: Bool = false
     @Published var orders: [MAOrderModel] = []
     
@@ -21,11 +22,13 @@ final class MAHomeViewModel: ObservableObject {
     }
     
     func fetchOrders() {
+        isLoading = true
         orders.removeAll()
         let db = Firestore.firestore()
         let ref = db.collection("Orders")
         
         ref.getDocuments { snapshot, error in
+            self.isLoading = false
             if let error {
                 print("some error occured on fetching orders: \(error)")
                 return
@@ -48,10 +51,12 @@ final class MAHomeViewModel: ObservableObject {
     }
     
     func deleteOrderWith(id: String) {
+        isLoading = true
         let db = Firestore.firestore()
         let ref = db.collection("Orders")
         
         ref.getDocuments { snapshot, error in
+            self.isLoading = false
             if let error {
                 print("some error occured on fetching orders: \(error)")
                 return

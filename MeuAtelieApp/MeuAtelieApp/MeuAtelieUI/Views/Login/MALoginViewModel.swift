@@ -8,7 +8,9 @@
 import SwiftUI
 import Firebase
 
-final class MALoginViewModel {
+final class MALoginViewModel: ObservableObject {
+    
+    @Published var isLoading: Bool = false
     
     let backgroundColors: [Color] = [.MAColors.MAPinkLightStrong,
                                      .MAColors.MAPinkLight,
@@ -19,7 +21,10 @@ final class MALoginViewModel {
     let registerText: String = "Não tem conta? Cadastre-se!"
     
     func signInWith(_ networkManager: NetworkManager, login: String, password: String) {
+        isLoading = true
+        
         Auth.auth().signIn(withEmail: login, password: password) { result, error in
+            self.isLoading = false
             if let error {
                 print(error)
                 return

@@ -30,6 +30,7 @@ struct MAHomeView: View {
                 }
             }
         }
+        .addMALoading(state: viewModel.isLoading)
         .sheet(isPresented: $viewModel.showingCreateNewOrder, onDismiss: {
             viewModel.fetchOrders()
         }) {

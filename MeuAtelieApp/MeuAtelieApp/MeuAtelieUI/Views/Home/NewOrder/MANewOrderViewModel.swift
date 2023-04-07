@@ -8,7 +8,9 @@
 import SwiftUI
 import Firebase
 
-final class MANewOrderViewModel {
+final class MANewOrderViewModel: ObservableObject {
+    
+    @Published var isLoading: Bool = false
     
     let createNewOrderText: String = "Criar novo pedido"
     let clientText: String = "Cliente"
@@ -17,12 +19,14 @@ final class MANewOrderViewModel {
     let createText: String = "CRIAR"
     
     func create(order: MAOrderModel, _ dismiss: DismissAction) {
+        isLoading = true
         let db = Firestore.firestore()
         let ref = db.collection("Orders").document(order.id)
         
         ref.setData(["clientName": order.clientName,
                      "typeName": order.typeName,
                      "dateOfDelivery": order.dateOfDelivery]) { error in
+            self.isLoading = false
             if let error {
                 print("some error occured on creating data for order: \(error)")
                 return

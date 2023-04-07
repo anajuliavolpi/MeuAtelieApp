@@ -8,7 +8,9 @@
 import SwiftUI
 import Firebase
 
-final class MARegisterViewModel {
+final class MARegisterViewModel: ObservableObject {
+    
+    @Published var isLoading: Bool = false
     
     let backgroundColors: [Color] = [.MAColors.MAPinkLightStrong,
                                      .MAColors.MAPinkLight,
@@ -21,7 +23,10 @@ final class MARegisterViewModel {
     let registerText: String = "CADASTRAR"
     
     func signUpWith(_ networkManager: NetworkManager, and model: MARegisterModel) {
+        isLoading = true
+        
         Auth.auth().createUser(withEmail: model.emailAddress, password: model.password) { result, error in
+            self.isLoading = false
             if let error {
                 print("some error occured on user sign up: \(error)")
                 return

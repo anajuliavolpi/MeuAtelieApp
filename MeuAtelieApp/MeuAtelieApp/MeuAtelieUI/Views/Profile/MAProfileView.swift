@@ -96,6 +96,7 @@ struct MAProfileView: View {
                                             fontColor: .white))
             .padding(.horizontal, 30)
         }
+        .addMALoading(state: viewModel.isLoading)
         .ignoresSafeArea()
         .sheet(isPresented: $viewModel.isShowingChangePassword) {
             MANewPasswordView()

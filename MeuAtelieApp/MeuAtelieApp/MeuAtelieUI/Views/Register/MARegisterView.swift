@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MARegisterView: View {
     
-    private let viewModel: MARegisterViewModel = MARegisterViewModel()
+    @ObservedObject var viewModel: MARegisterViewModel = MARegisterViewModel()
     @EnvironmentObject var networkManager: NetworkManager
     @State var emailAddress: String = ""
     @State var password: String = ""
@@ -41,6 +41,7 @@ struct MARegisterView: View {
                 .padding(.horizontal, 30)
             }
         }
+        .addMALoading(state: viewModel.isLoading)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -83,23 +84,14 @@ struct MARegisterView: View {
     }
     
     var actionButtonView: some View {
-        Button {
+        Button(viewModel.registerText) {
             let model = MARegisterModel(emailAddress: self.emailAddress,
                                         password: self.password,
                                         firstName: self.firstName,
                                         lastName: self.lastName)
             viewModel.signUpWith(networkManager, and: model)
-        } label: {
-            Text(viewModel.registerText)
-                .frame(height: 50)
-                .frame(maxWidth: .infinity)
-                .tint(.MAColors.MAPinkStrong)
-                .font(.system(size: 18, weight: .semibold))
-                .background(
-                    RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                        .foregroundColor(.white)
-                )
         }
+        .buttonStyle(MABasicButtonStyle())
     }
     
 }

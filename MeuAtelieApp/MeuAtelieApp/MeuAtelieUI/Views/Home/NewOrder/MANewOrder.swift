@@ -10,7 +10,7 @@ import SwiftUI
 struct MANewOrder: View {
     @Environment(\.dismiss) var dismiss
     
-    private let viewModel: MANewOrderViewModel = MANewOrderViewModel()
+    @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var clientName: String = ""
     @State var typeName: String = ""
     @State var dateOfDelivery: String = ""
@@ -56,6 +56,7 @@ struct MANewOrder: View {
             .padding(.top, 30)
         }
         .padding(.horizontal, 30)
+        .addMALoading(state: viewModel.isLoading)
     }
     
 }
