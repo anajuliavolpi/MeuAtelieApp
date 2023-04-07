@@ -37,14 +37,18 @@ final class MAHomeViewModel: ObservableObject {
             if let snapshot {
                 for document in snapshot.documents {
                     let data = document.data()
-                    let clientName = data["clientName"] as? String ?? ""
-                    let typeName = data["typeName"] as? String ?? ""
-                    let dateOfDelivery = data["dateOfDelivery"] as? String ?? ""
+                    let userId = data["userId"] as? String ?? ""
                     
-                    self.orders.append(MAOrderModel(id: document.documentID,
-                                                    clientName: clientName,
-                                                    typeName: typeName,
-                                                    dateOfDelivery: dateOfDelivery))
+                    if userId == Auth.auth().currentUser?.uid {
+                        let clientName = data["clientName"] as? String ?? ""
+                        let typeName = data["typeName"] as? String ?? ""
+                        let dateOfDelivery = data["dateOfDelivery"] as? String ?? ""
+                        
+                        self.orders.append(MAOrderModel(id: document.documentID,
+                                                        clientName: clientName,
+                                                        typeName: typeName,
+                                                        dateOfDelivery: dateOfDelivery))
+                    }
                 }
             }
         }

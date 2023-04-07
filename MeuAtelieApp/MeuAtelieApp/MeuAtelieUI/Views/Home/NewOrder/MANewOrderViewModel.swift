@@ -23,7 +23,8 @@ final class MANewOrderViewModel: ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("Orders").document(order.id)
         
-        ref.setData(["clientName": order.clientName,
+        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                     "clientName": order.clientName,
                      "typeName": order.typeName,
                      "dateOfDelivery": order.dateOfDelivery]) { error in
             self.isLoading = false
