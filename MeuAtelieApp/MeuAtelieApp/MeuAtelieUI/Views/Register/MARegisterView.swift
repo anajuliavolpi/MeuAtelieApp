@@ -10,6 +10,7 @@ import Firebase
 
 struct MARegisterView: View {
     
+    private let viewModel: MARegisterViewModel = MARegisterViewModel()
     @EnvironmentObject var networkManager: NetworkManager
     @State var emailAddress: String = ""
     @State var password: String = ""
@@ -18,17 +19,11 @@ struct MARegisterView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.MAColors.MAPinkLightStrong,
-                                    .MAColors.MAPinkLight,
-                                    .MAColors.MAPinkLightMedium],
-                           startPoint: .leading,
-                           endPoint: .trailing)
-            
-            .ignoresSafeArea()
+            backgroundView
             
             ScrollView {
                 VStack {
-                    Text("Preencha seus dados")
+                    Text(viewModel.fillYourDataText)
                         .font(.system(size: 22, weight: .semibold, design: .rounded))
                         .foregroundColor(.MAColors.MAPinkStrong)
                         .padding(.top, 16)
@@ -36,44 +31,13 @@ struct MARegisterView: View {
                     Image.MAImages.Login.loginTopImage
                         .padding(.top, 16)
                     
-                    TextField("E-mail", text: $emailAddress)
-                        .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
-                        .textContentType(.emailAddress)
-                        .autocorrectionDisabled()
-                        .padding(.top, -8)
-                    
-                    SecureField("Senha", text: $password)
-                        .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
-                        .textContentType(.password)
-                        .padding(.top, 14)
-                    
-                    TextField("Primeiro nome", text: $firstName)
-                        .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.pencil))
-                        .textContentType(.name)
-                        .padding(.top, 14)
-                    
-                    TextField("Último nome", text: $lastName)
-                        .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.pencil))
-                        .textContentType(.name)
-                        .padding(.top, 14)
+                    formView
                     
                     Image.MAImages.Login.loginBottomImage
                         .padding(.top, -6)
                     
-                    Button {
-                        self.signUp()
-                    } label: {
-                        Text("CADASTRAR")
-                            .frame(height: 50)
-                            .frame(maxWidth: .infinity)
-                            .tint(.MAColors.MAPinkStrong)
-                            .font(.system(size: 18, weight: .semibold))
-                            .background(
-                                RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
-                                    .foregroundColor(.white)
-                            )
-                    }
-                    .padding(.vertical, 20)
+                    actionButtonView
+                        .padding(.vertical, 20)
                 }
                 .padding(.horizontal, 30)
             }
@@ -83,25 +47,62 @@ struct MARegisterView: View {
         }
     }
     
-    private func signUp() {
-        Auth.auth().createUser(withEmail: emailAddress, password: password) { result, error in
-            if let error {
-                print("some error occured on user sign up: \(error)")
-                return
-            }
+    var backgroundView: some View {
+        LinearGradient(colors: viewModel.backgroundColors,
+                       startPoint: .leading,
+                       endPoint: .trailing)
+        
+        .ignoresSafeArea()
+    }
+    
+    var formView: some View {
+        Group {
+            TextField(viewModel.emailText, text: $emailAddress)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
+                .textContentType(.emailAddress)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .padding(.top, -8)
             
-            let db = Firestore.firestore()
-            let ref = db.collection("Users").document(Auth.auth().currentUser?.uid ?? "")
-            ref.setData(["name": self.firstName, "lastname": self.lastName]) { error in
-                if let error {
-                    print("some error occured on creating data for user: \(error)")
-                    return
-                }
-            }
+            SecureField(viewModel.passwordText, text: $password)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
+                .textContentType(.password)
+                .padding(.top, 14)
             
-            networkManager.isUserLoggedIn()
+            TextField(viewModel.firstNameText, text: $firstName)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.pencil))
+                .textContentType(.name)
+                .autocorrectionDisabled()
+                .padding(.top, 14)
+            
+            TextField(viewModel.lastNameText, text: $lastName)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.pencil))
+                .textContentType(.name)
+                .autocorrectionDisabled()
+                .padding(.top, 14)
         }
     }
+    
+    var actionButtonView: some View {
+        Button {
+            let model = MARegisterModel(emailAddress: self.emailAddress,
+                                        password: self.password,
+                                        firstName: self.firstName,
+                                        lastName: self.lastName)
+            viewModel.signUpWith(networkManager, and: model)
+        } label: {
+            Text(viewModel.registerText)
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+                .tint(.MAColors.MAPinkStrong)
+                .font(.system(size: 18, weight: .semibold))
+                .background(
+                    RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                        .foregroundColor(.white)
+                )
+        }
+    }
+    
 }
 
 struct RegisterView_Previews: PreviewProvider {

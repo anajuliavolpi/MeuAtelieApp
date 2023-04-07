@@ -16,6 +16,8 @@
 		3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */; };
 		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
 		3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25029DFAE8C00D68516 /* MALoginViewModel.swift */; };
+		3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25229DFB29F00D68516 /* MARegisterViewModel.swift */; };
+		3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25529DFB30100D68516 /* MARegisterModel.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
 		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
 		3872D64629AC04F2001F180D /* MALoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872D64529AC04F2001F180D /* MALoginView.swift */; };
@@ -56,6 +58,8 @@
 		3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrder.swift; sourceTree = "<group>"; };
 		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
 		3856D25029DFAE8C00D68516 /* MALoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginViewModel.swift; sourceTree = "<group>"; };
+		3856D25229DFB29F00D68516 /* MARegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterViewModel.swift; sourceTree = "<group>"; };
+		3856D25529DFB30100D68516 /* MARegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterModel.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
 		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3872D64529AC04F2001F180D /* MALoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginView.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				3822E4B829DB663500FE8348 /* MARegisterView.swift */,
+				3856D25229DFB29F00D68516 /* MARegisterViewModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -156,9 +161,27 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		3856D25429DFB2E200D68516 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3856D25729DFB31400D68516 /* Register */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3856D25729DFB31400D68516 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				3856D25529DFB30100D68516 /* MARegisterModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		3872D63E29ABFC1F001F180D /* MeuAtelieUI */ = {
 			isa = PBXGroup;
 			children = (
+				3822E4B329DB64D400FE8348 /* MeuAtelieNetworking */,
+				3856D25429DFB2E200D68516 /* Models */,
 				3822E4B729DB661F00FE8348 /* Views */,
 				388A076A29AEC4BD00FCE962 /* Common */,
 			);
@@ -224,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				3872D63E29ABFC1F001F180D /* MeuAtelieUI */,
-				3822E4B329DB64D400FE8348 /* MeuAtelieNetworking */,
 				38A5601E29A4589900969AA4 /* Info.plist */,
 				38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */,
 				38D7F7D129A42ED2009E0A6A /* Assets.xcassets */,
@@ -408,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */,
 				38FFE08429DB88FF006D6953 /* MANewPassword.swift in Sources */,
 				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
 				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
@@ -416,6 +439,7 @@
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */,
 				3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */,
+				3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */,
 				3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */,
 				3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
