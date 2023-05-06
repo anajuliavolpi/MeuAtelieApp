@@ -6,24 +6,45 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct MeuAtelieAppApp: App {
     
-    @State var userLogIn: Bool = false
+    @StateObject var networkManager: NetworkManager = NetworkManager()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
-            if userLogIn {
-                TabView {
-                    MAHomeView()
-                        .tabItem {
-                            Label("Pedidos", systemImage: "list.dash")
-                        }
+            ZStack {
+                if networkManager.isLoggedIn {
+                    TabView {
+                        MAHomeView()
+                            .tabItem {
+                                Label("Pedidos", systemImage: "list.dash")
+                            }
+                        
+                        MAProfileView()
+                            .environmentObject(networkManager)
+                            .tabItem {
+                                Label("Perfil", systemImage: "person")
+                            }
+                    }
+                } else {
+                    if networkManager.userHasAccount {
+                        MALoginView()
+                            .environmentObject(networkManager)
+                    } else {
+                        MARegisterView()
+                            .environmentObject(networkManager)
+                    }
                 }
-            } else {
-                MALoginView(userLogIn: $userLogIn)
             }
+            .animation(.default, value: networkManager.userHasAccount)
+            .animation(.linear, value: networkManager.isLoggedIn)
         }
     }
 }

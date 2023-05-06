@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>453917599962-7dmov4asrj9bmt2pmllun2fv4ddvuh9e.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.453917599962-7dmov4asrj9bmt2pmllun2fv4ddvuh9e</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBptWKm5uMsLAw3vwAmu_DS52U2izjA8Ko</string>
+	<key>GCM_SENDER_ID</key>
+	<string>453917599962</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.anajuliavolpi.MeuAtelieApp</string>
+	<key>PROJECT_ID</key>
+	<string>meuatelie-98b0a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>meuatelie-98b0a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:453917599962:ios:958ac2fe32d9b912821de3</string>
+</dict>
+</plist>
