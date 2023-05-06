@@ -18,11 +18,11 @@ struct MAErrorView: View {
             Image.MAImages.Login.loginTextLogo
             
             Text("Ocorreu um erro:")
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
                 .foregroundColor(.MAColors.MAPinkText)
             
             Text(buttonMessage)
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
                 .foregroundColor(.MAColors.MAPinkText)
                 .multilineTextAlignment(.center)
             

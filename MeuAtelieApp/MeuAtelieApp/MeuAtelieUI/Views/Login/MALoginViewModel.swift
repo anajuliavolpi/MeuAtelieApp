@@ -27,9 +27,19 @@ final class MALoginViewModel: ObservableObject {
         
         Auth.auth().signIn(withEmail: login, password: password) { result, error in
             self.isLoading = false
-            if let error {
+            if let error = error as? NSError {
+                switch AuthErrorCode.Code(rawValue: error.code) {
+                case .wrongPassword:
+                    self.errorMessage = "Senha incorreta, por favor tente novamente."
+                case .invalidEmail:
+                    self.errorMessage = "Email inválido, por favor tente novamente."
+                case .userNotFound:
+                    self.errorMessage = "Email não encontrado, por favor tente novamente."
+                default:
+                    self.errorMessage = error.localizedDescription
+                }
+                
                 self.isShowingError = true
-                self.errorMessage = error.localizedDescription
                 return
             }
             
