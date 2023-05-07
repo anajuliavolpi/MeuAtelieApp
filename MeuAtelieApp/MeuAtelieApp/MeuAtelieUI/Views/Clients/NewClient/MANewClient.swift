@@ -13,46 +13,13 @@ struct MANewClient: View {
     @ObservedObject var viewModel = MANewClientViewModel()
     @State var clientFullName: String = ""
     @State var clientPhone: String = ""
+    @State var showImportClientAlert: Bool = false
     
     var body: some View {
         VStack {
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.MAColors.MAPink)
-                    .frame(height: 200)
-                
-                VStack {
-                    HStack {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text(viewModel.backText)
-                                .foregroundColor(.white)
-                                .font(.system(size: 14))
-                        }
-                        
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Text(viewModel.createText)
-                        Spacer()
-                    }
-                    .padding(.top, 18)
-                    
-                    HStack {
-                        Text(viewModel.newClientText)
-                            .foregroundColor(.white)
-                            .font(.system(size: 40))
-                        Spacer()
-                    }
-                }
-                .font(.system(size: 28, weight: .light, design: .rounded))
-                .padding(.leading, 30)
-                .padding(.top, 50)
-            }
+            MAHeaderView(text: "Adicionar",
+                         subtext: "novo cliente")
             .padding(.horizontal, -20)
-            .ignoresSafeArea()
             
             TextField(viewModel.fullNameText, text: $clientFullName)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
@@ -61,7 +28,7 @@ struct MANewClient: View {
                 .textContentType(.name)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.words)
-                .padding(.top, 18)
+                .padding(.top, -30)
             
             TextField(viewModel.phoneText, text: $clientPhone)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.phone,
@@ -72,6 +39,13 @@ struct MANewClient: View {
                 .padding(.top, 16)
             
             Spacer()
+            
+            Button("IMPORTAR CLIENTE") {
+                showImportClientAlert = true
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
+                                            fontColor: .white))
+            .padding(.bottom, 8)
             
             Button(viewModel.createActionText) {
                 viewModel.createClient(with: MAClientModel(id: UUID().uuidString,
@@ -86,6 +60,9 @@ struct MANewClient: View {
         .padding(.horizontal, 20)
         .hideKeyboard()
         .addMALoading(state: viewModel.isLoading)
+        .addMAError(state: showImportClientAlert, message: "Work in progress...") {
+            showImportClientAlert = false
+        }
     }
     
 }

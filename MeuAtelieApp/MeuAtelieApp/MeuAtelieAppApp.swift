@@ -16,12 +16,13 @@ struct MeuAtelieAppApp: App {
     init() {
         FirebaseApp.configure()
         
-        // Restore pre-iOS 15 nav bar look
-        // by: https://nemecek.be/blog/126/how-to-disable-automatic-transparent-navbar-in-ios-15
+        // Restore pre-iOS 15 nav bar / tab bar look
+        // by: https://www.hackingwithswift.com/forums/ios/tab-bar-transparent/10549
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithDefaultBackground()
-        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        navigationBarAppearance.configureWithOpaqueBackground()
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     

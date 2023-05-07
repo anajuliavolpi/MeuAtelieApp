@@ -39,6 +39,7 @@
 		388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076B29AEC4EF00FCE962 /* MATextField.swift */; };
 		388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076E29AEC55D00FCE962 /* Colors+Ext.swift */; };
 		388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A077029AECD6500FCE962 /* Image+Ext.swift */; };
+		38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */; };
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
@@ -97,6 +98,7 @@
 		388A076E29AEC55D00FCE962 /* Colors+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Ext.swift"; sourceTree = "<group>"; };
 		388A077029AECD6500FCE962 /* Image+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Ext.swift"; sourceTree = "<group>"; };
 		38A5601E29A4589900969AA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHeaderView.swift; sourceTree = "<group>"; };
 		38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuAtelieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppApp.swift; sourceTree = "<group>"; };
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				388A076B29AEC4EF00FCE962 /* MATextField.swift */,
 				3856D26029E05DAB00D68516 /* MAButton.swift */,
 				3856D26C29E0CD9A00D68516 /* MAErrorView.swift */,
+				38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
 				3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
+				38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
 				3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */,
 			);
