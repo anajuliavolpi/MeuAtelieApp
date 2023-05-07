@@ -15,6 +15,7 @@ extension Image {
             static let personFill: Image = Image(systemName: "person.fill")
             static let lockFill: Image = Image(systemName: "lock.fill")
             static let pencil: Image = Image(systemName: "pencil.circle")
+            static let phone: Image = Image(systemName: "phone.fill")
         }
         
         struct Login {

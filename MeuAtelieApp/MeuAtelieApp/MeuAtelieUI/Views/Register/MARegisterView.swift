@@ -42,9 +42,7 @@ struct MARegisterView: View {
             }
         }
         .addMALoading(state: viewModel.isLoading)
-        .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
+        .hideKeyboard()
     }
     
     var backgroundView: some View {
@@ -58,7 +56,8 @@ struct MARegisterView: View {
     var formView: some View {
         Group {
             TextField(viewModel.emailText, text: $emailAddress)
-                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
+                                                      keyboard: .emailAddress))
                 .textContentType(.emailAddress)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)

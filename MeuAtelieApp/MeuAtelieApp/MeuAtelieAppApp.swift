@@ -15,6 +15,14 @@ struct MeuAtelieAppApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        // Restore pre-iOS 15 nav bar look
+        // by: https://nemecek.be/blog/126/how-to-disable-automatic-transparent-navbar-in-ios-15
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithDefaultBackground()
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     var body: some Scene {
@@ -25,6 +33,11 @@ struct MeuAtelieAppApp: App {
                         MAHomeView()
                             .tabItem {
                                 Label("Pedidos", systemImage: "list.dash")
+                            }
+                        
+                        MAClientsView()
+                            .tabItem {
+                                Label("Clientes", systemImage: "person.3.fill")
                             }
                         
                         MAProfileView()

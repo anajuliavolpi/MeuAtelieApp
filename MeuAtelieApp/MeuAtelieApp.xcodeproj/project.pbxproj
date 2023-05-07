@@ -15,6 +15,11 @@
 		3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */; };
 		3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */; };
 		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
+		3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */; };
+		3853F52F2A0712EA00FD2DB3 /* MAClientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */; };
+		3853F5322A07145A00FD2DB3 /* MANewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F5312A07145A00FD2DB3 /* MANewClient.swift */; };
+		3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F5342A0747A700FD2DB3 /* MAClientModel.swift */; };
+		3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F5362A07480D00FD2DB3 /* MANewClientViewModel.swift */; };
 		3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25029DFAE8C00D68516 /* MALoginViewModel.swift */; };
 		3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25229DFB29F00D68516 /* MARegisterViewModel.swift */; };
 		3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D25529DFB30100D68516 /* MARegisterModel.swift */; };
@@ -67,6 +72,11 @@
 		3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileView.swift; sourceTree = "<group>"; };
 		3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrder.swift; sourceTree = "<group>"; };
 		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
+		3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsView.swift; sourceTree = "<group>"; };
+		3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsViewModel.swift; sourceTree = "<group>"; };
+		3853F5312A07145A00FD2DB3 /* MANewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewClient.swift; sourceTree = "<group>"; };
+		3853F5342A0747A700FD2DB3 /* MAClientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientModel.swift; sourceTree = "<group>"; };
+		3853F5362A07480D00FD2DB3 /* MANewClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewClientViewModel.swift; sourceTree = "<group>"; };
 		3856D25029DFAE8C00D68516 /* MALoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginViewModel.swift; sourceTree = "<group>"; };
 		3856D25229DFB29F00D68516 /* MARegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterViewModel.swift; sourceTree = "<group>"; };
 		3856D25529DFB30100D68516 /* MARegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterModel.swift; sourceTree = "<group>"; };
@@ -152,6 +162,7 @@
 				3872D64429AC04D8001F180D /* Login */,
 				383B718929AD39D800A465D8 /* Home */,
 				3822E4BA29DB6F8F00FE8348 /* Profile */,
+				3853F52B2A070A0300FD2DB3 /* Clients */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,9 +197,37 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		3853F52B2A070A0300FD2DB3 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				3853F5302A07141100FD2DB3 /* NewClient */,
+				3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */,
+				3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		3853F5302A07141100FD2DB3 /* NewClient */ = {
+			isa = PBXGroup;
+			children = (
+				3853F5312A07145A00FD2DB3 /* MANewClient.swift */,
+				3853F5362A07480D00FD2DB3 /* MANewClientViewModel.swift */,
+			);
+			path = NewClient;
+			sourceTree = "<group>";
+		};
+		3853F5332A07476A00FD2DB3 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				3853F5342A0747A700FD2DB3 /* MAClientModel.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
 		3856D25429DFB2E200D68516 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3853F5332A07476A00FD2DB3 /* Clients */,
 				3856D25A29DFB66D00D68516 /* Orders */,
 				3856D25729DFB31400D68516 /* Register */,
 			);
@@ -479,11 +518,14 @@
 				3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */,
 				3856D25929DFB63500D68516 /* MAHomeViewModel.swift in Sources */,
 				3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */,
+				3853F5322A07145A00FD2DB3 /* MANewClient.swift in Sources */,
 				38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */,
 				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
 				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
+				3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */,
 				3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */,
+				3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */,
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */,
 				3856D25C29DFB68400D68516 /* MAOrderModel.swift in Sources */,
@@ -494,9 +536,11 @@
 				3856D25F29DFBE4E00D68516 /* MAOrderListRow.swift in Sources */,
 				3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */,
 				3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */,
+				3853F52F2A0712EA00FD2DB3 /* MAClientsViewModel.swift in Sources */,
 				3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */,
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
+				3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
 				3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */,
@@ -655,6 +699,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MeuAtelieApp/Preview Content\"";
@@ -674,6 +719,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anajuliavolpi.MeuAtelieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -685,6 +731,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MeuAtelieApp/Preview Content\"";
@@ -704,6 +751,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anajuliavolpi.MeuAtelieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
