@@ -17,6 +17,7 @@ final class MANewClientViewModel: ObservableObject {
     let fullNameText: String = "Nome completo"
     let phoneText: String = "Telefone"
     let createActionText: String = "CADASTRAR"
+    let importClientActionText: String = "IMPORTAR CLIENTE"
     let backText: String = "Voltar"
     
     func createClient(with client: MAClientModel, _ dismiss: DismissAction) {

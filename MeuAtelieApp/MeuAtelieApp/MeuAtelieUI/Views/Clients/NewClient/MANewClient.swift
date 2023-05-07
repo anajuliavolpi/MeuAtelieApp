@@ -17,8 +17,8 @@ struct MANewClient: View {
     
     var body: some View {
         VStack {
-            MAHeaderView(text: "Adicionar",
-                         subtext: "novo cliente")
+            MAHeaderView(text: viewModel.createText,
+                         subtext: viewModel.newClientText)
             .padding(.horizontal, -20)
             
             fieldsView
@@ -59,7 +59,7 @@ struct MANewClient: View {
     
     var buttonsView: some View {
         VStack {
-            Button("IMPORTAR CLIENTE") {
+            Button(viewModel.importClientActionText) {
                 showImportClientAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
