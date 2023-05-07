@@ -14,10 +14,17 @@ struct MAClientsView: View {
     var body: some View {
         NavigationView {
             List(viewModel.clients, id: \.id) { client in
-                Text("Nome: \(client.fullName)")
+                MAClientListRow(clientName: client.fullName,
+                                clientPhone: client.phone)
+                .padding()
+                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                    return 0
+                })
+                .listRowInsets(EdgeInsets())
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
