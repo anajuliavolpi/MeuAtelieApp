@@ -21,31 +21,49 @@ struct MANewClient: View {
                          subtext: "novo cliente")
             .padding(.horizontal, -20)
             
+            fieldsView
+                .padding(.top, -30)
+            
+            Spacer()
+            
+            buttonsView
+                .padding(.bottom, 8)
+        }
+        .padding(.horizontal, 20)
+        .hideKeyboard()
+        .addMALoading(state: viewModel.isLoading)
+        .addMAError(state: showImportClientAlert, message: "Work in progress...") {
+            showImportClientAlert = false
+        }
+    }
+    
+    var fieldsView: some View {
+        VStack {
             TextField(viewModel.fullNameText, text: $clientFullName)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
-                                                      backgroundColor: .MAColors.MAPinkLight,
+                                                      backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black))
                 .textContentType(.name)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.words)
-                .padding(.top, -30)
             
             TextField(viewModel.phoneText, text: $clientPhone)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.phone,
-                                                      backgroundColor: .MAColors.MAPinkLight,
+                                                      backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .phonePad))
                 .textContentType(.telephoneNumber)
                 .padding(.top, 16)
-            
-            Spacer()
-            
+        }
+    }
+    
+    var buttonsView: some View {
+        VStack {
             Button("IMPORTAR CLIENTE") {
                 showImportClientAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
                                             fontColor: .white))
-            .padding(.bottom, 8)
             
             Button(viewModel.createActionText) {
                 viewModel.createClient(with: MAClientModel(id: UUID().uuidString,
@@ -56,12 +74,6 @@ struct MANewClient: View {
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                             fontColor: .white))
             .padding(.bottom, 40)
-        }
-        .padding(.horizontal, 20)
-        .hideKeyboard()
-        .addMALoading(state: viewModel.isLoading)
-        .addMAError(state: showImportClientAlert, message: "Work in progress...") {
-            showImportClientAlert = false
         }
     }
     
