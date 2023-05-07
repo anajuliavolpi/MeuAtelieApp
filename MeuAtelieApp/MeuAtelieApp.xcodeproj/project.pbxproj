@@ -41,6 +41,10 @@
 		388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A077029AECD6500FCE962 /* Image+Ext.swift */; };
 		38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */; };
 		38D081132A07F62E00B0DB99 /* MAClientListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D081122A07F62E00B0DB99 /* MAClientListRow.swift */; };
+		38D081162A080EEF00B0DB99 /* MAClientDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D081152A080EEF00B0DB99 /* MAClientDetailsView.swift */; };
+		38D081192A08158800B0DB99 /* ClientDetailsServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */; };
+		38D0811B2A08191100B0DB99 /* MAClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */; };
+		38D0811D2A081F4800B0DB99 /* MAAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0811C2A081F4800B0DB99 /* MAAlertView.swift */; };
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
@@ -101,6 +105,10 @@
 		38A5601E29A4589900969AA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHeaderView.swift; sourceTree = "<group>"; };
 		38D081122A07F62E00B0DB99 /* MAClientListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientListRow.swift; sourceTree = "<group>"; };
+		38D081152A080EEF00B0DB99 /* MAClientDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientDetailsView.swift; sourceTree = "<group>"; };
+		38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsServiceRow.swift; sourceTree = "<group>"; };
+		38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientDetailsViewModel.swift; sourceTree = "<group>"; };
+		38D0811C2A081F4800B0DB99 /* MAAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAAlertView.swift; sourceTree = "<group>"; };
 		38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuAtelieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppApp.swift; sourceTree = "<group>"; };
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +212,7 @@
 		3853F52B2A070A0300FD2DB3 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				38D081142A080EDA00B0DB99 /* ClientDetails */,
 				38D081112A07F60800B0DB99 /* ClientListRow */,
 				3853F5302A07141100FD2DB3 /* NewClient */,
 				3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */,
@@ -298,6 +307,7 @@
 				3856D26029E05DAB00D68516 /* MAButton.swift */,
 				3856D26C29E0CD9A00D68516 /* MAErrorView.swift */,
 				38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */,
+				38D0811C2A081F4800B0DB99 /* MAAlertView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -318,6 +328,24 @@
 				38D081122A07F62E00B0DB99 /* MAClientListRow.swift */,
 			);
 			path = ClientListRow;
+			sourceTree = "<group>";
+		};
+		38D081142A080EDA00B0DB99 /* ClientDetails */ = {
+			isa = PBXGroup;
+			children = (
+				38D081172A08157900B0DB99 /* ClientDetailsServiceRow */,
+				38D081152A080EEF00B0DB99 /* MAClientDetailsView.swift */,
+				38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */,
+			);
+			path = ClientDetails;
+			sourceTree = "<group>";
+		};
+		38D081172A08157900B0DB99 /* ClientDetailsServiceRow */ = {
+			isa = PBXGroup;
+			children = (
+				38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */,
+			);
+			path = ClientDetailsServiceRow;
 			sourceTree = "<group>";
 		};
 		38D7F7C129A42ED0009E0A6A = {
@@ -531,6 +559,8 @@
 			files = (
 				3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */,
 				3856D25929DFB63500D68516 /* MAHomeViewModel.swift in Sources */,
+				38D0811B2A08191100B0DB99 /* MAClientDetailsViewModel.swift in Sources */,
+				38D081162A080EEF00B0DB99 /* MAClientDetailsView.swift in Sources */,
 				3856D25629DFB30100D68516 /* MARegisterModel.swift in Sources */,
 				3853F5322A07145A00FD2DB3 /* MANewClient.swift in Sources */,
 				38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */,
@@ -556,10 +586,12 @@
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
 				3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */,
+				38D0811D2A081F4800B0DB99 /* MAAlertView.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
 				38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
 				3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */,
+				38D081192A08158800B0DB99 /* ClientDetailsServiceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
