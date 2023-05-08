@@ -45,6 +45,8 @@
 		38D081192A08158800B0DB99 /* ClientDetailsServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */; };
 		38D0811B2A08191100B0DB99 /* MAClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */; };
 		38D0811D2A081F4800B0DB99 /* MAAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0811C2A081F4800B0DB99 /* MAAlertView.swift */; };
+		38D081202A0825A500B0DB99 /* MAEditClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0811F2A0825A500B0DB99 /* MAEditClientView.swift */; };
+		38D081222A0860ED00B0DB99 /* MAEditClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D081212A0860ED00B0DB99 /* MAEditClientViewModel.swift */; };
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
@@ -109,6 +111,8 @@
 		38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsServiceRow.swift; sourceTree = "<group>"; };
 		38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientDetailsViewModel.swift; sourceTree = "<group>"; };
 		38D0811C2A081F4800B0DB99 /* MAAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAAlertView.swift; sourceTree = "<group>"; };
+		38D0811F2A0825A500B0DB99 /* MAEditClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAEditClientView.swift; sourceTree = "<group>"; };
+		38D081212A0860ED00B0DB99 /* MAEditClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAEditClientViewModel.swift; sourceTree = "<group>"; };
 		38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuAtelieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppApp.swift; sourceTree = "<group>"; };
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,8 +216,9 @@
 		3853F52B2A070A0300FD2DB3 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				38D081142A080EDA00B0DB99 /* ClientDetails */,
-				38D081112A07F60800B0DB99 /* ClientListRow */,
+				38D0811E2A08256C00B0DB99 /* Edit */,
+				38D081142A080EDA00B0DB99 /* Details */,
+				38D081112A07F60800B0DB99 /* ListRow */,
 				3853F5302A07141100FD2DB3 /* NewClient */,
 				3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */,
 				3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */,
@@ -322,22 +327,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		38D081112A07F60800B0DB99 /* ClientListRow */ = {
+		38D081112A07F60800B0DB99 /* ListRow */ = {
 			isa = PBXGroup;
 			children = (
 				38D081122A07F62E00B0DB99 /* MAClientListRow.swift */,
 			);
-			path = ClientListRow;
+			path = ListRow;
 			sourceTree = "<group>";
 		};
-		38D081142A080EDA00B0DB99 /* ClientDetails */ = {
+		38D081142A080EDA00B0DB99 /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				38D081172A08157900B0DB99 /* ClientDetailsServiceRow */,
 				38D081152A080EEF00B0DB99 /* MAClientDetailsView.swift */,
 				38D0811A2A08191100B0DB99 /* MAClientDetailsViewModel.swift */,
 			);
-			path = ClientDetails;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		38D081172A08157900B0DB99 /* ClientDetailsServiceRow */ = {
@@ -346,6 +351,15 @@
 				38D081182A08158800B0DB99 /* ClientDetailsServiceRow.swift */,
 			);
 			path = ClientDetailsServiceRow;
+			sourceTree = "<group>";
+		};
+		38D0811E2A08256C00B0DB99 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				38D0811F2A0825A500B0DB99 /* MAEditClientView.swift */,
+				38D081212A0860ED00B0DB99 /* MAEditClientViewModel.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		38D7F7C129A42ED0009E0A6A = {
@@ -576,12 +590,14 @@
 				383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */,
 				3856D26B29E0755100D68516 /* View+Ext.swift in Sources */,
 				3856D26329E0619500D68516 /* MAOrderListRowViewModel.swift in Sources */,
+				38D081202A0825A500B0DB99 /* MAEditClientView.swift in Sources */,
 				3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */,
 				38D081132A07F62E00B0DB99 /* MAClientListRow.swift in Sources */,
 				3856D25F29DFBE4E00D68516 /* MAOrderListRow.swift in Sources */,
 				3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */,
 				3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */,
 				3853F52F2A0712EA00FD2DB3 /* MAClientsViewModel.swift in Sources */,
+				38D081222A0860ED00B0DB99 /* MAEditClientViewModel.swift in Sources */,
 				3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */,
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,

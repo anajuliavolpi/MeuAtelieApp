@@ -36,7 +36,6 @@ final class MANewClientViewModel: ObservableObject {
             
             dismiss()
         }
-
     }
     
 }

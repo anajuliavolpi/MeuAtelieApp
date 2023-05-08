@@ -71,18 +71,20 @@ struct MAClientDetailsView: View {
         } backAction: {
             showConfirmDeletion = false
         }
-
+        .onAppear {
+            viewModel.fetchClient()
+        }
     }
     
     var headerView: some View {
         ZStack(alignment: .top) {
             VStack(spacing: 4) {
-                Text(viewModel.client.fullName)
+                Text(viewModel.fullName)
                     .foregroundColor(.white)
                     .font(.system(size: 26, weight: .semibold, design: .rounded))
                     .padding(.top, 20)
                 
-                Text(viewModel.clientPhone)
+                Text("Telefone: \(viewModel.phone)")
                     .foregroundColor(.MAColors.MAPinkMedium)
                     .font(.system(size: 20, design: .rounded))
             }
@@ -108,11 +110,17 @@ struct MAClientDetailsView: View {
     
     var buttonsView: some View {
         VStack {
-            Button(viewModel.editClientText) {
-                print("editar cliente")
+            NavigationLink {
+                MAEditClientView(viewModel: MAEditClientViewModel(clientID: viewModel.clientID))
+                    .toolbar(.hidden)
+            } label: {
+                Button(viewModel.editClientText) {
+                    print(#function)
+                }
+                .disabled(true)
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
+                                                fontColor: .white))
             }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
-                                            fontColor: .white))
             
             Button(viewModel.deleteClientText) {
                 showConfirmDeletion = true
@@ -127,6 +135,6 @@ struct MAClientDetailsView: View {
 
 struct MAClientDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientDetailsView(viewModel: .init(.init(id: "123", fullName: "Ana Júlia", phone: "47 993938282")))
+        MAClientDetailsView(viewModel: MAClientDetailsViewModel(""))
     }
 }
