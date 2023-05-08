@@ -20,14 +20,15 @@ struct MAHomeView: View {
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.showingCreateNewOrder.toggle()
+                    NavigationLink {
+                        MANewOrder()
+                            .toolbar(.hidden)
                     } label: {
                         Image(systemName: "note.text.badge.plus")
                     }
-
                 }
             }
             .overlay {

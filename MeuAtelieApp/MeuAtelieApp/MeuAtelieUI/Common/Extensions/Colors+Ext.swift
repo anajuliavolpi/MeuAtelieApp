@@ -21,6 +21,7 @@ extension Color {
         static let MAPinkMediumLight: Color = Color("MAPinkMediumLight")
         static let MAPinkTextField: Color = Color("MAPinkTextField")
         static let MAPinkBackground: Color = Color("MAPinkBackground")
+        static let MAWinePink: Color = Color("MAWinePink")
         
         static let MAImageGray: Color = Color("MAImageGray")
         

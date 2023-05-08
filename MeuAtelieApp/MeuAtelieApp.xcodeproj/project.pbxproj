@@ -15,6 +15,7 @@
 		3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */; };
 		3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */; };
 		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
+		383DFBB22A0898C600FC4F42 /* MADropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */; };
 		3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */; };
 		3853F52F2A0712EA00FD2DB3 /* MAClientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */; };
 		3853F5322A07145A00FD2DB3 /* MANewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F5312A07145A00FD2DB3 /* MANewClient.swift */; };
@@ -80,6 +81,7 @@
 		3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileView.swift; sourceTree = "<group>"; };
 		3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrder.swift; sourceTree = "<group>"; };
 		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
+		383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MADropdownMenu.swift; sourceTree = "<group>"; };
 		3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsView.swift; sourceTree = "<group>"; };
 		3853F52E2A0712EA00FD2DB3 /* MAClientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsViewModel.swift; sourceTree = "<group>"; };
 		3853F5312A07145A00FD2DB3 /* MANewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewClient.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				3856D26C29E0CD9A00D68516 /* MAErrorView.swift */,
 				38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */,
 				38D0811C2A081F4800B0DB99 /* MAAlertView.swift */,
+				383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
 				3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */,
+				383DFBB22A0898C600FC4F42 /* MADropdownMenu.swift in Sources */,
 				38D0811D2A081F4800B0DB99 /* MAAlertView.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
 				38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */,
