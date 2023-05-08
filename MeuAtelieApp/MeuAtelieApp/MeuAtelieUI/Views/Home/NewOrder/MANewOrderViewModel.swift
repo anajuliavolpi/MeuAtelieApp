@@ -12,6 +12,9 @@ final class MANewOrderViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var clients: [MAClientModel] = []
+    @Published var orderService: String = "Serviço"
+    @Published var orderClient: String = "Cliente"
+    @Published var isValid: Bool = false
     
     let createText: String = "Criar"
     let newOrderText: String = "novo pedido"
@@ -21,25 +24,6 @@ final class MANewOrderViewModel: ObservableObject {
     let clientSelectionText: String = "Selecione o cliente:"
     let newClientText: String = "Adicionar novo cliente"
     let continueActionText: String = "CONTINUAR"
-    
-//    func create(order: MAOrderModel, _ dismiss: DismissAction) {
-//        isLoading = true
-//        let db = Firestore.firestore()
-//        let ref = db.collection("Orders").document(order.id)
-//
-//        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
-//                     "clientName": order.clientName,
-//                     "typeName": order.typeName,
-//                     "dateOfDelivery": order.dateOfDelivery]) { error in
-//            self.isLoading = false
-//            if let error {
-//                print("some error occured on creating data for order: \(error)")
-//                return
-//            }
-//
-//            dismiss()
-//        }
-//    }
     
     func fetchClients() {
         isLoading = true
@@ -70,6 +54,10 @@ final class MANewOrderViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func validateFields() {
+        isValid = orderService == service1Text && orderClient != "Cliente"
     }
     
 }

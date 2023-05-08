@@ -11,10 +11,8 @@ struct MANewOrder: View {
     @Environment(\.dismiss) var dismiss
     
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
-    
-    @State var orderService: String = "Serviço"
-    @State var orderClient: String = "Cliente"
     @State var showNewClientView: Bool = false
+    @State var clientSelected: MAClientModel = MAClientModel(id: "", fullName: "", phone: "")
     
     var body: some View {
         VStack {
@@ -28,11 +26,34 @@ struct MANewOrder: View {
             
             Spacer()
             
-            Button(viewModel.continueActionText) {
-                print("Continuar!")
+            NavigationLink {
+                if viewModel.orderService == viewModel.service1Text {
+                    MATailoredOrderFlowView(viewModel:
+                                                MATailoredOrderFlowViewModel(
+                                                    MAOrderModel(id: UUID().uuidString,
+                                                                 serviceType: .tailored,
+                                                                 client: clientSelected,
+                                                                 cloathesName: "",
+                                                                 cloathesDescription: "",
+                                                                 estimatedDeliveryDate: "",
+                                                                 shoulderMeasurement: 0,
+                                                                 bustMeasurement: 0,
+                                                                 lengthMeasurement: 0,
+                                                                 waistMeasurement: 0,
+                                                                 abdomenMeasurement: 0,
+                                                                 hipsMeasurement: 0)))
+                        .toolbar(.hidden)
+                }
+            } label: {
+                Button(viewModel.continueActionText) {
+                    print(#function)
+                }
+                .disabled(true)
+                .opacity(viewModel.isValid ? 1 : 0.3)
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                fontColor: .white))
             }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                            fontColor: .white))
+            .disabled(!viewModel.isValid)
             .padding(.bottom, 40)
         }
         .padding(.horizontal, 20)
@@ -45,6 +66,7 @@ struct MANewOrder: View {
             MANewClient()
         })
         .addMALoading(state: viewModel.isLoading)
+        .hideKeyboard()
     }
     
     var serviceTypeView: some View {
@@ -60,15 +82,17 @@ struct MANewOrder: View {
             
             MADropdownMenu {
                 Button(viewModel.service1Text) {
-                    orderService = viewModel.service1Text
+                    viewModel.orderService = viewModel.service1Text
+                    viewModel.validateFields()
                 }
                 
                 Button(viewModel.service2Text) {
-                    orderService = viewModel.service2Text
+                    viewModel.orderService = viewModel.service2Text
+                    viewModel.validateFields()
                 }
             } label: {
                 HStack {
-                    Text(orderService)
+                    Text(viewModel.orderService)
                         .foregroundColor(.MAColors.MAPinkText)
                         .font(.system(size: 18, weight: .semibold))
                     
@@ -95,16 +119,19 @@ struct MANewOrder: View {
             MADropdownMenu {
                 ForEach(viewModel.clients, id: \.id) { client in
                     Button(client.fullName) {
-                        orderClient = client.fullName
+                        viewModel.orderClient = client.fullName
+                        clientSelected = client
+                        viewModel.validateFields()
                     }
                 }
                 
                 Button(viewModel.newClientText) {
                     showNewClientView = true
+                    viewModel.validateFields()
                 }
             } label: {
                 HStack {
-                    Text(orderClient)
+                    Text(viewModel.orderClient)
                         .foregroundColor(.MAColors.MAPinkText)
                         .font(.system(size: 18, weight: .semibold))
                     

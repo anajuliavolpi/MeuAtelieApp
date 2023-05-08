@@ -14,9 +14,13 @@ struct MAHomeView: View {
     var body: some View {
         NavigationView {
             List(viewModel.orders, id: \.id) { order in
-                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order, action: {
-                    viewModel.deleteOrderWith(id: order.id)
-                }))
+                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
+                    .padding()
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        return 0
+                    })
+                    .listRowInsets(EdgeInsets())
+                    .padding(.trailing, 18)
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -53,6 +57,9 @@ struct MAHomeView: View {
                             .opacity(0.45)
                     }
                 }
+            }
+            .onAppear {
+                viewModel.fetchOrders()
             }
         }
         .addMALoading(state: viewModel.isLoading)
