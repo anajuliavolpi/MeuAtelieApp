@@ -25,18 +25,36 @@ struct MAHomeView: View {
                     Button {
                         viewModel.showingCreateNewOrder.toggle()
                     } label: {
-                        Text(viewModel.navBarText)
+                        Image(systemName: "note.text.badge.plus")
                     }
 
                 }
             }
+            .overlay {
+                if viewModel.orders.isEmpty {
+                    VStack {
+                        Text("OPS  ;(")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 34, weight: .semibold, design: .rounded))
+                            .padding(.top, 90)
+                        
+                        Text("Você não possui\npedidos cadastrados")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 26, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .padding(.top, 30)
+                        
+                        Spacer(minLength: 40)
+                        
+                        Image.MAImages.Login.loginTopImage
+                            .resizable()
+                            .opacity(0.45)
+                    }
+                }
+            }
         }
         .addMALoading(state: viewModel.isLoading)
-        .sheet(isPresented: $viewModel.showingCreateNewOrder, onDismiss: {
-            viewModel.fetchOrders()
-        }) {
-            MANewOrder()
-        }
     }
     
 }

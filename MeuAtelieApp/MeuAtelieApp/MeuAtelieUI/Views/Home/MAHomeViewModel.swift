@@ -15,7 +15,6 @@ final class MAHomeViewModel: ObservableObject {
     @Published var orders: [MAOrderModel] = []
     
     let viewTitle: String = "Pedidos"
-    let navBarText: String = "Novo pedido"
     
     init() {
         fetchOrders()
