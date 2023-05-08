@@ -37,4 +37,25 @@ extension View {
         .animation(.default, value: state)
     }
     
+    public func addMAAlert(state: Bool, message: String, confirmAction: @escaping (() -> ()), backAction: @escaping (() -> ())) -> some View {
+        ZStack {
+            self
+                .disabled(state)
+                .opacity(state ? 0.5 : 1)
+            
+            if state {
+                MAAlertView(buttonMessage: message, confirmAction: confirmAction, backAction: backAction)
+                    .padding()
+            }
+        }
+        .animation(.default, value: state)
+    }
+    
+    public func hideKeyboard() -> some View {
+        self
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+    
 }

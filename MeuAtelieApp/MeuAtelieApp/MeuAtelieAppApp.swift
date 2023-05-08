@@ -15,6 +15,15 @@ struct MeuAtelieAppApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        // Restore pre-iOS 15 nav bar / tab bar look
+        // by: https://www.hackingwithswift.com/forums/ios/tab-bar-transparent/10549
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     var body: some Scene {
@@ -25,6 +34,11 @@ struct MeuAtelieAppApp: App {
                         MAHomeView()
                             .tabItem {
                                 Label("Pedidos", systemImage: "list.dash")
+                            }
+                        
+                        MAClientsView()
+                            .tabItem {
+                                Label("Clientes", systemImage: "person.3.fill")
                             }
                         
                         MAProfileView()

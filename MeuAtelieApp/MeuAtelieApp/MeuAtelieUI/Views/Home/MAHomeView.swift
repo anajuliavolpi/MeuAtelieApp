@@ -19,6 +19,7 @@ struct MAHomeView: View {
                 }))
             }
             .navigationTitle(viewModel.viewTitle)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

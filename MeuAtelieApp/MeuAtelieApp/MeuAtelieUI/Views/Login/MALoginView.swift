@@ -31,9 +31,7 @@ struct MALoginView: View {
                     action: {
             viewModel.isShowingError = false
         })
-        .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
+        .hideKeyboard()
     }
     
     var backgroundView: some View {
@@ -51,7 +49,8 @@ struct MALoginView: View {
                 .padding(.top, 28)
             
             TextField(viewModel.loginText, text: $login)
-                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill))
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
+                                                      keyboard: .emailAddress))
                 .textContentType(.emailAddress)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
