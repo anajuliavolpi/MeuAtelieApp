@@ -24,6 +24,10 @@ extension Image {
             static let loginBottomImage: Image = Image("LoginBottomImage")
         }
         
+        struct Helper {
+            static let bigLogo: Image = Image("MABigLogo")
+        }
+        
     }
     
 }
