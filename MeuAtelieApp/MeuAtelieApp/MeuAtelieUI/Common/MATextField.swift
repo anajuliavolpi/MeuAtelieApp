@@ -41,12 +41,14 @@ struct MABasicTextFieldStyle: TextFieldStyle {
     var image: Image? = nil
     var backgroundColor: Color = .white
     var foregroundTextColor: Color = .MAColors.MAPinkText
+    var keyboard: UIKeyboardType = .default
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
             configuration
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(foregroundTextColor)
+                .keyboardType(keyboard)
                 .padding()
             
             image

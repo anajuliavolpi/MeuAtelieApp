@@ -1,29 +1,24 @@
 //
-//  MANewOrderViewModel.swift
+//  MAClientsViewModel.swift
 //  MeuAtelieApp
 //
-//  Created by Ana Júlia Volpi on 07/04/23.
+//  Created by Ana Júlia Volpi on 06/05/23.
 //
 
 import SwiftUI
 import Firebase
 
-final class MANewOrderViewModel: ObservableObject {
+final class MAClientsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var clients: [MAClientModel] = []
-    @Published var orderService: String = "Serviço"
-    @Published var orderClient: String = "Cliente"
-    @Published var isValid: Bool = false
     
-    let createText: String = "Criar"
-    let newOrderText: String = "novo pedido"
-    let serviceTypeText: String = "Selecione o tipo de serviço:"
-    let service1Text: String = "Roupa sob medida"
-    let service2Text: String = "Ajuste/Conserto de roupa"
-    let clientSelectionText: String = "Selecione o cliente:"
-    let newClientText: String = "Adicionar novo cliente"
-    let continueActionText: String = "CONTINUAR"
+    var viewTitle: String = "Clientes"
+    var newClientText: String = "+"
+    
+    init() {
+        fetchClients()
+    }
     
     func fetchClients() {
         isLoading = true
@@ -54,10 +49,6 @@ final class MANewOrderViewModel: ObservableObject {
                 }
             }
         }
-    }
-    
-    func validateFields() {
-        isValid = orderService == service1Text && orderClient != "Cliente"
     }
     
 }

@@ -10,25 +10,17 @@ import Foundation
 final class MAOrderListRowViewModel {
     
     var order: MAOrderModel
-    var action: (() -> ())
-    
-    lazy var clientText: String = {
-        "Cliente: \(order.clientName)"
+
+    lazy var serviceType: String = {
+        "Serviço: \(order.serviceType.rawValue)"
     }()
-    
-    lazy var typeText: String = {
-        "Tipo de peça: \(order.typeName)"
-    }()
-    
+
     lazy var dateText: String = {
-        "Data: \(order.dateOfDelivery)"
+        "Entrega: \(order.estimatedDeliveryDate)"
     }()
-    
-    let deleteText: String = "Deletar"
-    
-    init(order: MAOrderModel, action: @escaping (() -> ())) {
+
+    init(order: MAOrderModel) {
         self.order = order
-        self.action = action
     }
     
 }
