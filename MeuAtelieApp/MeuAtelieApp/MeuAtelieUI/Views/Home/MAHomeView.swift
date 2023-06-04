@@ -14,29 +14,55 @@ struct MAHomeView: View {
     var body: some View {
         NavigationView {
             List(viewModel.orders, id: \.id) { order in
-                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order, action: {
-                    viewModel.deleteOrderWith(id: order.id)
-                }))
+                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
+                    .padding()
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        return 0
+                    })
+                    .listRowInsets(EdgeInsets())
+                    .padding(.trailing, 18)
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.showingCreateNewOrder.toggle()
+                    NavigationLink {
+                        MANewOrder()
+                            .toolbar(.hidden)
                     } label: {
-                        Text(viewModel.navBarText)
+                        Image(systemName: "note.text.badge.plus")
                     }
-
                 }
+            }
+            .overlay {
+                if viewModel.orders.isEmpty {
+                    VStack {
+                        Text("OPS  ;(")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 34, weight: .semibold, design: .rounded))
+                            .padding(.top, 90)
+                        
+                        Text("Você não possui\npedidos cadastrados")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 26, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .padding(.top, 30)
+                        
+                        Spacer(minLength: 40)
+                        
+                        Image.MAImages.Login.loginTopImage
+                            .resizable()
+                            .opacity(0.45)
+                    }
+                }
+            }
+            .onAppear {
+                viewModel.fetchOrders()
             }
         }
         .addMALoading(state: viewModel.isLoading)
-        .sheet(isPresented: $viewModel.showingCreateNewOrder, onDismiss: {
-            viewModel.fetchOrders()
-        }) {
-            MANewOrder()
-        }
     }
     
 }

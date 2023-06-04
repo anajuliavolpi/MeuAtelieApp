@@ -12,21 +12,28 @@ struct MAOrderListRow: View {
     var viewModel: MAOrderListRowViewModel
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(viewModel.clientText)
-                Text(viewModel.typeText)
+        HStack(spacing: 20) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(.MAColors.MAImageGray)
+                    .frame(width: 116, height: 113)
+                
+                Image.MAImages.Login.loginTopImage
+                    .resizable()
+                    .frame(width: 86, height: 89)
+                    .padding(.top, 8)
+            }
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text(viewModel.order.client.fullName)
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                
+                Text(viewModel.serviceType)
+                    .font(.system(size: 18, design: .rounded))
+                
                 Text(viewModel.dateText)
+                    .font(.system(size: 18, design: .rounded))
             }
-            
-            Spacer()
-            
-            Button(viewModel.deleteText) {
-                viewModel.action()
-            }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
-                                            fontColor: .white))
-            .frame(width: 90)
         }
     }
     
@@ -34,13 +41,17 @@ struct MAOrderListRow: View {
 
 struct MAOrderListRow_Previews: PreviewProvider {
     static var previews: some View {
-        MAOrderListRow(viewModel:
-                        MAOrderListRowViewModel(order: MAOrderModel(id: "123456",
-                                                                    clientName: "Nivaldo da Silva",
-                                                                    typeName: "Calça Jeans",
-                                                                    dateOfDelivery: "08/05/2023"),
-                                                action: {
-            print(#function)
-        }))
+        MAOrderListRow(viewModel: .init(order: .init(id: UUID().uuidString,
+                                                     serviceType: .tailored,
+                                                     client: MAClientModel(id: "", fullName: "", phone: ""),
+                                                     cloathesName: "",
+                                                     cloathesDescription: "",
+                                                     estimatedDeliveryDate: "",
+                                                     shoulderMeasurement: 0,
+                                                     bustMeasurement: 0,
+                                                     lengthMeasurement: 0,
+                                                     waistMeasurement: 0,
+                                                     abdomenMeasurement: 0,
+                                                     hipsMeasurement: 0)))
     }
 }
