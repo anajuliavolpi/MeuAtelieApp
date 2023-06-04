@@ -14,33 +14,41 @@ struct MAProfileView: View {
     @ObservedObject var viewModel: MAProfileViewModel = MAProfileViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            headerView
-                .padding(.horizontal, -30)
-            
-            personalDataView
-                .padding(.top, 10)
-            
-            Spacer()
-            
-            Button(viewModel.changePasswordText) {
-                viewModel.isShowingChangePassword = true
+        NavigationView {
+            VStack(alignment: .leading) {
+                headerView
+                    .padding(.horizontal, -30)
+                
+                personalDataView
+                    .padding(.top, 10)
+                
+                Spacer()
+                
+                NavigationLink {
+                    MANewPasswordView()
+                        .toolbar(.hidden)
+                } label: {
+                    Button(viewModel.changePasswordText) {
+                        print(#function)
+                    }
+                    .disabled(true)
+                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                    fontColor: .white))
+                }
+                
+                Button(viewModel.exitText) {
+                    viewModel.signOutWith(networkManager)
+                }
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                fontColor: .white))
+                .padding(.bottom, 20)
             }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                            fontColor: .white))
-            
-            Button(viewModel.exitText) {
-                viewModel.signOutWith(networkManager)
+            .padding(.horizontal, 30)
+            .ignoresSafeArea(edges: .top)
+            .addMALoading(state: viewModel.isLoading)
+            .onAppear {
+                viewModel.fetchUserData()
             }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                            fontColor: .white))
-            .padding(.bottom, 20)
-        }
-        .padding(.horizontal, 30)
-        .ignoresSafeArea(edges: .top)
-        .addMALoading(state: viewModel.isLoading)
-        .sheet(isPresented: $viewModel.isShowingChangePassword) {
-            MANewPasswordView()
         }
     }
     
@@ -91,7 +99,7 @@ struct MAProfileView: View {
             Divider()
                 .padding(.horizontal, -30)
             
-            Text(viewModel.fullNameText)
+            Text("\(viewModel.model?.firstName ?? "") \(viewModel.model?.lastName ?? "")")
                 .foregroundColor(.MAColors.MAPinkMedium)
                 .font(.system(size: 20, weight: .semibold, design: .rounded))
                 .padding(.top, 4)
