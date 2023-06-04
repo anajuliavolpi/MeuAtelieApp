@@ -14,8 +14,8 @@ final class MAProfileViewModel: ObservableObject {
     @Published var model: MARegisterModel? = nil
     @Published var isShowingChangePassword: Bool = false
     
-    let helloText: String = "Olá, "
-    let checkYourDataText: String = "Confira seus dados:"
+    let helloText: String = "Olá,"
+    let checkYourDataText: String = "CONFIRA SEUS DADOS:"
     let emailText: String = "Email:"
     let nameText: String = "Nome:"
     
@@ -23,8 +23,8 @@ final class MAProfileViewModel: ObservableObject {
         "\(model?.firstName ?? "") \(model?.lastName ?? "")"
     }()
     
-    let changePasswordText: String = "Trocar de senha"
-    let exitText: String = "SAIR"
+    let changePasswordText: String = "ALTERAR SENHA"
+    let exitText: String = "Sair"
     
     init() {
         fetchUserData()
