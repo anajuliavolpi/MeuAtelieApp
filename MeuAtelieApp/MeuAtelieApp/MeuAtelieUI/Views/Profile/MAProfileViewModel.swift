@@ -12,23 +12,14 @@ final class MAProfileViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var model: MARegisterModel? = nil
-    @Published var isShowingChangePassword: Bool = false
     
-    let helloText: String = "Olá, "
-    let checkYourDataText: String = "Confira seus dados:"
+    let helloText: String = "Olá,"
+    let checkYourDataText: String = "CONFIRA SEUS DADOS:"
     let emailText: String = "Email:"
     let nameText: String = "Nome:"
     
-    lazy var fullNameText: String = {
-        "\(model?.firstName ?? "") \(model?.lastName ?? "")"
-    }()
-    
-    let changePasswordText: String = "Trocar de senha"
-    let exitText: String = "SAIR"
-    
-    init() {
-        fetchUserData()
-    }
+    let changePasswordText: String = "ALTERAR SENHA"
+    let exitText: String = "Sair"
     
     func fetchUserData() {
         isLoading = true

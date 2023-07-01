@@ -12,29 +12,54 @@ struct MANewPasswordView: View {
     
     @ObservedObject var viewModel: MANewPasswordViewModel = MANewPasswordViewModel()
     @State var newPassword: String = ""
+    @State var showConfirmationAlert: Bool = false
     
     var body: some View {
-        VStack {
-            Text(viewModel.newPasswordText)
-                .font(.system(size: 22, weight: .semibold, design: .rounded))
+        VStack(alignment: .leading) {
+            MAHeaderView(text: viewModel.changePasswordText,
+                         subtext: viewModel.changePasswordSubtext)
+            .padding(.horizontal, -30)
             
-            SecureField(viewModel.insertNewPasswordText, text: $newPassword)
-                .textFieldStyle(MABasicTextFieldStyle(image: Image(systemName: "lock"),
-                                                      backgroundColor: .MAColors.MAPinkMediumLight,
+            Text(viewModel.insertNewPasswordText)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .foregroundColor(.MAColors.MAWinePink)
+            
+            SecureField(viewModel.newPasswordText, text: $newPassword)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill,
+                                                      backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black))
                 .textContentType(.password)
                 .autocorrectionDisabled()
-                .padding(.top, 16)
+                .padding(.top, 8)
+            
+            Spacer()
+            
+            Button(viewModel.cancelText) {
+                dismiss()
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
+                                            fontColor: .white))
             
             Button(viewModel.changeText) {
-                viewModel.changePasswordWithNew(password: newPassword, dismiss)
+                showConfirmationAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                             fontColor: .white))
-            .padding(.top, 16)
+            .padding(.bottom, 20)
         }
-        .addMALoading(state: viewModel.isLoading)
         .padding(.horizontal, 30)
+        .addMALoading(state: viewModel.isLoading)
+        .hideKeyboard()
+        .addMAAlert(state: showConfirmationAlert, message: viewModel.confirmationAlertText) {
+            viewModel.change(password: newPassword, dismiss)
+            showConfirmationAlert = false
+        } backAction: {
+            showConfirmationAlert = false
+        }
+        .addMAError(state: viewModel.showErrorAlert, message: viewModel.errorMessage) {
+            viewModel.showErrorAlert = false
+        }
+
     }
     
 }
