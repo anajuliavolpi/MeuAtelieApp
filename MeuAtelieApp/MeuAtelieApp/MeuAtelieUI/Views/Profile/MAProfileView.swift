@@ -14,92 +14,108 @@ struct MAProfileView: View {
     @ObservedObject var viewModel: MAProfileViewModel = MAProfileViewModel()
     
     var body: some View {
-        ScrollView {
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.MAColors.MAPink)
-                    .frame(height: 250)
+        NavigationView {
+            VStack(alignment: .leading) {
+                headerView
+                    .padding(.horizontal, -30)
                 
-                VStack {
-                    HStack {
-                        Text(viewModel.helloText)
-                        Spacer()
+                personalDataView
+                    .padding(.top, 10)
+                
+                Spacer()
+                
+                NavigationLink {
+                    MANewPasswordView()
+                        .toolbar(.hidden)
+                } label: {
+                    Button(viewModel.changePasswordText) {
+                        print(#function)
                     }
-                    
-                    HStack {
-                        Text(viewModel.model?.firstName ?? "")
-                            .foregroundColor(.white)
-                            .font(.system(size: 60))
-                        Spacer()
-                    }
+                    .disabled(true)
+                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                    fontColor: .white))
                 }
-                .font(.system(size: 48, weight: .light, design: .rounded))
-                .padding(.leading, 30)
-                .padding(.top, 50)
-            }
-            
-            HStack {
-                Text(viewModel.checkYourDataText)
-                    .font(.system(size: 20, design: .rounded))
-                    .padding(.leading, 30)
                 
-                Spacer()
+                Button(viewModel.exitText) {
+                    viewModel.signOutWith(networkManager)
+                }
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                fontColor: .white))
+                .padding(.bottom, 20)
             }
-            .padding(.top, 30)
-            
-            HStack {
-                Text(viewModel.emailText)
-                    .font(.system(size: 16, design: .rounded))
-                    .padding(.leading, 30)
-                
-                Spacer()
-            }
-            .padding(.top, 28)
-            
-            HStack {
-                Text(viewModel.model?.emailAddress ?? "")
-                    .font(.system(size: 16, design: .rounded))
-                    .padding(.leading, 30)
-                
-                Spacer()
-            }
-            
-            HStack {
-                Text(viewModel.nameText)
-                    .font(.system(size: 16, design: .rounded))
-                    .padding(.leading, 30)
-                
-                Spacer()
-            }
-            .padding(.top, 8)
-            
-            HStack {
-                Text(viewModel.fullNameText)
-                    .font(.system(size: 16, design: .rounded))
-                    .padding(.leading, 30)
-                
-                Spacer()
-            }
-            
-            Button(viewModel.changePasswordText) {
-                viewModel.isShowingChangePassword = true
-            }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                            fontColor: .white))
             .padding(.horizontal, 30)
-            .padding(.top, 50)
-            
-            Button(viewModel.exitText) {
-                viewModel.signOutWith(networkManager)
+            .ignoresSafeArea(edges: .top)
+            .addMALoading(state: viewModel.isLoading)
+            .onAppear {
+                viewModel.fetchUserData()
             }
-            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                            fontColor: .white))
-            .padding(.horizontal, 30)
         }
-        .addMALoading(state: viewModel.isLoading)
-        .ignoresSafeArea()
-        .sheet(isPresented: $viewModel.isShowingChangePassword) {
-            MANewPasswordView()
+    }
+    
+    private var headerView: some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(.MAColors.MAPink)
+                .frame(height: 200)
+            
+            HStack(spacing: 16) {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 100, height: 94)
+                    
+                    Image.MAImages.Login.loginTopImage
+                        .resizable()
+                        .frame(width: 74, height: 81)
+                        .padding(.top, 8)
+                }
+                
+                VStack(alignment: .leading) {
+                    Text(viewModel.helloText)
+                        .foregroundColor(.white)
+                        .font(.system(size: 40, weight: .regular, design: .rounded))
+                    
+                    Text(viewModel.model?.firstName.uppercased() ?? "")
+                        .foregroundColor(.MAColors.MAPinkMedium)
+                        .font(.system(size: 40))
+                }
+            }
+            .padding(.top, 40)
+        }
+    }
+    
+    private var personalDataView: some View {
+        VStack(alignment: .leading) {
+            Text(viewModel.checkYourDataText)
+                .foregroundColor(.MAColors.MAPinkMedium)
+                .font(.system(size: 20, design: .rounded))
+                .tracking(-1)
+            
+            Text(viewModel.nameText)
+                .foregroundColor(.MAColors.MAWinePink)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .padding(.top, 28)
+            
+            Divider()
+                .padding(.horizontal, -30)
+            
+            Text("\(viewModel.model?.firstName ?? "") \(viewModel.model?.lastName ?? "")")
+                .foregroundColor(.MAColors.MAPinkMedium)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .padding(.top, 4)
+            
+            Text(viewModel.emailText)
+                .foregroundColor(.MAColors.MAWinePink)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .padding(.top, 40)
+            
+            Divider()
+                .padding(.horizontal, -30)
+            
+            Text(viewModel.model?.emailAddress ?? "")
+                .foregroundColor(.MAColors.MAPinkMedium)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .padding(.top, 4)
         }
     }
     

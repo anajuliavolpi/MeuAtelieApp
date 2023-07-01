@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38063F622A2E86AB00BB72BD /* MARegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F612A2E86AB00BB72BD /* MARegisterViewModelTests.swift */; };
+		38063F652A2E878200BB72BD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 38063F642A2E878200BB72BD /* FirebaseAuth */; };
+		38063F672A2E878B00BB72BD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 38063F662A2E878B00BB72BD /* FirebaseFirestore */; };
+		38063F6E2A2E8A0E00BB72BD /* MALoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F6D2A2E8A0E00BB72BD /* MALoginViewModelTests.swift */; };
+		38063F712A2E8AAC00BB72BD /* MAHomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F702A2E8AAC00BB72BD /* MAHomeViewModelTests.swift */; };
+		38063F742A2E8B5400BB72BD /* MANewOrderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F732A2E8B5400BB72BD /* MANewOrderViewModelTests.swift */; };
+		38063F772A2E8C6300BB72BD /* MATailoredOrderFlowMeasurementsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F762A2E8C6300BB72BD /* MATailoredOrderFlowMeasurementsViewModelTests.swift */; };
+		38063F792A2E8D0C00BB72BD /* MATailoredOrderFlowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F782A2E8D0C00BB72BD /* MATailoredOrderFlowViewModelTests.swift */; };
+		38063F7C2A2E8DA600BB72BD /* MAOrderListRowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F7B2A2E8DA600BB72BD /* MAOrderListRowViewModelTests.swift */; };
+		38063F7F2A2E8ECA00BB72BD /* MAProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F7E2A2E8ECA00BB72BD /* MAProfileViewModelTests.swift */; };
+		38063F822A2E8F6300BB72BD /* MANewPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F812A2E8F6300BB72BD /* MANewPasswordViewModelTests.swift */; };
+		38063F852A2E8FD900BB72BD /* MAClientsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F842A2E8FD900BB72BD /* MAClientsViewModelTests.swift */; };
+		38063F882A2E905D00BB72BD /* MANewClientViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F872A2E905D00BB72BD /* MANewClientViewModelTests.swift */; };
+		38063F8B2A2E90B600BB72BD /* MAClientDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F8A2A2E90B600BB72BD /* MAClientDetailsViewModelTests.swift */; };
+		38063F8E2A2E911900BB72BD /* MAEditClientViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38063F8D2A2E911900BB72BD /* MAEditClientViewModelTests.swift */; };
 		3822E4AD29DB493A00FE8348 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3822E4AC29DB493A00FE8348 /* GoogleService-Info.plist */; };
 		3822E4B029DB4A7200FE8348 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3822E4AF29DB4A7200FE8348 /* FirebaseAuth */; };
 		3822E4B229DB4A7200FE8348 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3822E4B129DB4A7200FE8348 /* FirebaseFirestore */; };
@@ -56,9 +71,6 @@
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
-		38D7F7DF29A42ED2009E0A6A /* MeuAtelieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7DE29A42ED2009E0A6A /* MeuAtelieAppTests.swift */; };
-		38D7F7E929A42ED2009E0A6A /* MeuAtelieAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7E829A42ED2009E0A6A /* MeuAtelieAppUITests.swift */; };
-		38D7F7EB29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7EA29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift */; };
 		38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,16 +82,22 @@
 			remoteGlobalIDString = 38D7F7C929A42ED0009E0A6A;
 			remoteInfo = MeuAtelieApp;
 		};
-		38D7F7E529A42ED2009E0A6A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 38D7F7C229A42ED0009E0A6A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 38D7F7C929A42ED0009E0A6A;
-			remoteInfo = MeuAtelieApp;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		38063F612A2E86AB00BB72BD /* MARegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterViewModelTests.swift; sourceTree = "<group>"; };
+		38063F6D2A2E8A0E00BB72BD /* MALoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginViewModelTests.swift; sourceTree = "<group>"; };
+		38063F702A2E8AAC00BB72BD /* MAHomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeViewModelTests.swift; sourceTree = "<group>"; };
+		38063F732A2E8B5400BB72BD /* MANewOrderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrderViewModelTests.swift; sourceTree = "<group>"; };
+		38063F762A2E8C6300BB72BD /* MATailoredOrderFlowMeasurementsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATailoredOrderFlowMeasurementsViewModelTests.swift; sourceTree = "<group>"; };
+		38063F782A2E8D0C00BB72BD /* MATailoredOrderFlowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATailoredOrderFlowViewModelTests.swift; sourceTree = "<group>"; };
+		38063F7B2A2E8DA600BB72BD /* MAOrderListRowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAOrderListRowViewModelTests.swift; sourceTree = "<group>"; };
+		38063F7E2A2E8ECA00BB72BD /* MAProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileViewModelTests.swift; sourceTree = "<group>"; };
+		38063F812A2E8F6300BB72BD /* MANewPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordViewModelTests.swift; sourceTree = "<group>"; };
+		38063F842A2E8FD900BB72BD /* MAClientsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsViewModelTests.swift; sourceTree = "<group>"; };
+		38063F872A2E905D00BB72BD /* MANewClientViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewClientViewModelTests.swift; sourceTree = "<group>"; };
+		38063F8A2A2E90B600BB72BD /* MAClientDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		38063F8D2A2E911900BB72BD /* MAEditClientViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAEditClientViewModelTests.swift; sourceTree = "<group>"; };
 		3822E4AC29DB493A00FE8348 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3822E4B429DB64E400FE8348 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3822E4B829DB663500FE8348 /* MARegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterView.swift; sourceTree = "<group>"; };
@@ -130,10 +148,6 @@
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38D7F7DA29A42ED2009E0A6A /* MeuAtelieAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeuAtelieAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38D7F7DE29A42ED2009E0A6A /* MeuAtelieAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppTests.swift; sourceTree = "<group>"; };
-		38D7F7E429A42ED2009E0A6A /* MeuAtelieAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeuAtelieAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38D7F7E829A42ED2009E0A6A /* MeuAtelieAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppUITests.swift; sourceTree = "<group>"; };
-		38D7F7EA29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeuAtelieAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,19 +165,125 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		38D7F7E129A42ED2009E0A6A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				38063F652A2E878200BB72BD /* FirebaseAuth in Frameworks */,
+				38063F672A2E878B00BB72BD /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38063F602A2E867F00BB72BD /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				38063F612A2E86AB00BB72BD /* MARegisterViewModelTests.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		38063F632A2E878200BB72BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38063F6C2A2E89FE00BB72BD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				38063F6D2A2E8A0E00BB72BD /* MALoginViewModelTests.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		38063F6F2A2E8A9400BB72BD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				38063F7A2A2E8D9600BB72BD /* OrderListRow */,
+				38063F722A2E8B2C00BB72BD /* NewOrder */,
+				38063F702A2E8AAC00BB72BD /* MAHomeViewModelTests.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		38063F722A2E8B2C00BB72BD /* NewOrder */ = {
+			isa = PBXGroup;
+			children = (
+				38063F752A2E8C5100BB72BD /* TailoredOrderFlow */,
+				38063F732A2E8B5400BB72BD /* MANewOrderViewModelTests.swift */,
+			);
+			path = NewOrder;
+			sourceTree = "<group>";
+		};
+		38063F752A2E8C5100BB72BD /* TailoredOrderFlow */ = {
+			isa = PBXGroup;
+			children = (
+				38063F762A2E8C6300BB72BD /* MATailoredOrderFlowMeasurementsViewModelTests.swift */,
+				38063F782A2E8D0C00BB72BD /* MATailoredOrderFlowViewModelTests.swift */,
+			);
+			path = TailoredOrderFlow;
+			sourceTree = "<group>";
+		};
+		38063F7A2A2E8D9600BB72BD /* OrderListRow */ = {
+			isa = PBXGroup;
+			children = (
+				38063F7B2A2E8DA600BB72BD /* MAOrderListRowViewModelTests.swift */,
+			);
+			path = OrderListRow;
+			sourceTree = "<group>";
+		};
+		38063F7D2A2E8EBC00BB72BD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				38063F802A2E8F5900BB72BD /* ChangePassword */,
+				38063F7E2A2E8ECA00BB72BD /* MAProfileViewModelTests.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		38063F802A2E8F5900BB72BD /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				38063F812A2E8F6300BB72BD /* MANewPasswordViewModelTests.swift */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		38063F832A2E8FC400BB72BD /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				38063F8C2A2E911000BB72BD /* Edit */,
+				38063F892A2E90A200BB72BD /* Details */,
+				38063F862A2E904C00BB72BD /* NewClient */,
+				38063F842A2E8FD900BB72BD /* MAClientsViewModelTests.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		38063F862A2E904C00BB72BD /* NewClient */ = {
+			isa = PBXGroup;
+			children = (
+				38063F872A2E905D00BB72BD /* MANewClientViewModelTests.swift */,
+			);
+			path = NewClient;
+			sourceTree = "<group>";
+		};
+		38063F892A2E90A200BB72BD /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				38063F8A2A2E90B600BB72BD /* MAClientDetailsViewModelTests.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		38063F8C2A2E911000BB72BD /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				38063F8D2A2E911900BB72BD /* MAEditClientViewModelTests.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		3822E4B329DB64D400FE8348 /* MeuAtelieNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,8 +521,8 @@
 			children = (
 				38D7F7CC29A42ED0009E0A6A /* MeuAtelieApp */,
 				38D7F7DD29A42ED2009E0A6A /* MeuAtelieAppTests */,
-				38D7F7E729A42ED2009E0A6A /* MeuAtelieAppUITests */,
 				38D7F7CB29A42ED0009E0A6A /* Products */,
+				38063F632A2E878200BB72BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -411,7 +531,6 @@
 			children = (
 				38D7F7CA29A42ED0009E0A6A /* MeuAtelieApp.app */,
 				38D7F7DA29A42ED2009E0A6A /* MeuAtelieAppTests.xctest */,
-				38D7F7E429A42ED2009E0A6A /* MeuAtelieAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -442,18 +561,13 @@
 		38D7F7DD29A42ED2009E0A6A /* MeuAtelieAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				38D7F7DE29A42ED2009E0A6A /* MeuAtelieAppTests.swift */,
+				38063F602A2E867F00BB72BD /* Register */,
+				38063F6C2A2E89FE00BB72BD /* Login */,
+				38063F6F2A2E8A9400BB72BD /* Home */,
+				38063F7D2A2E8EBC00BB72BD /* Profile */,
+				38063F832A2E8FC400BB72BD /* Clients */,
 			);
 			path = MeuAtelieAppTests;
-			sourceTree = "<group>";
-		};
-		38D7F7E729A42ED2009E0A6A /* MeuAtelieAppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				38D7F7E829A42ED2009E0A6A /* MeuAtelieAppUITests.swift */,
-				38D7F7EA29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift */,
-			);
-			path = MeuAtelieAppUITests;
 			sourceTree = "<group>";
 		};
 		38FFE08229DB88EE006D6953 /* ChangePassword */ = {
@@ -500,30 +614,18 @@
 			buildRules = (
 			);
 			dependencies = (
+				38063F6B2A2E87BD00BB72BD /* PBXTargetDependency */,
+				38063F692A2E87B900BB72BD /* PBXTargetDependency */,
 				38D7F7DC29A42ED2009E0A6A /* PBXTargetDependency */,
 			);
 			name = MeuAtelieAppTests;
+			packageProductDependencies = (
+				38063F642A2E878200BB72BD /* FirebaseAuth */,
+				38063F662A2E878B00BB72BD /* FirebaseFirestore */,
+			);
 			productName = MeuAtelieAppTests;
 			productReference = 38D7F7DA29A42ED2009E0A6A /* MeuAtelieAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		38D7F7E329A42ED2009E0A6A /* MeuAtelieAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 38D7F7F429A42ED2009E0A6A /* Build configuration list for PBXNativeTarget "MeuAtelieAppUITests" */;
-			buildPhases = (
-				38D7F7E029A42ED2009E0A6A /* Sources */,
-				38D7F7E129A42ED2009E0A6A /* Frameworks */,
-				38D7F7E229A42ED2009E0A6A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				38D7F7E629A42ED2009E0A6A /* PBXTargetDependency */,
-			);
-			name = MeuAtelieAppUITests;
-			productName = MeuAtelieAppUITests;
-			productReference = 38D7F7E429A42ED2009E0A6A /* MeuAtelieAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -539,10 +641,6 @@
 						CreatedOnToolsVersion = 14.0.1;
 					};
 					38D7F7D929A42ED2009E0A6A = {
-						CreatedOnToolsVersion = 14.0.1;
-						TestTargetID = 38D7F7C929A42ED0009E0A6A;
-					};
-					38D7F7E329A42ED2009E0A6A = {
 						CreatedOnToolsVersion = 14.0.1;
 						TestTargetID = 38D7F7C929A42ED0009E0A6A;
 					};
@@ -566,7 +664,6 @@
 			targets = (
 				38D7F7C929A42ED0009E0A6A /* MeuAtelieApp */,
 				38D7F7D929A42ED2009E0A6A /* MeuAtelieAppTests */,
-				38D7F7E329A42ED2009E0A6A /* MeuAtelieAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -585,13 +682,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		38D7F7D829A42ED2009E0A6A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		38D7F7E229A42ED2009E0A6A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -655,31 +745,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38D7F7DF29A42ED2009E0A6A /* MeuAtelieAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		38D7F7E029A42ED2009E0A6A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				38D7F7EB29A42ED2009E0A6A /* MeuAtelieAppUITestsLaunchTests.swift in Sources */,
-				38D7F7E929A42ED2009E0A6A /* MeuAtelieAppUITests.swift in Sources */,
+				38063F772A2E8C6300BB72BD /* MATailoredOrderFlowMeasurementsViewModelTests.swift in Sources */,
+				38063F742A2E8B5400BB72BD /* MANewOrderViewModelTests.swift in Sources */,
+				38063F8E2A2E911900BB72BD /* MAEditClientViewModelTests.swift in Sources */,
+				38063F6E2A2E8A0E00BB72BD /* MALoginViewModelTests.swift in Sources */,
+				38063F852A2E8FD900BB72BD /* MAClientsViewModelTests.swift in Sources */,
+				38063F8B2A2E90B600BB72BD /* MAClientDetailsViewModelTests.swift in Sources */,
+				38063F792A2E8D0C00BB72BD /* MATailoredOrderFlowViewModelTests.swift in Sources */,
+				38063F882A2E905D00BB72BD /* MANewClientViewModelTests.swift in Sources */,
+				38063F712A2E8AAC00BB72BD /* MAHomeViewModelTests.swift in Sources */,
+				38063F822A2E8F6300BB72BD /* MANewPasswordViewModelTests.swift in Sources */,
+				38063F622A2E86AB00BB72BD /* MARegisterViewModelTests.swift in Sources */,
+				38063F7F2A2E8ECA00BB72BD /* MAProfileViewModelTests.swift in Sources */,
+				38063F7C2A2E8DA600BB72BD /* MAOrderListRowViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		38063F692A2E87B900BB72BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 38063F682A2E87B900BB72BD /* FirebaseAuth */;
+		};
+		38063F6B2A2E87BD00BB72BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 38063F6A2A2E87BD00BB72BD /* FirebaseFirestore */;
+		};
 		38D7F7DC29A42ED2009E0A6A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 38D7F7C929A42ED0009E0A6A /* MeuAtelieApp */;
 			targetProxy = 38D7F7DB29A42ED2009E0A6A /* PBXContainerItemProxy */;
-		};
-		38D7F7E629A42ED2009E0A6A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 38D7F7C929A42ED0009E0A6A /* MeuAtelieApp */;
-			targetProxy = 38D7F7E529A42ED2009E0A6A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -902,42 +998,6 @@
 			};
 			name = Release;
 		};
-		38D7F7F529A42ED2009E0A6A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3F7B357CTD;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anajuliavolpi.MeuAtelieAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MeuAtelieApp;
-			};
-			name = Debug;
-		};
-		38D7F7F629A42ED2009E0A6A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3F7B357CTD;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anajuliavolpi.MeuAtelieAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MeuAtelieApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -968,15 +1028,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		38D7F7F429A42ED2009E0A6A /* Build configuration list for PBXNativeTarget "MeuAtelieAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				38D7F7F529A42ED2009E0A6A /* Debug */,
-				38D7F7F629A42ED2009E0A6A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -991,6 +1042,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		38063F642A2E878200BB72BD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		38063F662A2E878B00BB72BD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		38063F682A2E87B900BB72BD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		38063F6A2A2E87BD00BB72BD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		3822E4AF29DB4A7200FE8348 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3822E4AE29DB4A7200FE8348 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
