@@ -15,7 +15,7 @@ struct MAClientsView: View {
         NavigationView {
             List(viewModel.clients, id: \.id) { client in
                 NavigationLink {
-                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id))
+                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId))
                         .navigationTitle("Dados do Cliente")
                 } label: {
                     MAClientListRow(clientName: client.fullName,

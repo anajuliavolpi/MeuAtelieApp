@@ -30,26 +30,8 @@ struct MAClientDetailsView: View {
             
             Divider()
             
-            List {
-                ClientDetailsServiceRow()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        return 0
-                    })
-                    .listRowInsets(EdgeInsets())
-                    .padding()
-                ClientDetailsServiceRow()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        return 0
-                    })
-                    .listRowInsets(EdgeInsets())
-                    .padding()
-                ClientDetailsServiceRow()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        return 0
-                    })
-                    .listRowInsets(EdgeInsets())
-                    .padding()
-                ClientDetailsServiceRow()
+            List(viewModel.order, id: \.id) { order in
+                ClientDetailsServiceRow(model: order)
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
                         return 0
                     })
@@ -73,6 +55,7 @@ struct MAClientDetailsView: View {
         }
         .onAppear {
             viewModel.fetchClient()
+            viewModel.fetchClientOrders()
         }
     }
     
@@ -135,6 +118,6 @@ struct MAClientDetailsView: View {
 
 struct MAClientDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientDetailsView(viewModel: MAClientDetailsViewModel(""))
+        MAClientDetailsView(viewModel: MAClientDetailsViewModel("", clientUserID: ""))
     }
 }

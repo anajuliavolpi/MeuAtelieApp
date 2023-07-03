@@ -19,7 +19,7 @@ final class MAProfileViewModel: ObservableObject {
     let nameText: String = "Nome:"
     
     let changePasswordText: String = "ALTERAR SENHA"
-    let exitText: String = "Sair"
+    let exitText: String = "SAIR"
     
     func fetchUserData() {
         isLoading = true

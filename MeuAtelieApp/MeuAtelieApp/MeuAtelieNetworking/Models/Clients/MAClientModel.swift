@@ -10,6 +10,7 @@ import Foundation
 struct MAClientModel: Identifiable {
     
     let uuid = UUID()
+    let userId: String
     let id: String
     let fullName: String
     let phone: String

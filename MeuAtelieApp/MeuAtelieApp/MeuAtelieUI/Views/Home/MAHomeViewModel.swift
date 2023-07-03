@@ -46,10 +46,20 @@ final class MAHomeViewModel: ObservableObject {
                         let waistMeasurement = data["waistMeasurement"] as? Int ?? 0
                         let abdomenMeasurement = data["abdomenMeasurement"] as? Int ?? 0
                         let hipsMeasurement = data["hipsMeasurement"] as? Int ?? 0
+                        let waistFix = data["waistFix"] as? Bool ?? false
+                        let lengthFix = data["lengthFix"] as? Bool ?? false
+                        let hipsFix = data["hipsFix"] as? Bool ?? false
+                        let barFix = data["barFix"] as? Bool ?? false
+                        let shoulderFix = data["shoulderFix"] as? Bool ?? false
+                        let wristFix = data["wristFix"] as? Bool ?? false
+                        let legFix = data["legFix"] as? Bool ?? false
+                        let totalValue = data["totalValue"] as? Double ?? 0.0
+                        let hiredDate = data["hiredDate"] as? String ?? ""
 
-                        self.orders.append(MAOrderModel(id: UUID().uuidString,
+                        self.orders.append(MAOrderModel(id: document.documentID,
                                                         serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
-                                                        client: MAClientModel(id: "",
+                                                        client: MAClientModel(userId: "",
+                                                                              id: "",
                                                                               fullName: clientName,
                                                                               phone: clientPhone),
                                                         cloathesName: cloathesName,
@@ -60,7 +70,16 @@ final class MAHomeViewModel: ObservableObject {
                                                         lengthMeasurement: lengthMeasurement,
                                                         waistMeasurement: waistMeasurement,
                                                         abdomenMeasurement: abdomenMeasurement,
-                                                        hipsMeasurement: hipsMeasurement))
+                                                        hipsMeasurement: hipsMeasurement,
+                                                        waistFix: waistFix,
+                                                        lengthFix: lengthFix,
+                                                        hipsFix: hipsFix,
+                                                        barFix: barFix,
+                                                        shoulderFix: shoulderFix,
+                                                        wristFix: wristFix,
+                                                        legFix: legFix,
+                                                        totalValue: totalValue,
+                                                        hiredDate: hiredDate))
                     }
                 }
             }

@@ -60,7 +60,16 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                                          lengthMeasurement: Int(self.length) ?? 0,
                                                          waistMeasurement: Int(self.waist) ?? 0,
                                                          abdomenMeasurement: Int(self.abdomen) ?? 0,
-                                                         hipsMeasurement: Int(self.hips) ?? 0))
+                                                         hipsMeasurement: Int(self.hips) ?? 0,
+                                                         waistFix: false,
+                                                         lengthFix: false,
+                                                         hipsFix: false,
+                                                         barFix: false,
+                                                         shoulderFix: false,
+                                                         wristFix: false,
+                                                         legFix: false,
+                                                         totalValue: 0.0, // total value 0 for now
+                                                         hiredDate: Date.now.formatted()))
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -178,7 +187,7 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowMeasurementsView(viewModel: .init(.init(id: UUID().uuidString,
                                                                    serviceType: .tailored,
-                                                                   client: MAClientModel(id: "", fullName: "", phone: ""),
+                                                                   client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                                    cloathesName: "",
                                                                    cloathesDescription: "",
                                                                    estimatedDeliveryDate: "",
@@ -187,6 +196,15 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    lengthMeasurement: 0,
                                                                    waistMeasurement: 0,
                                                                    abdomenMeasurement: 0,
-                                                                   hipsMeasurement: 0)))
+                                                                   hipsMeasurement: 0,
+                                                                   waistFix: false,
+                                                                   lengthFix: false,
+                                                                   hipsFix: false,
+                                                                   barFix: false,
+                                                                   shoulderFix: false,
+                                                                   wristFix: false,
+                                                                   legFix: false,
+                                                                   totalValue: 0.0,
+                                                                   hiredDate: "")))
     }
 }
