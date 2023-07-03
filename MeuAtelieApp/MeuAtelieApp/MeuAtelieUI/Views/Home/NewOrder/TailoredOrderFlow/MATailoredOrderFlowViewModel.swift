@@ -7,21 +7,44 @@
 
 import Foundation
 
-final class MATailoredOrderFlowViewModel {
+final class MATailoredOrderFlowViewModel: ObservableObject {
     
     var model: MAOrderModel
     
-    let cloathesText: String = "Roupa"
-    let tailoredText: String = "sob medida"
+    var cloathesText: String = "Roupa"
+    var tailoredText: String = "sob medida"
     let cloathesNameText: String = "Nome da peça"
     let cloathesNamePlaceholder: String = "Nome"
     let cloathesDescriptionText: String = "Descrição da peça"
     let cloathesDescriptionPlaceholder: String = "Descrição"
     let estimatedDeliveryDateText: String = "Data de entrega prevista"
-    let continueActionButtonText: String = "CONTINUAR"
+    var continueActionButtonText: String = "CONTINUAR"
     
-    init(_ model: MAOrderModel) {
+    @Published var cloathesName: String = ""
+    @Published var cloathesDescription: String = ""
+    @Published var dateNow = Date.now
+    
+    var isValid: Bool {
+        !cloathesName.isEmpty && !cloathesDescription.isEmpty
+    }
+    
+    init(_ model: MAOrderModel, editing: Bool = false) {
         self.model = model
+    }
+    
+    // needs to finish this implementation
+    private func setUpEditing() {
+        cloathesText = "Editar"
+        tailoredText = "PEDIDO"
+        cloathesName = model.cloathesName
+        cloathesDescription = model.cloathesDescription
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let date = dateFormatter.date(from: model.estimatedDeliveryDate)
+        dateNow = date ?? .now
+        
+        continueActionButtonText = "ATUALIZAR"
     }
     
 }

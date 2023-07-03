@@ -17,9 +17,10 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
             updateTexts()
         }
     }
+    var isEditing: Bool
     
-    let headerText: String = "Ajuste/Conserto"
-    let subheaderText: String = "DE ROUPA"
+    var headerText: String = "Ajuste/Conserto"
+    var subheaderText: String = "DE ROUPA"
     let selectFixesText: String = "Selecione os ajustes solicitados:"
     let pieceName: String = "Nome da peça:"
     let pieceNamePlaceholder: String = "Nome"
@@ -57,11 +58,16 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         !cloathesName.isEmpty && !cloathesDescription.isEmpty
     }
     
-    init(_ model: MAOrderModel, pieces: Int) {
+    init(_ model: MAOrderModel, pieces: Int, editing: Bool = false) {
         self.model = model
         self.pieces = pieces
+        self.isEditing = editing
         
-        updateTexts()
+        if editing {
+            setUpEditing()
+        } else {
+            updateTexts()
+        }
     }
     
     func register() {
@@ -72,6 +78,31 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         } else {
             NavigationUtil.popToRootView()
         }
+    }
+    
+    private func setUpEditing() {
+        headerText = "Editar"
+        subheaderText = "PEDIDO"
+        piecesText = "SERVIÇO"
+        cloathesName = model.cloathesName
+        cloathesDescription = model.cloathesDescription
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let date = dateFormatter.date(from: model.estimatedDeliveryDate)
+        dateNow = date ?? .now
+        
+        fixes = [
+            .init(toggle: model.waistFix, description: "Ajuste de cintura", value: 25),
+            .init(toggle: model.lengthFix, description: "Ajuste de manga", value: 15),
+            .init(toggle: model.hipsFix, description: "Ajuste de quadril", value: 34),
+            .init(toggle: model.hipsFix, description: "Ajuste de barra", value: 36),
+            .init(toggle: model.shoulderFix, description: "Ajuste de ombro", value: 15),
+            .init(toggle: model.wristFix, description: "Ajuste de punho", value: 46),
+            .init(toggle: model.legFix, description: "Ajuste de perna", value: 84),
+        ]
+        
+        continueButtonText = "ATUALIZAR"
     }
     
     private func updateTexts() {
@@ -101,7 +132,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
     private func registerOrder() {
         isLoading = true
         let db = Firestore.firestore()
-        let ref = db.collection("Orders").document(UUID().uuidString)
+        let ref = db.collection("Orders").document(isEditing ? model.id : UUID().uuidString)
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
                      "serviceType": model.serviceType.rawValue,

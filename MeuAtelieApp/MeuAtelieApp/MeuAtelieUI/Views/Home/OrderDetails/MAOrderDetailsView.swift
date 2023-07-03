@@ -28,7 +28,7 @@ struct MAOrderDetailsView: View {
                 if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
                     fixesView
                         .padding(.top, 10)
-                } else {
+                } else if viewModel.order?.serviceType == .tailored {
                     measurementsView
                         .padding(.top, 10)
                 }
@@ -253,8 +253,16 @@ struct MAOrderDetailsView: View {
     var bottomButtonsView: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 10) {
-                Button(viewModel.editText) {
-                    print("tapped editar")
+                NavigationLink(viewModel.editText) {
+                    if let model = viewModel.order {
+                        if viewModel.order?.serviceType == .fixes {
+                            MAFixesOrderFlowView(viewModel: .init(model, pieces: 1, editing: true))
+                                .toolbar(.hidden)
+                        } else {
+                            MATailoredOrderFlowView(viewModel: .init(model))
+                                .toolbar(.hidden)
+                        }
+                    }
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
                                                 fontColor: .white))

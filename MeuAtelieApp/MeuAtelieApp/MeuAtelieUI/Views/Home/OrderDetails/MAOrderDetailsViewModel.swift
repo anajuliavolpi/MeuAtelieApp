@@ -79,7 +79,6 @@ final class MAOrderDetailsViewModel: ObservableObject {
             if let snapshot {
                 for document in snapshot.documents {
                     let data = document.data()
-                    let userId = data["userId"] as? String ?? ""
                     
                     if document.documentID == self.orderID {
                         let serviceType = data["serviceType"] as? String ?? ""
@@ -104,7 +103,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         
-                        self.order = MAOrderModel(id: UUID().uuidString,
+                        self.order = MAOrderModel(id: document.documentID,
                                                   serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                   client: MAClientModel(id: "",
                                                                         fullName: clientName,
@@ -148,6 +147,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
     }
     
     private func setList(fixes: [String]) {
+        self.fixes.removeAll()
         let dict: [String: String] = [
             "waistFix": "Ajuste de cintura",
             "lengthFix": "Ajuste de manga",

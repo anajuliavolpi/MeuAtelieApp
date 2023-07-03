@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ClientDetailsServiceRow: View {
     
+    @State var model: MAOrderModel
+    
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
             ZStack {
@@ -23,19 +25,19 @@ struct ClientDetailsServiceRow: View {
             }
             
             VStack(alignment: .leading, spacing: 10) {
-                Text("Serviço: Roupa sob medida")
+                Text("Serviço: \(model.serviceType.rawValue)")
                     .font(.system(size: 16))
                 
-                Text("Peça: Vestido")
+                Text("Peça: \(model.cloathesName)")
                     .font(.system(size: 16))
                 
-                Text("Contratado: 05/05/2023")
+                Text("Contratado: \(model.hiredDate)")
                     .font(.system(size: 16))
                 
-                Text("Finalizado: 15/06/2023")
+                Text("Previsão: \(model.estimatedDeliveryDate)")
                     .font(.system(size: 16))
                 
-                Text("Preço: R$ 767,90")
+                Text("Preço: R$ \(String(format: "%.2f", model.totalValue))")
                     .font(.system(size: 16))
             }
         }
@@ -45,6 +47,26 @@ struct ClientDetailsServiceRow: View {
 
 struct ClientDetailsServiceRow_Previews: PreviewProvider {
     static var previews: some View {
-        ClientDetailsServiceRow()
+        ClientDetailsServiceRow(model: .init(id: "",
+                                             serviceType: .fixes,
+                                             client: .init(id: "", fullName: "", phone: ""),
+                                             cloathesName: "",
+                                             cloathesDescription: "",
+                                             estimatedDeliveryDate: "",
+                                             shoulderMeasurement: 0,
+                                             bustMeasurement: 0,
+                                             lengthMeasurement: 0,
+                                             waistMeasurement: 0,
+                                             abdomenMeasurement: 0,
+                                             hipsMeasurement: 0,
+                                             waistFix: false,
+                                             lengthFix: false,
+                                             hipsFix: false,
+                                             barFix: false,
+                                             shoulderFix: false,
+                                             wristFix: false,
+                                             legFix: false,
+                                             totalValue: 0.0,
+                                             hiredDate: ""))
     }
 }
