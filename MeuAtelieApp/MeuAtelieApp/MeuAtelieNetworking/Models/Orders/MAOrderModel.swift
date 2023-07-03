@@ -34,5 +34,6 @@ struct MAOrderModel: Identifiable {
     let shoulderFix: Bool
     let wristFix: Bool
     let legFix: Bool
+    let totalValue: Double
     
 }

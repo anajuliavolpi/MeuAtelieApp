@@ -13,6 +13,7 @@ struct MANewOrder: View {
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var showNewClientView: Bool = false
     @State var clientSelected: MAClientModel = MAClientModel(id: "", fullName: "", phone: "")
+    @State var piecesNumber: String = ""
     
     var body: some View {
         VStack {
@@ -23,6 +24,10 @@ struct MANewOrder: View {
             serviceTypeView
 
             clientSelectionView
+            
+            if viewModel.showPieces {
+                piecesQuantityView
+            }
             
             Spacer()
             
@@ -48,8 +53,32 @@ struct MANewOrder: View {
                                                                  barFix: false,
                                                                  shoulderFix: false,
                                                                  wristFix: false,
-                                                                 legFix: false)))
+                                                                 legFix: false,
+                                                                 totalValue: 0.0)))
                         .toolbar(.hidden)
+                } else {
+                    MAFixesOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
+                                                                serviceType: .fixes,
+                                                                client: clientSelected,
+                                                                cloathesName: "",
+                                                                cloathesDescription: "",
+                                                                estimatedDeliveryDate: "",
+                                                                shoulderMeasurement: 0,
+                                                                bustMeasurement: 0,
+                                                                lengthMeasurement: 0,
+                                                                waistMeasurement: 0,
+                                                                abdomenMeasurement: 0,
+                                                                hipsMeasurement: 0,
+                                                                waistFix: false,
+                                                                lengthFix: false,
+                                                                hipsFix: false,
+                                                                barFix: false,
+                                                                shoulderFix: false,
+                                                                wristFix: false,
+                                                                legFix: false,
+                                                                totalValue: 0.0),
+                                                          pieces: Int(piecesNumber) ?? 1))
+                    .toolbar(.hidden)
                 }
             } label: {
                 Button(viewModel.continueActionText) {
@@ -121,7 +150,7 @@ struct MANewOrder: View {
                 
                 Spacer()
             }
-            .padding(.top, 42)
+            .padding(.top, 30)
             
             MADropdownMenu {
                 ForEach(viewModel.clients, id: \.id) { client in
@@ -148,6 +177,24 @@ struct MANewOrder: View {
                         .foregroundColor(.MAColors.MAPinkMedium)
                 }
             }
+        }
+    }
+    
+    var piecesQuantityView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(viewModel.piecesQuantityText)
+                    .foregroundColor(.MAColors.MAWinePink)
+                    .font(.system(size: 20, design: .rounded))
+                
+                Spacer()
+            }
+            .padding(.top, 30)
+            
+            TextField(viewModel.piecesQuantityPlaceholder, text: $piecesNumber)
+                .textFieldStyle(MABasicTextFieldStyle(image: Image(systemName: "plus.circle"),
+                                                      backgroundColor: .MAColors.MAPinkTextField,
+                                                      keyboard: .numberPad))
         }
     }
     

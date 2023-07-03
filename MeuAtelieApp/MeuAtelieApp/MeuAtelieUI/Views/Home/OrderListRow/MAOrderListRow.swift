@@ -59,6 +59,7 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      barFix: false,
                                                      shoulderFix: false,
                                                      wristFix: false,
-                                                     legFix: false)))
+                                                     legFix: false,
+                                                     totalValue: 0.0)))
     }
 }

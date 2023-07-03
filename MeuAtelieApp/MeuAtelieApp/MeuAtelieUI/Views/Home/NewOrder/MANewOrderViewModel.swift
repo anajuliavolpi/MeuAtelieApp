@@ -16,6 +16,10 @@ final class MANewOrderViewModel: ObservableObject {
     @Published var orderClient: String = "Cliente"
     @Published var isValid: Bool = false
     
+    var showPieces: Bool {
+        return orderService == service2Text 
+    }
+    
     let createText: String = "Criar"
     let newOrderText: String = "novo pedido"
     let serviceTypeText: String = "Selecione o tipo de serviço:"
@@ -23,6 +27,8 @@ final class MANewOrderViewModel: ObservableObject {
     let service2Text: String = "Ajuste/Conserto de roupa"
     let clientSelectionText: String = "Selecione o cliente:"
     let newClientText: String = "Adicionar novo cliente"
+    let piecesQuantityText: String = "Quantidade de peças"
+    let piecesQuantityPlaceholder: String = "Quantidade"
     let continueActionText: String = "CONTINUAR"
     
     func fetchClients() {
@@ -57,7 +63,7 @@ final class MANewOrderViewModel: ObservableObject {
     }
     
     func validateFields() {
-        isValid = orderService == service1Text && orderClient != "Cliente"
+        isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente"
     }
     
 }

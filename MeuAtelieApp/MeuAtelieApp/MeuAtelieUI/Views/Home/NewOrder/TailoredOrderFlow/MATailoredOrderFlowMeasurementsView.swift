@@ -67,7 +67,8 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                                          barFix: false,
                                                          shoulderFix: false,
                                                          wristFix: false,
-                                                         legFix: false))
+                                                         legFix: false,
+                                                         totalValue: 0.0)) // total value 0 for now
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -201,6 +202,7 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    barFix: false,
                                                                    shoulderFix: false,
                                                                    wristFix: false,
-                                                                   legFix: false)))
+                                                                   legFix: false,
+                                                                   totalValue: 0.0)))
     }
 }

@@ -53,7 +53,8 @@ struct MATailoredOrderFlowView: View {
                                                                              barFix: false,
                                                                              shoulderFix: false,
                                                                              wristFix: false,
-                                                                             legFix: false)))
+                                                                             legFix: false,
+                                                                             totalValue: 0.0)))
                         .toolbar(.hidden)
                 } label: {
                     Button(viewModel.continueActionButtonText) {
@@ -190,6 +191,7 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        barFix: false,
                                                        shoulderFix: false,
                                                        wristFix: false,
-                                                       legFix: false)))
+                                                       legFix: false,
+                                                       totalValue: 0.0)))
     }
 }
