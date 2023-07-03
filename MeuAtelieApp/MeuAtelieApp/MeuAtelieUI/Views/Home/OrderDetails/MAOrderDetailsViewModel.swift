@@ -128,7 +128,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
     private func setList(fixes: [String]) {
         let dict: [String: String] = [
             "waistFix": "Ajuste de cintura",
-            "lengthFix": "Ajuste de comprimento",
+            "lengthFix": "Ajuste de manga",
             "hipsFix": "Ajuste de quadril",
             "barFix": "Ajuste de barra",
             "shoulderFix": "Ajuste de ombro",

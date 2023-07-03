@@ -13,7 +13,6 @@ struct MANewOrder: View {
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var showNewClientView: Bool = false
     @State var clientSelected: MAClientModel = MAClientModel(id: "", fullName: "", phone: "")
-    @State var piecesNumber: String = ""
     
     var body: some View {
         VStack {
@@ -79,7 +78,7 @@ struct MANewOrder: View {
                                                                 legFix: false,
                                                                 totalValue: 0.0,
                                                                 hiredDate: ""),
-                                                          pieces: Int(piecesNumber) ?? 1))
+                                                          pieces: Int(viewModel.piecesNumber) ?? 1))
                     .toolbar(.hidden)
                 }
             } label: {
@@ -193,7 +192,10 @@ struct MANewOrder: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.piecesQuantityPlaceholder, text: $piecesNumber)
+            TextField(viewModel.piecesQuantityPlaceholder, text: $viewModel.piecesNumber)
+                .onChange(of: viewModel.piecesNumber, perform: { _ in
+                    viewModel.validateFields()
+                })
                 .textFieldStyle(MABasicTextFieldStyle(image: Image(systemName: "plus.circle"),
                                                       backgroundColor: .MAColors.MAPinkTextField,
                                                       keyboard: .numberPad))

@@ -23,11 +23,11 @@ struct MAOrderDetailsView: View {
                 serviceView
                     .padding(.top, 30)
                 
-                if viewModel.order?.serviceType == .tailored {
-                    measurementsView
+                if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
+                    fixesView
                         .padding(.top, 10)
                 } else {
-                    fixesView
+                    measurementsView
                         .padding(.top, 10)
                 }
                 
@@ -234,7 +234,7 @@ struct MAOrderDetailsView: View {
                     .font(.system(size: 18, design: .rounded))
                     .padding(.top, 10)
                 
-                Text(String(format: "%.2f", viewModel.order?.totalValue ?? 0.0))
+                Text("R$ \(String(format: "%.2f", viewModel.order?.totalValue ?? 0.0))")
                     .font(.system(size: 18, design: .rounded))
                     .foregroundColor(.MAColors.MAWinePink)
             }

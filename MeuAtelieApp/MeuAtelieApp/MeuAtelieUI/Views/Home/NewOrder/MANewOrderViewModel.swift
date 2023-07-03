@@ -15,6 +15,7 @@ final class MANewOrderViewModel: ObservableObject {
     @Published var orderService: String = "Serviço"
     @Published var orderClient: String = "Cliente"
     @Published var isValid: Bool = false
+    @Published var piecesNumber: String = ""
     
     var showPieces: Bool {
         return orderService == service2Text 
@@ -63,7 +64,11 @@ final class MANewOrderViewModel: ObservableObject {
     }
     
     func validateFields() {
-        isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente"
+        if showPieces {
+            isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente" && Int(piecesNumber) ?? 0 > 0
+        } else {
+            isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente"
+        }
     }
     
 }
