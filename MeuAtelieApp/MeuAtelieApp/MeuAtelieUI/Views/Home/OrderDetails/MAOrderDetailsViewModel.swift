@@ -42,6 +42,28 @@ final class MAOrderDetailsViewModel: ObservableObject {
         self.orderID = orderID
     }
     
+    func deleteOrder(_ dismiss: DismissAction) {
+        isLoading = true
+        let db = Firestore.firestore()
+        let ref = db.collection("Orders")
+        
+        ref.getDocuments { snapshot, error in
+            self.isLoading = false
+            if let error {
+                print("some error occured on fetching orders: \(error)")
+                return
+            }
+            
+            if let snapshot {
+                for document in snapshot.documents where document.documentID == self.orderID {
+                    document.reference.delete()
+                }
+            }
+            
+            dismiss()
+        }
+    }
+    
     func fetchOrder() {
         self.isLoading = true
         let db = Firestore.firestore()
@@ -59,7 +81,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                     let data = document.data()
                     let userId = data["userId"] as? String ?? ""
                     
-                    if userId == Auth.auth().currentUser?.uid && document.documentID == self.orderID {
+                    if document.documentID == self.orderID {
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""

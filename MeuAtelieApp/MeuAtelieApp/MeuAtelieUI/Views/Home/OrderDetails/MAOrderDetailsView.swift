@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MAOrderDetailsView: View {
+    @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel: MAOrderDetailsViewModel
+    @State var showDeletionAlert: Bool = false
     
     var body: some View {
         ScrollView {
@@ -44,6 +46,13 @@ struct MAOrderDetailsView: View {
         }
         .ignoresSafeArea(edges: .top)
         .addMALoading(state: viewModel.isLoading)
+        .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
+            viewModel.deleteOrder(dismiss)
+            showDeletionAlert = false
+        } backAction: {
+            showDeletionAlert = false
+        }
+
     }
     
     var clientView: some View {
@@ -251,7 +260,7 @@ struct MAOrderDetailsView: View {
                                                 fontColor: .white))
                 
                 Button(viewModel.deleteText) {
-                    print("tapped editar")
+                    showDeletionAlert = true
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
                                                 fontColor: .white))
