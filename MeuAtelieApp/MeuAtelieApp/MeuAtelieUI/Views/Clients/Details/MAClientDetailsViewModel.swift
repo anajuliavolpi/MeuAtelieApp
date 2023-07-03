@@ -79,6 +79,7 @@ final class MAClientDetailsViewModel: ObservableObject {
     }
     
     func fetchClientOrders() {
+        order.removeAll()
         isLoading = true
         let db = Firestore.firestore()
         let ref = db.collection("Orders")

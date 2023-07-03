@@ -83,6 +83,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                     
                     if document.documentID == self.orderID {
                         let serviceType = data["serviceType"] as? String ?? ""
+                        let clientId = data["clientId"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
@@ -107,7 +108,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         self.order = MAOrderModel(id: document.documentID,
                                                   serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                   client: MAClientModel(userId: userId,
-                                                                        id: "",
+                                                                        id: clientId,
                                                                         fullName: clientName,
                                                                         phone: clientPhone),
                                                   cloathesName: cloathesName,
