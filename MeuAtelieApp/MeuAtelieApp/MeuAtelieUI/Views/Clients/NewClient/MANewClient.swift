@@ -66,7 +66,8 @@ struct MANewClient: View {
                                             fontColor: .white))
             
             Button(viewModel.createActionText) {
-                viewModel.createClient(with: MAClientModel(id: UUID().uuidString,
+                viewModel.createClient(with: MAClientModel(userId: "",
+                                                           id: UUID().uuidString,
                                                            fullName: clientFullName,
                                                            phone: clientPhone),
                                        dismiss)

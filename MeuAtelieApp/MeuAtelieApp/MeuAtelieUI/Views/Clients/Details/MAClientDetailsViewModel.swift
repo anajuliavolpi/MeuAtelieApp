@@ -16,13 +16,15 @@ final class MAClientDetailsViewModel: ObservableObject {
     @Published var order: [MAOrderModel] = []
     
     var clientID: String
+    var clientUserID: String
     
     let clientServicesText: String = "SERVIÇOS CONTRATADOS"
     let editClientText: String = "EDITAR CLIENTE"
     let deleteClientText: String = "DELETAR CLIENTE"
     
-    init(_ clientID: String) {
+    init(_ clientID: String, clientUserID: String) {
         self.clientID = clientID
+        self.clientUserID = clientUserID
     }
     
     func fetchClient() {
@@ -92,8 +94,9 @@ final class MAClientDetailsViewModel: ObservableObject {
                 for document in snapshot.documents {
                     let data = document.data()
                     let userId = data["userId"] as? String ?? ""
+                    let clientOrderID = data["clientId"] as? String ?? ""
                     
-                    if userId == Auth.auth().currentUser?.uid {
+                    if self.clientID == clientOrderID {
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
@@ -118,7 +121,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                         
                         self.order.append(MAOrderModel(id: document.documentID,
                                                        serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
-                                                       client: MAClientModel(id: "",
+                                                       client: MAClientModel(userId: userId,
+                                                                             id: clientOrderID,
                                                                              fullName: clientName,
                                                                              phone: clientPhone),
                                                        cloathesName: cloathesName,

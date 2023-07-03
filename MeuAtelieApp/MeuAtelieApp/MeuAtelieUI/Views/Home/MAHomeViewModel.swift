@@ -58,7 +58,8 @@ final class MAHomeViewModel: ObservableObject {
 
                         self.orders.append(MAOrderModel(id: document.documentID,
                                                         serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
-                                                        client: MAClientModel(id: "",
+                                                        client: MAClientModel(userId: "",
+                                                                              id: "",
                                                                               fullName: clientName,
                                                                               phone: clientPhone),
                                                         cloathesName: cloathesName,

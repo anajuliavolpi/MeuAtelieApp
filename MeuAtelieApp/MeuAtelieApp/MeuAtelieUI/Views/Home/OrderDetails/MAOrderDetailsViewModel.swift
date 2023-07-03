@@ -79,6 +79,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
             if let snapshot {
                 for document in snapshot.documents {
                     let data = document.data()
+                    let userId = data["userId"] as? String ?? ""
                     
                     if document.documentID == self.orderID {
                         let serviceType = data["serviceType"] as? String ?? ""
@@ -105,7 +106,8 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         
                         self.order = MAOrderModel(id: document.documentID,
                                                   serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
-                                                  client: MAClientModel(id: "",
+                                                  client: MAClientModel(userId: userId,
+                                                                        id: "",
                                                                         fullName: clientName,
                                                                         phone: clientPhone),
                                                   cloathesName: cloathesName,

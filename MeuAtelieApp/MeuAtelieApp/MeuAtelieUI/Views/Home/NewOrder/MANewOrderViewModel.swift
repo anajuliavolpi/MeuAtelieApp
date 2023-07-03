@@ -54,7 +54,8 @@ final class MANewOrderViewModel: ObservableObject {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
                         
-                        self.clients.append(MAClientModel(id: document.documentID,
+                        self.clients.append(MAClientModel(userId: userId,
+                                                          id: document.documentID,
                                                           fullName: clientFullName,
                                                           phone: clientPhone))
                     }

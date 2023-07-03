@@ -49,7 +49,7 @@ struct ClientDetailsServiceRow_Previews: PreviewProvider {
     static var previews: some View {
         ClientDetailsServiceRow(model: .init(id: "",
                                              serviceType: .fixes,
-                                             client: .init(id: "", fullName: "", phone: ""),
+                                             client: .init(userId: "", id: "", fullName: "", phone: ""),
                                              cloathesName: "",
                                              cloathesDescription: "",
                                              estimatedDeliveryDate: "",

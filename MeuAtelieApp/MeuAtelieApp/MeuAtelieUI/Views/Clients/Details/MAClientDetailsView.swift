@@ -118,6 +118,6 @@ struct MAClientDetailsView: View {
 
 struct MAClientDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientDetailsView(viewModel: MAClientDetailsViewModel(""))
+        MAClientDetailsView(viewModel: MAClientDetailsViewModel("", clientUserID: ""))
     }
 }

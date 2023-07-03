@@ -36,6 +36,7 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
                      "serviceType": order.serviceType.rawValue,
+                     "clientId": order.client.id,
                      "clientName": order.client.fullName,
                      "clientPhone": order.client.phone,
                      "cloathesName": order.cloathesName,

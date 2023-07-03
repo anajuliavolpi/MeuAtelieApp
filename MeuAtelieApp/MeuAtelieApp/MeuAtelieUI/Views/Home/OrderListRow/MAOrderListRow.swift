@@ -43,7 +43,7 @@ struct MAOrderListRow_Previews: PreviewProvider {
     static var previews: some View {
         MAOrderListRow(viewModel: .init(order: .init(id: UUID().uuidString,
                                                      serviceType: .tailored,
-                                                     client: MAClientModel(id: "", fullName: "", phone: ""),
+                                                     client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                      cloathesName: "",
                                                      cloathesDescription: "",
                                                      estimatedDeliveryDate: "",

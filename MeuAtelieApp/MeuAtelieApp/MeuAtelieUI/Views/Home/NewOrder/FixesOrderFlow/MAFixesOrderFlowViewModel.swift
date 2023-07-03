@@ -136,6 +136,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
                      "serviceType": model.serviceType.rawValue,
+                     "clientId": model.client.id,
                      "clientName": model.client.fullName,
                      "clientPhone": model.client.phone,
                      "cloathesName": cloathesName,
