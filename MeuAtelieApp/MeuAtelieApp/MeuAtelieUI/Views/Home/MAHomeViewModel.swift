@@ -54,8 +54,9 @@ final class MAHomeViewModel: ObservableObject {
                         let wristFix = data["wristFix"] as? Bool ?? false
                         let legFix = data["legFix"] as? Bool ?? false
                         let totalValue = data["totalValue"] as? Double ?? 0.0
+                        let hiredDate = data["hiredDate"] as? String ?? ""
 
-                        self.orders.append(MAOrderModel(id: UUID().uuidString,
+                        self.orders.append(MAOrderModel(id: document.documentID,
                                                         serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                         client: MAClientModel(id: "",
                                                                               fullName: clientName,
@@ -76,7 +77,8 @@ final class MAHomeViewModel: ObservableObject {
                                                         shoulderFix: shoulderFix,
                                                         wristFix: wristFix,
                                                         legFix: legFix,
-                                                        totalValue: totalValue))
+                                                        totalValue: totalValue,
+                                                        hiredDate: hiredDate))
                     }
                 }
             }

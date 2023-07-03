@@ -123,7 +123,8 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
                      "shoulderFix": fixes[4].toggle,
                      "wristFix": fixes[5].toggle,
                      "legFix": fixes[6].toggle,
-                     "totalValue": getTotalValue()]) { error in
+                     "totalValue": getTotalValue(),
+                     "hiredDate": Date.now.formatted()]) { error in
             self.isLoading = false
             if let error {
                 print("some error occured on creating data for order: \(error)")

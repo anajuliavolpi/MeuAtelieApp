@@ -46,7 +46,17 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
                      "lengthMeasurement": order.lengthMeasurement,
                      "waistMeasurement": order.waistMeasurement,
                      "abdomenMeasurement": order.abdomenMeasurement,
-                     "hipsMeasurement": order.hipsMeasurement]) { error in
+                     "hipsMeasurement": order.hipsMeasurement,
+                     "waistFix": false,
+                     "lengthFix": false,
+                     "hipsFix": false,
+                     "barFix": false,
+                     "shoulderFix": false,
+                     "wristFix": false,
+                     "legFix": false,
+                     "totalValue": 0,
+                     "hiredDate": Date.now.formatted()]
+        ) { error in
             self.isLoading = false
             if let error {
                 print("some error occured on creating data for order: \(error)")

@@ -54,7 +54,8 @@ struct MANewOrder: View {
                                                                  shoulderFix: false,
                                                                  wristFix: false,
                                                                  legFix: false,
-                                                                 totalValue: 0.0)))
+                                                                 totalValue: 0.0,
+                                                                 hiredDate: "")))
                         .toolbar(.hidden)
                 } else {
                     MAFixesOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
@@ -76,7 +77,8 @@ struct MANewOrder: View {
                                                                 shoulderFix: false,
                                                                 wristFix: false,
                                                                 legFix: false,
-                                                                totalValue: 0.0),
+                                                                totalValue: 0.0,
+                                                                hiredDate: ""),
                                                           pieces: Int(piecesNumber) ?? 1))
                     .toolbar(.hidden)
                 }

@@ -54,7 +54,8 @@ struct MATailoredOrderFlowView: View {
                                                                              shoulderFix: false,
                                                                              wristFix: false,
                                                                              legFix: false,
-                                                                             totalValue: 0.0)))
+                                                                             totalValue: 0.0,
+                                                                             hiredDate: "")))
                         .toolbar(.hidden)
                 } label: {
                     Button(viewModel.continueActionButtonText) {
@@ -192,6 +193,7 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        shoulderFix: false,
                                                        wristFix: false,
                                                        legFix: false,
-                                                       totalValue: 0.0)))
+                                                       totalValue: 0.0,
+                                                       hiredDate: "")))
     }
 }

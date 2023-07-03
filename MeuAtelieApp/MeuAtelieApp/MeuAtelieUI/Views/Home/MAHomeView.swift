@@ -14,13 +14,18 @@ struct MAHomeView: View {
     var body: some View {
         NavigationView {
             List(viewModel.orders, id: \.id) { order in
-                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
-                    .padding()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        return 0
-                    })
-                    .listRowInsets(EdgeInsets())
-                    .padding(.trailing, 18)
+                NavigationLink {
+                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id))
+                        .toolbar(.hidden)
+                } label: {
+                    MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
+                        .padding()
+                }
+                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                    return 0
+                })
+                .listRowInsets(EdgeInsets())
+                .padding(.trailing, 18)
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)

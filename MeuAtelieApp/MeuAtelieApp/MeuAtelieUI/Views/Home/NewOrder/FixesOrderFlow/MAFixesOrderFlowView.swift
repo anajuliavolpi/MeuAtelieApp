@@ -170,7 +170,8 @@ struct FixesOrderFlowView_Previews: PreviewProvider {
                                                     shoulderFix: false,
                                                     wristFix: false,
                                                     legFix: false,
-                                                    totalValue: 0.0),
+                                                    totalValue: 0.0,
+                                                    hiredDate: ""),
                                               pieces: 3))
     }
     
