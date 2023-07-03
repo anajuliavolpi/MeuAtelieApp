@@ -43,7 +43,7 @@ struct MAOrderListRow_Previews: PreviewProvider {
     static var previews: some View {
         MAOrderListRow(viewModel: .init(order: .init(id: UUID().uuidString,
                                                      serviceType: .tailored,
-                                                     client: MAClientModel(id: "", fullName: "", phone: ""),
+                                                     client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                      cloathesName: "",
                                                      cloathesDescription: "",
                                                      estimatedDeliveryDate: "",
@@ -52,6 +52,15 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      lengthMeasurement: 0,
                                                      waistMeasurement: 0,
                                                      abdomenMeasurement: 0,
-                                                     hipsMeasurement: 0)))
+                                                     hipsMeasurement: 0,
+                                                     waistFix: false,
+                                                     lengthFix: false,
+                                                     hipsFix: false,
+                                                     barFix: false,
+                                                     shoulderFix: false,
+                                                     wristFix: false,
+                                                     legFix: false,
+                                                     totalValue: 0.0,
+                                                     hiredDate: "")))
     }
 }

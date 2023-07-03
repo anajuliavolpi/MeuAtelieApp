@@ -27,5 +27,14 @@ struct MAOrderModel: Identifiable {
     let waistMeasurement: Int
     let abdomenMeasurement: Int
     let hipsMeasurement: Int
+    let waistFix: Bool
+    let lengthFix: Bool
+    let hipsFix: Bool
+    let barFix: Bool
+    let shoulderFix: Bool
+    let wristFix: Bool
+    let legFix: Bool
+    let totalValue: Double
+    let hiredDate: String
     
 }

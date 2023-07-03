@@ -9,15 +9,7 @@ import SwiftUI
 
 struct MATailoredOrderFlowView: View {
     
-    var viewModel: MATailoredOrderFlowViewModel
-    
-    @State var cloathesName: String = ""
-    @State var cloathesDescription: String = ""
-    @State var dateNow = Date.now
-    
-    private var isValid: Bool {
-        !cloathesName.isEmpty && !cloathesDescription.isEmpty
-    }
+    @ObservedObject var viewModel: MATailoredOrderFlowViewModel
     
     var body: some View {
         ScrollView {
@@ -38,26 +30,35 @@ struct MATailoredOrderFlowView: View {
                                                                 MAOrderModel(id: viewModel.model.id,
                                                                              serviceType: viewModel.model.serviceType,
                                                                              client: viewModel.model.client,
-                                                                             cloathesName: self.cloathesName,
-                                                                             cloathesDescription: self.cloathesDescription,
-                                                                             estimatedDeliveryDate: self.dateNow.formatted(),
+                                                                             cloathesName: viewModel.cloathesName,
+                                                                             cloathesDescription: viewModel.cloathesDescription,
+                                                                             estimatedDeliveryDate: viewModel.dateNow.formatted(),
                                                                              shoulderMeasurement: 0,
                                                                              bustMeasurement: 0,
                                                                              lengthMeasurement: 0,
                                                                              waistMeasurement: 0,
                                                                              abdomenMeasurement: 0,
-                                                                             hipsMeasurement: 0)))
+                                                                             hipsMeasurement: 0,
+                                                                             waistFix: false,
+                                                                             lengthFix: false,
+                                                                             hipsFix: false,
+                                                                             barFix: false,
+                                                                             shoulderFix: false,
+                                                                             wristFix: false,
+                                                                             legFix: false,
+                                                                             totalValue: 0.0,
+                                                                             hiredDate: "")))
                         .toolbar(.hidden)
                 } label: {
                     Button(viewModel.continueActionButtonText) {
                         print(#function)
                     }
                     .disabled(true)
-                    .opacity(isValid ? 1 : 0.3)
+                    .opacity(viewModel.isValid ? 1 : 0.3)
                     .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                     fontColor: .white))
                 }
-                .disabled(!isValid)
+                .disabled(!viewModel.isValid)
                 .padding([.top, .bottom], 40)
             }
             .padding(.horizontal, 20)
@@ -110,7 +111,7 @@ struct MATailoredOrderFlowView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.cloathesNamePlaceholder, text: $cloathesName)
+            TextField(viewModel.cloathesNamePlaceholder, text: $viewModel.cloathesName)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black))
                 .textInputAutocapitalization(.words)
@@ -124,7 +125,7 @@ struct MATailoredOrderFlowView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.cloathesDescriptionPlaceholder, text: $cloathesDescription)
+            TextField(viewModel.cloathesDescriptionPlaceholder, text: $viewModel.cloathesDescription)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black))
                 .textInputAutocapitalization(.sentences)
@@ -143,7 +144,7 @@ struct MATailoredOrderFlowView: View {
             .padding(.top, 30)
             
             HStack {
-                DatePicker("", selection: $dateNow, in: Date.now..., displayedComponents: .date)
+                DatePicker("", selection: $viewModel.dateNow, in: Date.now..., displayedComponents: .date)
                     .labelsHidden()
                 
                 Spacer()
@@ -167,7 +168,7 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
                                                        serviceType: .tailored,
-                                                       client: MAClientModel(id: "", fullName: "", phone: ""),
+                                                       client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                        cloathesName: "",
                                                        cloathesDescription: "",
                                                        estimatedDeliveryDate: "",
@@ -176,6 +177,15 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        lengthMeasurement: 0,
                                                        waistMeasurement: 0,
                                                        abdomenMeasurement: 0,
-                                                       hipsMeasurement: 0)))
+                                                       hipsMeasurement: 0,
+                                                       waistFix: false,
+                                                       lengthFix: false,
+                                                       hipsFix: false,
+                                                       barFix: false,
+                                                       shoulderFix: false,
+                                                       wristFix: false,
+                                                       legFix: false,
+                                                       totalValue: 0.0,
+                                                       hiredDate: "")))
     }
 }

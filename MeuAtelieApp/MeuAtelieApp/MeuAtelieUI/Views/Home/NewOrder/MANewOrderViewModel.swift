@@ -15,6 +15,11 @@ final class MANewOrderViewModel: ObservableObject {
     @Published var orderService: String = "Serviço"
     @Published var orderClient: String = "Cliente"
     @Published var isValid: Bool = false
+    @Published var piecesNumber: String = ""
+    
+    var showPieces: Bool {
+        return orderService == service2Text 
+    }
     
     let createText: String = "Criar"
     let newOrderText: String = "novo pedido"
@@ -23,6 +28,8 @@ final class MANewOrderViewModel: ObservableObject {
     let service2Text: String = "Ajuste/Conserto de roupa"
     let clientSelectionText: String = "Selecione o cliente:"
     let newClientText: String = "Adicionar novo cliente"
+    let piecesQuantityText: String = "Quantidade de peças"
+    let piecesQuantityPlaceholder: String = "Quantidade"
     let continueActionText: String = "CONTINUAR"
     
     func fetchClients() {
@@ -47,7 +54,8 @@ final class MANewOrderViewModel: ObservableObject {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
                         
-                        self.clients.append(MAClientModel(id: document.documentID,
+                        self.clients.append(MAClientModel(userId: userId,
+                                                          id: document.documentID,
                                                           fullName: clientFullName,
                                                           phone: clientPhone))
                     }
@@ -57,7 +65,11 @@ final class MANewOrderViewModel: ObservableObject {
     }
     
     func validateFields() {
-        isValid = orderService == service1Text && orderClient != "Cliente"
+        if showPieces {
+            isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente" && Int(piecesNumber) ?? 0 > 0
+        } else {
+            isValid = (orderService == service1Text || orderService == service2Text) && orderClient != "Cliente"
+        }
     }
     
 }
