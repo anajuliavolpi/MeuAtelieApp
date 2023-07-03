@@ -52,6 +52,13 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      lengthMeasurement: 0,
                                                      waistMeasurement: 0,
                                                      abdomenMeasurement: 0,
-                                                     hipsMeasurement: 0)))
+                                                     hipsMeasurement: 0,
+                                                     waistFix: false,
+                                                     lengthFix: false,
+                                                     hipsFix: false,
+                                                     barFix: false,
+                                                     shoulderFix: false,
+                                                     wristFix: false,
+                                                     legFix: false)))
     }
 }

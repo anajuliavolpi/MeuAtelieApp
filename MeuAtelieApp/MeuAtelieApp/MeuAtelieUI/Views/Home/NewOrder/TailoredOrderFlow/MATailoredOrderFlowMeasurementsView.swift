@@ -60,7 +60,14 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                                          lengthMeasurement: Int(self.length) ?? 0,
                                                          waistMeasurement: Int(self.waist) ?? 0,
                                                          abdomenMeasurement: Int(self.abdomen) ?? 0,
-                                                         hipsMeasurement: Int(self.hips) ?? 0))
+                                                         hipsMeasurement: Int(self.hips) ?? 0,
+                                                         waistFix: false,
+                                                         lengthFix: false,
+                                                         hipsFix: false,
+                                                         barFix: false,
+                                                         shoulderFix: false,
+                                                         wristFix: false,
+                                                         legFix: false))
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -187,6 +194,13 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    lengthMeasurement: 0,
                                                                    waistMeasurement: 0,
                                                                    abdomenMeasurement: 0,
-                                                                   hipsMeasurement: 0)))
+                                                                   hipsMeasurement: 0,
+                                                                   waistFix: false,
+                                                                   lengthFix: false,
+                                                                   hipsFix: false,
+                                                                   barFix: false,
+                                                                   shoulderFix: false,
+                                                                   wristFix: false,
+                                                                   legFix: false)))
     }
 }

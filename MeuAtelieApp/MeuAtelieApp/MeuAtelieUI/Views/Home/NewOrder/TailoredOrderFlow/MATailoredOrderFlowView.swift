@@ -46,7 +46,14 @@ struct MATailoredOrderFlowView: View {
                                                                              lengthMeasurement: 0,
                                                                              waistMeasurement: 0,
                                                                              abdomenMeasurement: 0,
-                                                                             hipsMeasurement: 0)))
+                                                                             hipsMeasurement: 0,
+                                                                             waistFix: false,
+                                                                             lengthFix: false,
+                                                                             hipsFix: false,
+                                                                             barFix: false,
+                                                                             shoulderFix: false,
+                                                                             wristFix: false,
+                                                                             legFix: false)))
                         .toolbar(.hidden)
                 } label: {
                     Button(viewModel.continueActionButtonText) {
@@ -176,6 +183,13 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        lengthMeasurement: 0,
                                                        waistMeasurement: 0,
                                                        abdomenMeasurement: 0,
-                                                       hipsMeasurement: 0)))
+                                                       hipsMeasurement: 0,
+                                                       waistFix: false,
+                                                       lengthFix: false,
+                                                       hipsFix: false,
+                                                       barFix: false,
+                                                       shoulderFix: false,
+                                                       wristFix: false,
+                                                       legFix: false)))
     }
 }
