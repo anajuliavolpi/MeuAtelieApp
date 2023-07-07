@@ -49,6 +49,8 @@
 		3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */; };
 		3856D26B29E0755100D68516 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26A29E0755100D68516 /* View+Ext.swift */; };
 		3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26C29E0CD9A00D68516 /* MAErrorView.swift */; };
+		386D92BB2A5894AA004181EE /* MAStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D92BA2A5894AA004181EE /* MAStrings.swift */; };
+		386D92BD2A58A7A4004181EE /* MANavigationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
 		3872D64329ABFCA7001F180D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64229ABFCA7001F180D /* Colors.xcassets */; };
 		3872D64629AC04F2001F180D /* MALoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872D64529AC04F2001F180D /* MALoginView.swift */; };
@@ -127,6 +129,8 @@
 		3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordViewModel.swift; sourceTree = "<group>"; };
 		3856D26A29E0755100D68516 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		3856D26C29E0CD9A00D68516 /* MAErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAErrorView.swift; sourceTree = "<group>"; };
+		386D92BA2A5894AA004181EE /* MAStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAStrings.swift; sourceTree = "<group>"; };
+		386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANavigationRoutes.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
 		3872D64229ABFCA7001F180D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3872D64529AC04F2001F180D /* MALoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoginView.swift; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 			isa = PBXGroup;
 			children = (
 				387F265B2A098CE700DC9BB9 /* NavigationUtil.swift */,
+				386D92BA2A5894AA004181EE /* MAStrings.swift */,
+				386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -735,11 +741,13 @@
 				388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */,
 				3872D64629AC04F2001F180D /* MALoginView.swift in Sources */,
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
+				386D92BD2A58A7A4004181EE /* MANavigationRoutes.swift in Sources */,
 				3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */,
 				3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */,
 				3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */,
 				389951CD2A526F3B007D87FB /* MAOrderDetailsView.swift in Sources */,
 				387F265C2A098CE700DC9BB9 /* NavigationUtil.swift in Sources */,
+				386D92BB2A5894AA004181EE /* MAStrings.swift in Sources */,
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */,
 				387F26592A0980C000DC9BB9 /* MATailoredOrderFlowMeasurementsViewModel.swift in Sources */,

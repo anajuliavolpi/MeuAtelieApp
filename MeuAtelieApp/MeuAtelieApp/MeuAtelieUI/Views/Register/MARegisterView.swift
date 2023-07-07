@@ -20,25 +20,27 @@ struct MARegisterView: View {
         ZStack {
             backgroundView
             
-            ScrollView {
-                VStack {
-                    Text(viewModel.fillYourDataText)
-                        .font(.system(size: 22, weight: .semibold, design: .rounded))
-                        .foregroundColor(.MAColors.MAPinkStrong)
-                        .padding(.top, 16)
-                    
-                    Image.MAImages.Login.loginTopImage
-                        .padding(.top, 16)
-                    
-                    formView
-                    
-                    Image.MAImages.Login.loginBottomImage
-                        .padding(.top, -6)
-                    
-                    actionButtonView
-                        .padding(.vertical, 20)
+            VStack {
+                ScrollView {
+                    VStack {
+                        MAHeaderView(text: "Preencha",
+                                     subtext: "SEUS DADOS",
+                                     backgroundColor: .clear,
+                                     ignoreSafeArea: false)
+                            .padding(.horizontal, -30)
+                        
+                        Image.MAImages.Login.loginTopImage
+                        
+                        formView
+                        
+                        Image.MAImages.Login.loginBottomImage
+                            .padding(.top, -6)
+                        
+                        actionButtonView
+                            .padding(.vertical, 20)
+                    }
+                    .padding(.horizontal, 30)
                 }
-                .padding(.horizontal, 30)
             }
         }
         .addMALoading(state: viewModel.isLoading)

@@ -48,16 +48,10 @@ struct MeuAtelieAppApp: App {
                             }
                     }
                 } else {
-                    if networkManager.userHasAccount {
-                        MALoginView()
-                            .environmentObject(networkManager)
-                    } else {
-                        MARegisterView()
-                            .environmentObject(networkManager)
-                    }
+                    MALoginView()
+                        .environmentObject(networkManager)
                 }
             }
-            .animation(.default, value: networkManager.userHasAccount)
             .animation(.linear, value: networkManager.isLoggedIn)
         }
     }
