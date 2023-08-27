@@ -152,6 +152,7 @@ struct FixesOrderFlowView_Previews: PreviewProvider {
     
     static var previews: some View {
         MAFixesOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
+                                                    status: .onGoing,
                                                     serviceType: .fixes,
                                                     client: .init(userId: "", id: "", fullName: "", phone: ""),
                                                     cloathesName: "",

@@ -50,6 +50,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
                 
                 Button(viewModel.finishActionButtonText) {
                     viewModel.create(order: MAOrderModel(id: viewModel.model.id,
+                                                         status: .onGoing,
                                                          serviceType: viewModel.model.serviceType,
                                                          client: viewModel.model.client,
                                                          cloathesName: viewModel.model.cloathesName,
@@ -186,6 +187,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
 struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowMeasurementsView(viewModel: .init(.init(id: UUID().uuidString,
+                                                                   status: .onGoing,
                                                                    serviceType: .tailored,
                                                                    client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                                    cloathesName: "",

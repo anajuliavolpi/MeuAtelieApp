@@ -48,6 +48,7 @@ struct ClientDetailsServiceRow: View {
 struct ClientDetailsServiceRow_Previews: PreviewProvider {
     static var previews: some View {
         ClientDetailsServiceRow(model: .init(id: "",
+                                             status: .onGoing,
                                              serviceType: .fixes,
                                              client: .init(userId: "", id: "", fullName: "", phone: ""),
                                              cloathesName: "",

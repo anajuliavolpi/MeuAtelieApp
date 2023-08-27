@@ -35,6 +35,7 @@ final class MAHomeViewModel: ObservableObject {
                     let userId = data["userId"] as? String ?? ""
 
                     if userId == Auth.auth().currentUser?.uid {
+                        let status = data["status"] as? String ?? ""
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
@@ -58,6 +59,7 @@ final class MAHomeViewModel: ObservableObject {
                         let hiredDate = data["hiredDate"] as? String ?? ""
 
                         self.orders.append(MAOrderModel(id: document.documentID,
+                                                        status: OrderStatus(rawValue: status) ?? .onGoing,
                                                         serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                         client: MAClientModel(userId: "",
                                                                               id: "",

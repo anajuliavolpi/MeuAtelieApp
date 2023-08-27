@@ -12,10 +12,16 @@ enum ServiceType: String {
     case fixes = "Ajuste/Conserto de roupa"
 }
 
+enum OrderStatus: String {
+    case onGoing = "Em progresso"
+    case completed = "Finalizado"
+}
+
 struct MAOrderModel: Identifiable, Hashable {
     
     let uuid = UUID()
     let id: String
+    let status: OrderStatus
     let serviceType: ServiceType
     let client: MAClientModel
     let cloathesName: String

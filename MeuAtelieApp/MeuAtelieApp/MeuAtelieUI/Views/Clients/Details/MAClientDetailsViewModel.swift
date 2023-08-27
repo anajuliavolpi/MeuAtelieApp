@@ -98,6 +98,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                     let clientOrderID = data["clientId"] as? String ?? ""
                     
                     if self.clientID == clientOrderID {
+                        let status = data["status"] as? String ?? ""
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
@@ -121,6 +122,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         
                         self.order.append(MAOrderModel(id: document.documentID,
+                                                       status: OrderStatus(rawValue: status) ?? .onGoing,
                                                        serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                        client: MAClientModel(userId: userId,
                                                                              id: clientOrderID,

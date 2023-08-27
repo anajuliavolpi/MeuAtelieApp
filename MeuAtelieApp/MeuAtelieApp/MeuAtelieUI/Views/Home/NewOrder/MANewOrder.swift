@@ -34,6 +34,7 @@ struct MANewOrder: View {
             Button(viewModel.continueActionText) {
                 if viewModel.orderService == viewModel.service1Text {
                     path.append(MANavigationRoutes.HomeRoutes.newTailored(order: MAOrderModel(id: UUID().uuidString,
+                                                                                              status: .onGoing,
                                                                                               serviceType: .tailored,
                                                                                               client: clientSelected,
                                                                                               cloathesName: "",
@@ -56,6 +57,7 @@ struct MANewOrder: View {
                                                                                               hiredDate: "")))
                 } else {
                     path.append(MANavigationRoutes.HomeRoutes.newFixes(order: MAOrderModel(id: UUID().uuidString,
+                                                                                           status: .onGoing,
                                                                                            serviceType: .fixes,
                                                                                            client: clientSelected,
                                                                                            cloathesName: "",

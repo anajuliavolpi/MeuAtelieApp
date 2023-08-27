@@ -27,6 +27,7 @@ struct MATailoredOrderFlowView: View {
                 
                 Button(viewModel.continueActionButtonText) {
                     path.append(MANavigationRoutes.HomeRoutes.tailoredFlowMeasurements(order: MAOrderModel(id: viewModel.model.id,
+                                                                                                           status: .onGoing,
                                                                                                            serviceType: viewModel.model.serviceType,
                                                                                                            client: viewModel.model.client,
                                                                                                            cloathesName: viewModel.cloathesName,
@@ -160,6 +161,7 @@ struct MATailoredOrderFlowView: View {
 struct MATailoredOrderFlowView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
+                                                       status: .onGoing,
                                                        serviceType: .tailored,
                                                        client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
                                                        cloathesName: "",

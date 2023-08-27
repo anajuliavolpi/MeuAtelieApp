@@ -137,6 +137,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         let ref = db.collection("Orders").document(isEditing ? model.id : UUID().uuidString)
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                     "status": model.status.rawValue,
                      "serviceType": model.serviceType.rawValue,
                      "clientId": model.client.id,
                      "clientName": model.client.fullName,
