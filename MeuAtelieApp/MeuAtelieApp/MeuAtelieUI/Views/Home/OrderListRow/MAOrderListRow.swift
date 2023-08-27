@@ -62,6 +62,7 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      wristFix: false,
                                                      legFix: false,
                                                      totalValue: 0.0,
-                                                     hiredDate: "")))
+                                                     hiredDate: "",
+                                                     deliveryDate: "")))
     }
 }

@@ -47,7 +47,8 @@ struct MATailoredOrderFlowView: View {
                                                                                                            wristFix: false,
                                                                                                            legFix: false,
                                                                                                            totalValue: 0.0,
-                                                                                                           hiredDate: "")))
+                                                                                                           hiredDate: "",
+                                                                                                           deliveryDate: "")))
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                 fontColor: .white))
@@ -181,7 +182,8 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        wristFix: false,
                                                        legFix: false,
                                                        totalValue: 0.0,
-                                                       hiredDate: "")),
+                                                       hiredDate: "",
+                                                       deliveryDate: "")),
                                 path: Binding.constant(.init()))
     }
 }

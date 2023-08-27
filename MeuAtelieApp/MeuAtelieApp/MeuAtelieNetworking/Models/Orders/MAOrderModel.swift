@@ -42,6 +42,7 @@ struct MAOrderModel: Identifiable, Hashable {
     let legFix: Bool
     let totalValue: Double
     let hiredDate: String
+    let deliveryDate: String
     
     static func == (lhs: MAOrderModel, rhs: MAOrderModel) -> Bool {
         lhs.id == rhs.id

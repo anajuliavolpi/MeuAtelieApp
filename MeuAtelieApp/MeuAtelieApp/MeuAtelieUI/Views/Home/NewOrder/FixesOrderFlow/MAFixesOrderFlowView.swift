@@ -172,7 +172,8 @@ struct FixesOrderFlowView_Previews: PreviewProvider {
                                                     wristFix: false,
                                                     legFix: false,
                                                     totalValue: 0.0,
-                                                    hiredDate: ""),
+                                                    hiredDate: "",
+                                                    deliveryDate: ""),
                                               pieces: 3,
                                               path: Binding.constant(.init())))
     }

@@ -54,7 +54,8 @@ struct MANewOrder: View {
                                                                                               wristFix: false,
                                                                                               legFix: false,
                                                                                               totalValue: 0.0,
-                                                                                              hiredDate: "")))
+                                                                                              hiredDate: "",
+                                                                                              deliveryDate: "")))
                 } else {
                     path.append(MANavigationRoutes.HomeRoutes.newFixes(order: MAOrderModel(id: UUID().uuidString,
                                                                                            status: .onGoing,
@@ -77,7 +78,8 @@ struct MANewOrder: View {
                                                                                            wristFix: false,
                                                                                            legFix: false,
                                                                                            totalValue: 0.0,
-                                                                                           hiredDate: ""),
+                                                                                           hiredDate: "",
+                                                                                           deliveryDate: ""),
                                                                        pieces: Int(viewModel.piecesNumber) ?? 1))
                 }
             }

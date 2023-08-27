@@ -120,6 +120,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let legFix = data["legFix"] as? Bool ?? false
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
+                        let deliveryDate = data["deliveryDate"] as? String ?? ""
                         
                         self.order.append(MAOrderModel(id: document.documentID,
                                                        status: OrderStatus(rawValue: status) ?? .onGoing,
@@ -145,7 +146,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                                                        wristFix: wristFix,
                                                        legFix: legFix,
                                                        totalValue: totalValue,
-                                                       hiredDate: String(hiredDate.prefix(10))))
+                                                       hiredDate: String(hiredDate.prefix(10)),
+                                                       deliveryDate: String(deliveryDate.prefix(10))))
                     }
                 }
             }

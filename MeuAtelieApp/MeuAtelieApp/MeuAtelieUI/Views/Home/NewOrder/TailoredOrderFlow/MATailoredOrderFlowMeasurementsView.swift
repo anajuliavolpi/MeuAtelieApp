@@ -70,7 +70,8 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                                          wristFix: false,
                                                          legFix: false,
                                                          totalValue: 0.0, // total value 0 for now
-                                                         hiredDate: Date.now.formatted()))
+                                                         hiredDate: Date.now.formatted(),
+                                                         deliveryDate: ""))
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -207,7 +208,8 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    wristFix: false,
                                                                    legFix: false,
                                                                    totalValue: 0.0,
-                                                                   hiredDate: ""),
+                                                                   hiredDate: "",
+                                                                   deliveryDate: ""),
                                                              path: Binding.constant(.init())))
     }
 }

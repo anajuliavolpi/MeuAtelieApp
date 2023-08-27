@@ -12,48 +12,63 @@ struct MAOrderDetailsView: View {
     
     @ObservedObject var viewModel: MAOrderDetailsViewModel
     @State private var showDeletionAlert: Bool = false
+    @State private var showCompletionAlert: Bool = false
     @Binding var path: NavigationPath
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                MAHeaderView(text: viewModel.headerText, subtext: viewModel.subheaderText)
-                    .padding(.horizontal, -40)
-                
-                clientView
-                    .padding(.top, 30)
-                
-                serviceView
-                    .padding(.top, 30)
-                
-                if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
-                    fixesView
-                        .padding(.top, 10)
-                } else if viewModel.order?.serviceType == .tailored {
-                    measurementsView
-                        .padding(.top, 10)
+        ScrollViewReader { value in
+            ScrollView {
+                VStack(alignment: .leading) {
+                    MAHeaderView(text: viewModel.headerText, subtext: viewModel.subheaderText)
+                        .padding(.horizontal, -40)
+                        .id(1)
+                    
+                    clientView
+                        .padding(.top, 30)
+                    
+                    serviceView
+                        .padding(.top, 30)
+                    
+                    if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
+                        fixesView
+                            .padding(.top, 10)
+                    } else if viewModel.order?.serviceType == .tailored {
+                        measurementsView
+                            .padding(.top, 10)
+                    }
+                    
+                    moreInfoView
+                        .padding(viewModel.isCompletedOrder ? [.top, .bottom] : .top, viewModel.isCompletedOrder ? 30 : 10)
+                    
+                    if !viewModel.isCompletedOrder {
+                        bottomButtonsView
+                            .padding([.top, .bottom], 30)
+                    }
                 }
-                
-                moreInfoView
-                    .padding(.top, 10)
-                
-                bottomButtonsView
-                    .padding([.top, .bottom], 30)
+                .padding(.horizontal, 40)
             }
-            .padding(.horizontal, 40)
+            .onAppear {
+                viewModel.fetchOrder()
+            }
+            .ignoresSafeArea(edges: .top)
+            .addMALoading(state: viewModel.isLoading)
+            .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
+                viewModel.deleteOrder(dismiss)
+                showDeletionAlert = false
+            } backAction: {
+                showDeletionAlert = false
+            }
+            .addMAAlert(state: showCompletionAlert, message: "Deseja finalizar o pedido?") {
+                viewModel.complete()
+                showCompletionAlert = false
+                
+                withAnimation {
+                    value.scrollTo(1)
+                }
+            } backAction: {
+                showCompletionAlert = false
+            }
         }
-        .onAppear {
-            viewModel.fetchOrder()
-        }
-        .ignoresSafeArea(edges: .top)
-        .addMALoading(state: viewModel.isLoading)
-        .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
-            viewModel.deleteOrder(dismiss)
-            showDeletionAlert = false
-        } backAction: {
-            showDeletionAlert = false
-        }
-
     }
     
     var clientView: some View {
@@ -215,6 +230,16 @@ struct MAOrderDetailsView: View {
                 .font(.system(size: 18, design: .rounded))
                 .foregroundColor(.MAColors.MAWinePink)
             
+            if viewModel.isCompletedOrder {
+                Text(viewModel.deliveryDateText)
+                    .font(.system(size: 18, design: .rounded))
+                    .padding(.top, 10)
+                
+                Text(viewModel.order?.deliveryDate ?? "")
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+            }
+            
             if viewModel.order?.serviceType == .tailored {
                 Text(viewModel.cloathesPhotos)
                     .font(.system(size: 18, design: .rounded))
@@ -270,7 +295,7 @@ struct MAOrderDetailsView: View {
             }
             
             Button(viewModel.finishText) {
-                print("tapped finalizar")
+                showCompletionAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                             fontColor: .white))
