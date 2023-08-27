@@ -12,19 +12,18 @@ import Firebase
 struct MeuAtelieAppApp: App {
     
     @StateObject var networkManager: NetworkManager = NetworkManager()
-    @State private var selectedTab: Int = 0
     @State var homePath: NavigationPath = .init()
     
     var handler: Binding<Int> { Binding(
-        get: { self.selectedTab },
+        get: { self.networkManager.selectedTab },
         set: {
-            if $0 == self.selectedTab {
+            if $0 == self.networkManager.selectedTab {
                 if $0 == 0 {
                     homePath.removeLast(homePath.count)
                 }
             }
             
-            self.selectedTab = $0
+            self.networkManager.selectedTab = $0
         }
     )}
     
