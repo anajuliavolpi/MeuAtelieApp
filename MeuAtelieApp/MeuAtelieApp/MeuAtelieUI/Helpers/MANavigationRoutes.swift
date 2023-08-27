@@ -13,4 +13,13 @@ struct MANavigationRoutes {
         case register
     }
     
+    enum HomeRoutes: Hashable {
+        case orderDetails(order: MAOrderModel)
+        case editOrder(order: MAOrderModel)
+        case newOrder
+        case newTailored(order: MAOrderModel)
+        case newFixes(order: MAOrderModel, pieces: Int)
+        case tailoredFlowMeasurements(order: MAOrderModel)
+    }
+    
 }

@@ -10,6 +10,7 @@ import Firebase
 
 final class MAHomeViewModel: ObservableObject {
     
+    @Published var navigationPath: NavigationPath = .init()
     @Published var isLoading: Bool = false
     @Published var orders: [MAOrderModel] = []
     

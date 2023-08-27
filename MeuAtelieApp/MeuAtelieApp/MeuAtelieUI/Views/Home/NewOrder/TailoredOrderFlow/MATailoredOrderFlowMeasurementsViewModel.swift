@@ -13,6 +13,7 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     var model: MAOrderModel
+    var path: Binding<NavigationPath>
     
     let cloathesText: String = "Roupa"
     let tailoredText: String = "sob medida"
@@ -25,8 +26,9 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     let hipsText: String = "Quadril"
     let finishActionButtonText: String = "FINALIZAR"
     
-    init(_ model: MAOrderModel) {
+    init(_ model: MAOrderModel, path: Binding<NavigationPath>) {
         self.model = model
+        self.path = path
     }
     
     func create(order: MAOrderModel) {
@@ -64,7 +66,7 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
                 return
             }
             
-            NavigationUtil.popToRootView()
+            self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
         }
     }
     

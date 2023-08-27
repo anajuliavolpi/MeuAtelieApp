@@ -58,7 +58,6 @@
 		387F26552A0976A100DC9BB9 /* MATailoredOrderFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F26542A0976A100DC9BB9 /* MATailoredOrderFlowViewModel.swift */; };
 		387F26572A09808A00DC9BB9 /* MATailoredOrderFlowMeasurementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F26562A09808A00DC9BB9 /* MATailoredOrderFlowMeasurementsView.swift */; };
 		387F26592A0980C000DC9BB9 /* MATailoredOrderFlowMeasurementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F26582A0980C000DC9BB9 /* MATailoredOrderFlowMeasurementsViewModel.swift */; };
-		387F265C2A098CE700DC9BB9 /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F265B2A098CE700DC9BB9 /* NavigationUtil.swift */; };
 		388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076B29AEC4EF00FCE962 /* MATextField.swift */; };
 		388A076F29AEC55D00FCE962 /* Colors+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A076E29AEC55D00FCE962 /* Colors+Ext.swift */; };
 		388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388A077029AECD6500FCE962 /* Image+Ext.swift */; };
@@ -138,7 +137,6 @@
 		387F26542A0976A100DC9BB9 /* MATailoredOrderFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATailoredOrderFlowViewModel.swift; sourceTree = "<group>"; };
 		387F26562A09808A00DC9BB9 /* MATailoredOrderFlowMeasurementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATailoredOrderFlowMeasurementsView.swift; sourceTree = "<group>"; };
 		387F26582A0980C000DC9BB9 /* MATailoredOrderFlowMeasurementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATailoredOrderFlowMeasurementsViewModel.swift; sourceTree = "<group>"; };
-		387F265B2A098CE700DC9BB9 /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		388A076B29AEC4EF00FCE962 /* MATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATextField.swift; sourceTree = "<group>"; };
 		388A076E29AEC55D00FCE962 /* Colors+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Ext.swift"; sourceTree = "<group>"; };
 		388A077029AECD6500FCE962 /* Image+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Ext.swift"; sourceTree = "<group>"; };
@@ -466,7 +464,6 @@
 		387F265A2A098CDC00DC9BB9 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				387F265B2A098CE700DC9BB9 /* NavigationUtil.swift */,
 				386D92BA2A5894AA004181EE /* MAStrings.swift */,
 				386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */,
 			);
@@ -746,7 +743,6 @@
 				3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */,
 				3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */,
 				389951CD2A526F3B007D87FB /* MAOrderDetailsView.swift in Sources */,
-				387F265C2A098CE700DC9BB9 /* NavigationUtil.swift in Sources */,
 				386D92BB2A5894AA004181EE /* MAStrings.swift in Sources */,
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */,

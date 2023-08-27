@@ -5,7 +5,7 @@
 //  Created by Ana Júlia Volpi on 02/07/23.
 //
 
-import Foundation
+import SwiftUI
 import Firebase
 
 final class MAFixesOrderFlowViewModel: ObservableObject {
@@ -17,6 +17,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
             updateTexts()
         }
     }
+    var path: Binding<NavigationPath>
     var isEditing: Bool
     
     var headerText: String = "Ajuste/Conserto"
@@ -58,9 +59,10 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         !cloathesName.isEmpty && !cloathesDescription.isEmpty
     }
     
-    init(_ model: MAOrderModel, pieces: Int, editing: Bool = false) {
+    init(_ model: MAOrderModel, pieces: Int, path: Binding<NavigationPath>, editing: Bool = false) {
         self.model = model
         self.pieces = pieces
+        self.path = path
         self.isEditing = editing
         
         if editing {
@@ -76,7 +78,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
         if currentPiece != pieces {
             updateTexts()
         } else {
-            NavigationUtil.popToRootView()
+            path.wrappedValue.removeLast(path.wrappedValue.count)
         }
     }
     
