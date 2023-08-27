@@ -57,6 +57,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                      "clientId": order.client.id,
                      "clientName": order.client.fullName,
                      "clientPhone": order.client.phone,
+                     "clientEmail": order.client.email,
                      "cloathesName": order.cloathesName,
                      "cloathesDescription": order.cloathesDescription,
                      "estimatedDeliveryDate": order.estimatedDeliveryDate,

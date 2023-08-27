@@ -332,7 +332,7 @@ struct MAOrderDetailsView: View {
                                             fontColor: .white))
             
             Button("Compartilhar via Email") {
-                let email = Auth.auth().currentUser?.email ?? ""
+                let email = viewModel.order?.client.email ?? ""
                 let text = """
                             O seu pedido está pronto:
                                 Pedido: \(viewModel.order?.cloathesDescription ?? "")

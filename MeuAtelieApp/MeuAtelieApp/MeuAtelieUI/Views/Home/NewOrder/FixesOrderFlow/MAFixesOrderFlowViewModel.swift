@@ -142,6 +142,7 @@ final class MAFixesOrderFlowViewModel: ObservableObject {
                      "clientId": model.client.id,
                      "clientName": model.client.fullName,
                      "clientPhone": model.client.phone,
+                     "clientEmail": model.client.email,
                      "cloathesName": cloathesName,
                      "cloathesDescription": cloathesDescription,
                      "estimatedDeliveryDate": dateNow.formatted(),
