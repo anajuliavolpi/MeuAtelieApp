@@ -38,11 +38,35 @@ struct MAOrderDetailsView: View {
                     }
                     
                     moreInfoView
-                        .padding(viewModel.isCompletedOrder ? [.top, .bottom] : .top, viewModel.isCompletedOrder ? 30 : 10)
+                        .padding(.top, 10)
                     
                     if !viewModel.isCompletedOrder {
                         bottomButtonsView
                             .padding([.top, .bottom], 30)
+                    } else {
+                        Button("Compartilhar no WhatsApp!") {
+                            let phone = viewModel.order?.client.phone ?? ""
+                            let text = """
+                            O seu pedido está pronto:
+                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
+                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
+                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
+                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
+                            Esperamos sua visita!
+                            """
+                            
+                            var urlComponents = URLComponents(string: "https://wa.me/55\(phone)")
+                            urlComponents?.queryItems = [
+                                URLQueryItem(name: "text", value: text)
+                            ]
+                            
+                            if let url = urlComponents?.url {
+                                UIApplication.shared.open(url)
+                            }
+                        }
+                        .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
+                                                        fontColor: .white))
+                        .padding([.top, .bottom], 30)
                     }
                 }
                 .padding(.horizontal, 40)
