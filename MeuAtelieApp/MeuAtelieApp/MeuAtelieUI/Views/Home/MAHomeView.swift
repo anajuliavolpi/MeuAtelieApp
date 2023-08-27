@@ -12,29 +12,24 @@ struct MAHomeView: View {
     @ObservedObject var viewModel: MAHomeViewModel = MAHomeViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.navigationPath) {
             List(viewModel.orders, id: \.id) { order in
-                NavigationLink {
-                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id))
-                        .toolbar(.hidden)
-                } label: {
-                    MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
-                        .padding()
-                }
-                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                    return 0
-                })
-                .listRowInsets(EdgeInsets())
-                .padding(.trailing, 18)
+                MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
+                    .padding()
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
+                    .listRowInsets(EdgeInsets())
+                    .padding(.trailing, 18)
+                    .onTapGesture {
+                        viewModel.navigationPath.append(MANavigationRoutes.HomeRoutes.orderDetails(order: order))
+                    }
             }
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        MANewOrder()
-                            .toolbar(.hidden)
+                    Button {
+                        viewModel.navigationPath.append(MANavigationRoutes.HomeRoutes.newOrder)
                     } label: {
                         Image(systemName: "note.text.badge.plus")
                     }
@@ -65,6 +60,33 @@ struct MAHomeView: View {
             }
             .onAppear {
                 viewModel.fetchOrders()
+            }
+            .navigationDestination(for: MANavigationRoutes.HomeRoutes.self) { path in
+                switch path {
+                case .orderDetails(let order):
+                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id), path: $viewModel.navigationPath)
+                        .toolbar(.hidden)
+                case .editOrder(let order):
+                    if order.serviceType == .fixes {
+                        MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))
+                            .toolbar(.hidden)
+                    } else {
+                        MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
+                            .toolbar(.hidden)
+                    }
+                case .newOrder:
+                    MANewOrder(path: $viewModel.navigationPath)
+                        .toolbar(.hidden)
+                case .newTailored(let order):
+                    MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
+                        .toolbar(.hidden)
+                case .newFixes(let order, let pieces):
+                    MAFixesOrderFlowView(viewModel: .init(order, pieces: pieces, path: $viewModel.navigationPath))
+                        .toolbar(.hidden)
+                case .tailoredFlowMeasurements(let order):
+                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, path: $viewModel.navigationPath))
+                        .toolbar(.hidden)
+                }
             }
         }
         .addMALoading(state: viewModel.isLoading)

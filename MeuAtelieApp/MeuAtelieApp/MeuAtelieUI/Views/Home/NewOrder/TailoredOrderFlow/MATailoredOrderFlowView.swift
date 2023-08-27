@@ -10,6 +10,7 @@ import SwiftUI
 struct MATailoredOrderFlowView: View {
     
     @ObservedObject var viewModel: MATailoredOrderFlowViewModel
+    @Binding var path: NavigationPath
     
     var body: some View {
         ScrollView {
@@ -24,41 +25,33 @@ struct MATailoredOrderFlowView: View {
                 
                 deliveryView
                 
-                NavigationLink {
-                    MATailoredOrderFlowMeasurementsView(viewModel:
-                                                            MATailoredOrderFlowMeasurementsViewModel(
-                                                                MAOrderModel(id: viewModel.model.id,
-                                                                             serviceType: viewModel.model.serviceType,
-                                                                             client: viewModel.model.client,
-                                                                             cloathesName: viewModel.cloathesName,
-                                                                             cloathesDescription: viewModel.cloathesDescription,
-                                                                             estimatedDeliveryDate: viewModel.dateNow.formatted(),
-                                                                             shoulderMeasurement: 0,
-                                                                             bustMeasurement: 0,
-                                                                             lengthMeasurement: 0,
-                                                                             waistMeasurement: 0,
-                                                                             abdomenMeasurement: 0,
-                                                                             hipsMeasurement: 0,
-                                                                             waistFix: false,
-                                                                             lengthFix: false,
-                                                                             hipsFix: false,
-                                                                             barFix: false,
-                                                                             shoulderFix: false,
-                                                                             wristFix: false,
-                                                                             legFix: false,
-                                                                             totalValue: 0.0,
-                                                                             hiredDate: "")))
-                        .toolbar(.hidden)
-                } label: {
-                    Button(viewModel.continueActionButtonText) {
-                        print(#function)
-                    }
-                    .disabled(true)
-                    .opacity(viewModel.isValid ? 1 : 0.3)
-                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                                    fontColor: .white))
+                Button(viewModel.continueActionButtonText) {
+                    path.append(MANavigationRoutes.HomeRoutes.tailoredFlowMeasurements(order: MAOrderModel(id: viewModel.model.id,
+                                                                                                           serviceType: viewModel.model.serviceType,
+                                                                                                           client: viewModel.model.client,
+                                                                                                           cloathesName: viewModel.cloathesName,
+                                                                                                           cloathesDescription: viewModel.cloathesDescription,
+                                                                                                           estimatedDeliveryDate: viewModel.dateNow.formatted(),
+                                                                                                           shoulderMeasurement: 0,
+                                                                                                           bustMeasurement: 0,
+                                                                                                           lengthMeasurement: 0,
+                                                                                                           waistMeasurement: 0,
+                                                                                                           abdomenMeasurement: 0,
+                                                                                                           hipsMeasurement: 0,
+                                                                                                           waistFix: false,
+                                                                                                           lengthFix: false,
+                                                                                                           hipsFix: false,
+                                                                                                           barFix: false,
+                                                                                                           shoulderFix: false,
+                                                                                                           wristFix: false,
+                                                                                                           legFix: false,
+                                                                                                           totalValue: 0.0,
+                                                                                                           hiredDate: "")))
                 }
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                                fontColor: .white))
                 .disabled(!viewModel.isValid)
+                .opacity(viewModel.isValid ? 1 : 0.3)
                 .padding([.top, .bottom], 40)
             }
             .padding(.horizontal, 20)
@@ -186,6 +179,7 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        wristFix: false,
                                                        legFix: false,
                                                        totalValue: 0.0,
-                                                       hiredDate: "")))
+                                                       hiredDate: "")),
+                                path: Binding.constant(.init()))
     }
 }

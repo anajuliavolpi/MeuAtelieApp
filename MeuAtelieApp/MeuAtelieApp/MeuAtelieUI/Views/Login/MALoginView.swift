@@ -11,27 +11,35 @@ struct MALoginView: View {
     
     @ObservedObject var viewModel: MALoginViewModel = MALoginViewModel()
     @EnvironmentObject var networkManager: NetworkManager
-    @State var login: String = ""
-    @State var password: String = ""
     
     var body: some View {
-        ZStack {
-            backgroundView
-            
-            VStack {
-                credentialsView
+        NavigationStack(path: $viewModel.navigationPath) {
+            ZStack {
+                backgroundView
                 
-                actionButtonsView
+                VStack {
+                    credentialsView
+                    
+                    actionButtonsView
+                }
+                .padding(.horizontal, 30)
             }
-            .padding(.horizontal, 30)
+            .navigationDestination(for: MANavigationRoutes.LoginRoutes.self) { path in
+                switch path {
+                case .register:
+                    MARegisterView()
+                        .environmentObject(networkManager)
+                        .toolbar(.hidden)
+                }
+            }
+            .addMALoading(state: viewModel.isLoading)
+            .addMAError(state: viewModel.isShowingError,
+                        message: viewModel.errorMessage,
+                        action: {
+                viewModel.isShowingError = false
+            })
+            .hideKeyboard()
         }
-        .addMALoading(state: viewModel.isLoading)
-        .addMAError(state: viewModel.isShowingError,
-                    message: viewModel.errorMessage,
-                    action: {
-            viewModel.isShowingError = false
-        })
-        .hideKeyboard()
     }
     
     var backgroundView: some View {
@@ -48,7 +56,7 @@ struct MALoginView: View {
             Image.MAImages.Login.loginTopImage
                 .padding(.top, 28)
             
-            TextField(viewModel.loginText, text: $login)
+            TextField(viewModel.strings.loginText, text: $viewModel.textFields.login)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
                                                       keyboard: .emailAddress))
                 .textContentType(.emailAddress)
@@ -56,7 +64,7 @@ struct MALoginView: View {
                 .textInputAutocapitalization(.never)
                 .padding(.top, -8)
             
-            SecureField(viewModel.passwordText, text: $password)
+            SecureField(viewModel.strings.passwordText, text: $viewModel.textFields.password)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.lockFill))
                 .textContentType(.password)
                 .padding(.top, 14)
@@ -68,14 +76,17 @@ struct MALoginView: View {
     
     var actionButtonsView: some View {
         Group {
-            Button(viewModel.enterText) {
-                viewModel.signInWith(networkManager, login: login, password: password)
+            Button(viewModel.strings.enterText) {
+                Task {
+                    await viewModel.signIn(networkManager)
+                    viewModel.isLoading = false
+                }
             }
             .buttonStyle(MABasicButtonStyle())
             .padding(.top, 20)
             
-            Button(viewModel.registerText) {
-                networkManager.userHasAccount = false
+            Button(viewModel.strings.registerText) {
+                viewModel.navigationPath.append(MANavigationRoutes.LoginRoutes.register)
             }
             .buttonStyle(MABasicButtonStyle())
         }

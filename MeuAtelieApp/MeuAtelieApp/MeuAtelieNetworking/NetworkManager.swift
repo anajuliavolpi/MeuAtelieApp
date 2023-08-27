@@ -11,7 +11,6 @@ import Firebase
 class NetworkManager: ObservableObject {
     
     @Published var isLoggedIn: Bool = false
-    @Published var userHasAccount: Bool = true
     
     init() {
         isUserLoggedIn()
@@ -23,6 +22,5 @@ class NetworkManager: ObservableObject {
     
     func signOut() {
         isLoggedIn = Auth.auth().currentUser != nil
-        userHasAccount = true
     }
 }

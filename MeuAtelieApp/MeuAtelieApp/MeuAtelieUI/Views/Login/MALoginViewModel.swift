@@ -10,40 +10,43 @@ import Firebase
 
 final class MALoginViewModel: ObservableObject {
     
+    struct TextFields {
+        var login: String
+        var password: String
+    }
+    
+    @Published var navigationPath: NavigationPath = .init()
     @Published var isLoading: Bool = false
     @Published var isShowingError: Bool = false
     @Published var errorMessage: String = ""
+    @Published var textFields: TextFields = .init(login: "",
+                                                  password: "")
     
     let backgroundColors: [Color] = [.MAColors.MAPinkLightStrong,
                                      .MAColors.MAPinkLight,
                                      .MAColors.MAPinkLightMedium]
-    let loginText: String = "Login"
-    let passwordText: String = "Senha"
-    let enterText: String = "ENTRAR"
-    let registerText: String = "Não tem conta? Cadastre-se!"
+    let strings = MAStrings.Login()
     
-    func signInWith(_ networkManager: NetworkManager, login: String, password: String) {
+    @MainActor func signIn(_ networkManager: NetworkManager) async {
         isLoading = true
         
-        Auth.auth().signIn(withEmail: login, password: password) { result, error in
-            self.isLoading = false
-            if let error = error as? NSError {
-                switch AuthErrorCode.Code(rawValue: error.code) {
-                case .wrongPassword:
-                    self.errorMessage = "Senha incorreta, por favor tente novamente."
-                case .invalidEmail:
-                    self.errorMessage = "Email inválido, por favor tente novamente."
-                case .userNotFound:
-                    self.errorMessage = "Email não encontrado, por favor tente novamente."
-                default:
-                    self.errorMessage = error.localizedDescription
-                }
-                
-                self.isShowingError = true
-                return
+        do {
+            let _ = try await Auth.auth().signIn(withEmail: textFields.login, password: textFields.password)
+            networkManager.isUserLoggedIn()
+        } catch {
+            switch AuthErrorCode.Code(rawValue: (error as NSError).code) {
+            case .wrongPassword:
+                self.errorMessage = "Senha incorreta, por favor tente novamente."
+            case .invalidEmail:
+                self.errorMessage = "Email inválido, por favor tente novamente."
+            case .userNotFound:
+                self.errorMessage = "Email não encontrado, por favor tente novamente."
+            default:
+                self.errorMessage = error.localizedDescription
             }
             
-            networkManager.isUserLoggedIn()
+            self.isShowingError = true
+            return
         }
     }
     
