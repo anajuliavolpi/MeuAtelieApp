@@ -11,7 +11,8 @@ struct MAOrderDetailsView: View {
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel: MAOrderDetailsViewModel
-    @State var showDeletionAlert: Bool = false
+    @State private var showDeletionAlert: Bool = false
+    @Binding var path: NavigationPath
     
     var body: some View {
         ScrollView {
@@ -253,15 +254,9 @@ struct MAOrderDetailsView: View {
     var bottomButtonsView: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 10) {
-                NavigationLink(viewModel.editText) {
+                Button(viewModel.editText) {
                     if let model = viewModel.order {
-                        if viewModel.order?.serviceType == .fixes {
-                            MAFixesOrderFlowView(viewModel: .init(model, pieces: 1, editing: true))
-                                .toolbar(.hidden)
-                        } else {
-                            MATailoredOrderFlowView(viewModel: .init(model))
-                                .toolbar(.hidden)
-                        }
+                        path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
                     }
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
@@ -287,7 +282,7 @@ struct MAOrderDetailsView: View {
 struct MAOrderDetails_Previews: PreviewProvider {
     
     static var previews: some View {
-        MAOrderDetailsView(viewModel: .init(orderID: ""))
+        MAOrderDetailsView(viewModel: .init(orderID: ""), path: Binding.constant(.init()))
     }
     
 }

@@ -13,6 +13,7 @@ struct MANewOrder: View {
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var showNewClientView: Bool = false
     @State var clientSelected: MAClientModel = MAClientModel(userId: "", id: "", fullName: "", phone: "")
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
@@ -30,67 +31,58 @@ struct MANewOrder: View {
             
             Spacer()
             
-            NavigationLink {
+            Button(viewModel.continueActionText) {
                 if viewModel.orderService == viewModel.service1Text {
-                    MATailoredOrderFlowView(viewModel:
-                                                MATailoredOrderFlowViewModel(
-                                                    MAOrderModel(id: UUID().uuidString,
-                                                                 serviceType: .tailored,
-                                                                 client: clientSelected,
-                                                                 cloathesName: "",
-                                                                 cloathesDescription: "",
-                                                                 estimatedDeliveryDate: "",
-                                                                 shoulderMeasurement: 0,
-                                                                 bustMeasurement: 0,
-                                                                 lengthMeasurement: 0,
-                                                                 waistMeasurement: 0,
-                                                                 abdomenMeasurement: 0,
-                                                                 hipsMeasurement: 0,
-                                                                 waistFix: false,
-                                                                 lengthFix: false,
-                                                                 hipsFix: false,
-                                                                 barFix: false,
-                                                                 shoulderFix: false,
-                                                                 wristFix: false,
-                                                                 legFix: false,
-                                                                 totalValue: 0.0,
-                                                                 hiredDate: "")))
-                        .toolbar(.hidden)
+                    path.append(MANavigationRoutes.HomeRoutes.newTailored(order: MAOrderModel(id: UUID().uuidString,
+                                                                                              serviceType: .tailored,
+                                                                                              client: clientSelected,
+                                                                                              cloathesName: "",
+                                                                                              cloathesDescription: "",
+                                                                                              estimatedDeliveryDate: "",
+                                                                                              shoulderMeasurement: 0,
+                                                                                              bustMeasurement: 0,
+                                                                                              lengthMeasurement: 0,
+                                                                                              waistMeasurement: 0,
+                                                                                              abdomenMeasurement: 0,
+                                                                                              hipsMeasurement: 0,
+                                                                                              waistFix: false,
+                                                                                              lengthFix: false,
+                                                                                              hipsFix: false,
+                                                                                              barFix: false,
+                                                                                              shoulderFix: false,
+                                                                                              wristFix: false,
+                                                                                              legFix: false,
+                                                                                              totalValue: 0.0,
+                                                                                              hiredDate: "")))
                 } else {
-                    MAFixesOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
-                                                                serviceType: .fixes,
-                                                                client: clientSelected,
-                                                                cloathesName: "",
-                                                                cloathesDescription: "",
-                                                                estimatedDeliveryDate: "",
-                                                                shoulderMeasurement: 0,
-                                                                bustMeasurement: 0,
-                                                                lengthMeasurement: 0,
-                                                                waistMeasurement: 0,
-                                                                abdomenMeasurement: 0,
-                                                                hipsMeasurement: 0,
-                                                                waistFix: false,
-                                                                lengthFix: false,
-                                                                hipsFix: false,
-                                                                barFix: false,
-                                                                shoulderFix: false,
-                                                                wristFix: false,
-                                                                legFix: false,
-                                                                totalValue: 0.0,
-                                                                hiredDate: ""),
-                                                          pieces: Int(viewModel.piecesNumber) ?? 1))
-                    .toolbar(.hidden)
+                    path.append(MANavigationRoutes.HomeRoutes.newFixes(order: MAOrderModel(id: UUID().uuidString,
+                                                                                           serviceType: .fixes,
+                                                                                           client: clientSelected,
+                                                                                           cloathesName: "",
+                                                                                           cloathesDescription: "",
+                                                                                           estimatedDeliveryDate: "",
+                                                                                           shoulderMeasurement: 0,
+                                                                                           bustMeasurement: 0,
+                                                                                           lengthMeasurement: 0,
+                                                                                           waistMeasurement: 0,
+                                                                                           abdomenMeasurement: 0,
+                                                                                           hipsMeasurement: 0,
+                                                                                           waistFix: false,
+                                                                                           lengthFix: false,
+                                                                                           hipsFix: false,
+                                                                                           barFix: false,
+                                                                                           shoulderFix: false,
+                                                                                           wristFix: false,
+                                                                                           legFix: false,
+                                                                                           totalValue: 0.0,
+                                                                                           hiredDate: ""),
+                                                                       pieces: Int(viewModel.piecesNumber) ?? 1))
                 }
-            } label: {
-                Button(viewModel.continueActionText) {
-                    print(#function)
-                }
-                .disabled(true)
-                .opacity(viewModel.isValid ? 1 : 0.3)
-                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
-                                                fontColor: .white))
             }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
             .disabled(!viewModel.isValid)
+            .opacity(viewModel.isValid ? 1 : 0.3)
             .padding(.bottom, 40)
         }
         .padding(.horizontal, 20)
@@ -206,6 +198,6 @@ struct MANewOrder: View {
 
 struct MANewOrder_Previews: PreviewProvider {
     static var previews: some View {
-        MANewOrder()
+        MANewOrder(path: Binding.constant(.init()))
     }
 }

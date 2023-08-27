@@ -205,6 +205,7 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    wristFix: false,
                                                                    legFix: false,
                                                                    totalValue: 0.0,
-                                                                   hiredDate: "")))
+                                                                   hiredDate: ""),
+                                                             path: Binding.constant(.init())))
     }
 }
