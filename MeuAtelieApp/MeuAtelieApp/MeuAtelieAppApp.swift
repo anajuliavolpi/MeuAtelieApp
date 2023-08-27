@@ -12,6 +12,21 @@ import Firebase
 struct MeuAtelieAppApp: App {
     
     @StateObject var networkManager: NetworkManager = NetworkManager()
+    @State private var selectedTab: Int = 0
+    @State var homePath: NavigationPath = .init()
+    
+    var handler: Binding<Int> { Binding(
+        get: { self.selectedTab },
+        set: {
+            if $0 == self.selectedTab {
+                if $0 == 0 {
+                    homePath.removeLast(homePath.count)
+                }
+            }
+            
+            self.selectedTab = $0
+        }
+    )}
     
     init() {
         FirebaseApp.configure()
@@ -30,22 +45,25 @@ struct MeuAtelieAppApp: App {
         WindowGroup {
             ZStack {
                 if networkManager.isLoggedIn {
-                    TabView {
-                        MAHomeView()
+                    TabView(selection: handler) {
+                        MAHomeView(navigationPath: $homePath)
                             .tabItem {
                                 Label("Pedidos", systemImage: "list.dash")
                             }
+                            .tag(0)
                         
                         MAClientsView()
                             .tabItem {
                                 Label("Clientes", systemImage: "person.3.fill")
                             }
+                            .tag(1)
                         
                         MAProfileView()
                             .environmentObject(networkManager)
                             .tabItem {
                                 Label("Perfil", systemImage: "person")
                             }
+                            .tag(2)
                     }
                 } else {
                     MALoginView()
