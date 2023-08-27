@@ -13,6 +13,7 @@ final class MAClientDetailsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var fullName: String = ""
     @Published var phone: String = ""
+    @Published var email: String = ""
     @Published var order: [MAOrderModel] = []
     
     var clientID: String
@@ -47,9 +48,11 @@ final class MAClientDetailsViewModel: ObservableObject {
                     if userId == Auth.auth().currentUser?.uid && document.documentID == self.clientID {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
+                        let clientEmail = data["email"] as? String ?? ""
                         
                         self.fullName = clientFullName
                         self.phone = clientPhone
+                        self.email = clientEmail
                     }
                 }
             }
@@ -102,6 +105,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
+                        let clientEmail = data["clientEmail"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
                         let cloathesDescription = data["cloathesDescription"] as? String ?? ""
                         let estimatedDeliveryDate = data["estimatedDeliveryDate"] as? String ?? ""
@@ -128,7 +132,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                                                        client: MAClientModel(userId: userId,
                                                                              id: clientOrderID,
                                                                              fullName: clientName,
-                                                                             phone: clientPhone),
+                                                                             phone: clientPhone,
+                                                                             email: clientEmail),
                                                        cloathesName: cloathesName,
                                                        cloathesDescription: cloathesDescription,
                                                        estimatedDeliveryDate: String(estimatedDeliveryDate.prefix(10)),

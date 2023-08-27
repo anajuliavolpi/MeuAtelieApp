@@ -19,7 +19,8 @@ struct MAClientsView: View {
                         .navigationTitle("Dados do Cliente")
                 } label: {
                     MAClientListRow(clientName: client.fullName,
-                                    clientPhone: client.phone)
+                                    clientPhone: client.phone,
+                                    clientEmail: client.email)
                     .padding()
                 }
                 .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in

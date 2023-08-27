@@ -12,7 +12,7 @@ struct MANewOrder: View {
     
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var showNewClientView: Bool = false
-    @State var clientSelected: MAClientModel = MAClientModel(userId: "", id: "", fullName: "", phone: "")
+    @State var clientSelected: MAClientModel = MAClientModel(userId: "", id: "", fullName: "", phone: "", email: "")
     @Binding var path: NavigationPath
     
     var body: some View {

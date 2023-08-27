@@ -50,7 +50,7 @@ struct ClientDetailsServiceRow_Previews: PreviewProvider {
         ClientDetailsServiceRow(model: .init(id: "",
                                              status: .onGoing,
                                              serviceType: .fixes,
-                                             client: .init(userId: "", id: "", fullName: "", phone: ""),
+                                             client: .init(userId: "", id: "", fullName: "", phone: "", email: ""),
                                              cloathesName: "",
                                              cloathesDescription: "",
                                              estimatedDeliveryDate: "",

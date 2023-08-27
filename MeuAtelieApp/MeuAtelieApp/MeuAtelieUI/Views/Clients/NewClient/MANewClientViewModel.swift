@@ -16,6 +16,7 @@ final class MANewClientViewModel: ObservableObject {
     let newClientText: String = "novo cliente"
     let fullNameText: String = "Nome completo"
     let phoneText: String = "Telefone"
+    let emailText: String = "Email"
     let createActionText: String = "CADASTRAR"
     let importClientActionText: String = "IMPORTAR CLIENTE"
     let backText: String = "Voltar"
@@ -27,7 +28,8 @@ final class MANewClientViewModel: ObservableObject {
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
                      "fullname": client.fullName,
-                     "phone": client.phone]) { error in
+                     "phone": client.phone,
+                     "email": client.email]) { error in
             self.isLoading = false
             if let error {
                 print("some error occured on creating data for order: \(error)")

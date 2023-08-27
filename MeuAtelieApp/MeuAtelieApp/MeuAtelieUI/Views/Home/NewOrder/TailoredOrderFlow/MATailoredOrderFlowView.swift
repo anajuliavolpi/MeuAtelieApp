@@ -164,7 +164,7 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
         MATailoredOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
                                                        status: .onGoing,
                                                        serviceType: .tailored,
-                                                       client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
+                                                       client: MAClientModel(userId: "", id: "", fullName: "", phone: "", email: ""),
                                                        cloathesName: "",
                                                        cloathesDescription: "",
                                                        estimatedDeliveryDate: "",

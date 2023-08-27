@@ -13,6 +13,7 @@ struct MANewClient: View {
     @ObservedObject var viewModel = MANewClientViewModel()
     @State var clientFullName: String = ""
     @State var clientPhone: String = ""
+    @State var clientEmail: String = ""
     @State var showImportClientAlert: Bool = false
     
     var body: some View {
@@ -54,6 +55,16 @@ struct MANewClient: View {
                                                       keyboard: .phonePad))
                 .textContentType(.telephoneNumber)
                 .padding(.top, 16)
+            
+            TextField(viewModel.emailText, text: $clientEmail)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.email,
+                                                      backgroundColor: .MAColors.MAPinkTextField,
+                                                      foregroundTextColor: .black,
+                                                      keyboard: .emailAddress))
+                .textContentType(.emailAddress)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .padding(.top, 16)
         }
     }
     
@@ -69,7 +80,8 @@ struct MANewClient: View {
                 viewModel.createClient(with: MAClientModel(userId: "",
                                                            id: UUID().uuidString,
                                                            fullName: clientFullName,
-                                                           phone: clientPhone),
+                                                           phone: clientPhone,
+                                                           email: clientEmail),
                                        dismiss)
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,

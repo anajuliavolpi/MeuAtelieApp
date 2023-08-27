@@ -70,8 +70,12 @@ struct MAClientDetailsView: View {
                 Text("Telefone: \(viewModel.phone)")
                     .foregroundColor(.MAColors.MAPinkMedium)
                     .font(.system(size: 20, design: .rounded))
+                
+                Text("Email: \(viewModel.email)")
+                    .foregroundColor(.MAColors.MAPinkMedium)
+                    .font(.system(size: 20, design: .rounded))
             }
-            .frame(width: 325, height: 120)
+            .frame(width: 325, height: 140)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(Color.MAColors.MAPinkBackground)

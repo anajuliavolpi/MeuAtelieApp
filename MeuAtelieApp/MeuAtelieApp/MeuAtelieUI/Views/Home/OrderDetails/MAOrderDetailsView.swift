@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MAOrderDetailsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -44,29 +45,8 @@ struct MAOrderDetailsView: View {
                         bottomButtonsView
                             .padding([.top, .bottom], 30)
                     } else {
-                        Button("Compartilhar no WhatsApp!") {
-                            let phone = viewModel.order?.client.phone ?? ""
-                            let text = """
-                            O seu pedido está pronto:
-                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
-                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
-                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
-                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
-                            Esperamos sua visita!
-                            """
-                            
-                            var urlComponents = URLComponents(string: "https://wa.me/55\(phone)")
-                            urlComponents?.queryItems = [
-                                URLQueryItem(name: "text", value: text)
-                            ]
-                            
-                            if let url = urlComponents?.url {
-                                UIApplication.shared.open(url)
-                            }
-                        }
-                        .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
-                                                        fontColor: .white))
-                        .padding([.top, .bottom], 30)
+                        shareButtons
+                            .padding([.top, .bottom], 30)
                     }
                 }
                 .padding(.horizontal, 40)
@@ -322,6 +302,63 @@ struct MAOrderDetailsView: View {
                 showCompletionAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
+        }
+    }
+    
+    var shareButtons: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Button("Compartilhar no WhatsApp!") {
+                let phone = viewModel.order?.client.phone ?? ""
+                let text = """
+                            O seu pedido está pronto:
+                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
+                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
+                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
+                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
+                            Esperamos sua visita!
+                            """
+                
+                var urlComponents = URLComponents(string: "https://wa.me/55\(phone)")
+                urlComponents?.queryItems = [
+                    URLQueryItem(name: "text", value: text)
+                ]
+                
+                if let url = urlComponents?.url {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
+                                            fontColor: .white))
+            
+            Button("Compartilhar via Email") {
+                let email = Auth.auth().currentUser?.email ?? ""
+                let text = """
+                            O seu pedido está pronto:
+                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
+                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
+                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
+                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
+                            Esperamos sua visita!
+                            """
+                
+                var urlComponents = URLComponents(string: "mailto:\(email)")
+                urlComponents?.queryItems = [
+                    URLQueryItem(name: "subject", value: "Seu pedido está pronto - Meu AteliêApp"),
+                    URLQueryItem(name: "body", value: text)
+                ]
+                
+                if let url = urlComponents?.url {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
+                                            fontColor: .white))
+            
+            Button(viewModel.deleteText) {
+                showDeletionAlert = true
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
                                             fontColor: .white))
         }
     }

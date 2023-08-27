@@ -16,6 +16,7 @@ extension Image {
             static let lockFill: Image = Image(systemName: "lock.fill")
             static let pencil: Image = Image(systemName: "pencil.circle")
             static let phone: Image = Image(systemName: "phone.fill")
+            static let email: Image = Image(systemName: "envelope.fill")
             static let arrowUpAndDown: Image = Image(systemName: "arrow.up.and.down.circle.fill")
             static let magnifyingGlass: Image = Image(systemName: "magnifyingglass")
         }

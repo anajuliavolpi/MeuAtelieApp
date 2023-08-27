@@ -38,6 +38,7 @@ final class MAHomeViewModel: ObservableObject {
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
+                        let clientEmail = data["clientEmail"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
                         let cloathesDescription = data["cloathesDescription"] as? String ?? ""
                         let estimatedDeliveryDate = data["estimatedDeliveryDate"] as? String ?? ""
@@ -64,7 +65,8 @@ final class MAHomeViewModel: ObservableObject {
                                                         client: MAClientModel(userId: "",
                                                                               id: "",
                                                                               fullName: clientName,
-                                                                              phone: clientPhone),
+                                                                              phone: clientPhone,
+                                                                              email: clientEmail),
                                                         cloathesName: cloathesName,
                                                         cloathesDescription: cloathesDescription,
                                                         estimatedDeliveryDate: String(estimatedDeliveryDate.prefix(10)),
