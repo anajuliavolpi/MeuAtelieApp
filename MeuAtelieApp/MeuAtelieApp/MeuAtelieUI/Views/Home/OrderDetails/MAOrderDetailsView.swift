@@ -14,6 +14,7 @@ struct MAOrderDetailsView: View {
     @ObservedObject var viewModel: MAOrderDetailsViewModel
     @State private var showDeletionAlert: Bool = false
     @State private var showCompletionAlert: Bool = false
+    @State private var isBarHidden = false
     @Binding var path: NavigationPath
     
     var body: some View {
@@ -51,7 +52,9 @@ struct MAOrderDetailsView: View {
                 }
                 .padding(.horizontal, 40)
             }
+            .toolbar(isBarHidden ? .hidden : .visible)
             .onAppear {
+                isBarHidden = true
                 viewModel.fetchOrder()
             }
             .ignoresSafeArea(edges: .top)

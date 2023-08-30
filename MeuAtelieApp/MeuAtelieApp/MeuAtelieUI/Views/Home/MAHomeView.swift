@@ -11,10 +11,24 @@ struct MAHomeView: View {
     
     @ObservedObject var viewModel: MAHomeViewModel = MAHomeViewModel()
     @Binding var navigationPath: NavigationPath
+    @State private var textToSearch: String = ""
+    @State private var filterStatus: OrderStatus? = nil
+    
+    var searchResults: [MAOrderModel] {
+        if textToSearch.isEmpty {
+            if let status = filterStatus {
+                return viewModel.orders.filter({$0.status == status})
+            } else {
+                return viewModel.orders
+            }
+        } else {
+            return filteredList(with: textToSearch)
+        }
+    }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            List(viewModel.orders, id: \.id) { order in
+            List(self.searchResults, id: \.id) { order in
                 MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
                     .padding()
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
@@ -24,6 +38,7 @@ struct MAHomeView: View {
                         navigationPath.append(MANavigationRoutes.HomeRoutes.orderDetails(order: order))
                     }
             }
+            .searchable(text: $textToSearch)
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
@@ -35,9 +50,23 @@ struct MAHomeView: View {
                         Image(systemName: "note.text.badge.plus")
                     }
                 }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        Button("Em progresso") {
+                            self.filterStatus = .onGoing
+                        }
+                        
+                        Button("Finalizados") {
+                            self.filterStatus = .completed
+                        }
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                    }
+                }
             }
             .overlay {
-                if viewModel.orders.isEmpty {
+                if searchResults.isEmpty {
                     VStack {
                         Text("OPS  ;(")
                             .foregroundColor(.MAColors.MAPinkText)
@@ -66,7 +95,6 @@ struct MAHomeView: View {
                 switch path {
                 case .orderDetails(let order):
                     MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id), path: $navigationPath)
-                        .toolbar(.hidden)
                 case .editOrder(let order):
                     if order.serviceType == .fixes {
                         MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $navigationPath, editing: true))
@@ -91,6 +119,21 @@ struct MAHomeView: View {
             }
         }
         .addMALoading(state: viewModel.isLoading)
+    }
+    
+}
+
+// MARK: - Private functions
+extension MAHomeView {
+    
+    private func filteredList(with text: String) -> [MAOrderModel] {
+        return viewModel.orders.filter { order in
+            order.client.fullName.lowercased().contains(text.lowercased()) ||
+            order.client.email.lowercased().contains(text.lowercased()) ||
+            order.client.phone.lowercased().contains(text.lowercased()) ||
+            order.cloathesName.lowercased().contains(text.lowercased()) ||
+            order.cloathesDescription.lowercased().contains(text.lowercased())
+        }
     }
     
 }
