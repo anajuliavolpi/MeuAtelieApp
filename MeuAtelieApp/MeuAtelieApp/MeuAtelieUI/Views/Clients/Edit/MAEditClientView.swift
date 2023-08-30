@@ -51,6 +51,16 @@ struct MAEditClientView: View {
                                                       keyboard: .phonePad))
                 .textContentType(.telephoneNumber)
                 .padding(.top, 16)
+            
+            TextField(viewModel.emailText, text: $viewModel.email)
+                .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.email,
+                                                      backgroundColor: .MAColors.MAPinkTextField,
+                                                      foregroundTextColor: .black,
+                                                      keyboard: .emailAddress))
+                .textContentType(.emailAddress)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.none)
+                .padding(.top, 16)
         }
     }
     

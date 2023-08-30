@@ -40,6 +40,23 @@ struct MAClientDetailsView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
+            .overlay {
+                if viewModel.order.isEmpty {
+                    VStack {
+                        Text("OPS  ;(")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
+                            .padding(.top, 10)
+                        
+                        Text("Esse cliente não\npossui serviços cadastrados")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .padding(.top, 20)
+                    }
+                }
+            }
             
             Spacer()
             
