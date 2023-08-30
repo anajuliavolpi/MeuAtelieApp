@@ -10,6 +10,7 @@ import Firebase
 
 struct MAOrderDetailsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) var scenePhase
     
     @ObservedObject var viewModel: MAOrderDetailsViewModel
     @State private var showDeletionAlert: Bool = false
@@ -56,6 +57,11 @@ struct MAOrderDetailsView: View {
             .onAppear {
                 isBarHidden = true
                 viewModel.fetchOrder()
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    viewModel.fetchOrder()
+                }
             }
             .ignoresSafeArea(edges: .top)
             .addMALoading(state: viewModel.isLoading)
