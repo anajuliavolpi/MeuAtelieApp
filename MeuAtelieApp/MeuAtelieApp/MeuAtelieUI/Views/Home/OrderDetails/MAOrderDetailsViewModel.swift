@@ -10,8 +10,6 @@ import Firebase
 
 final class MAOrderDetailsViewModel: ObservableObject {
     
-    let headerText: String = "Detalhes"
-    let subheaderText: String = "DO PEDIDO"
     let clientText: String = "CLIENTE"
     let nameText: String = "Nome"
     let phoneText: String = "Telefone"
@@ -26,6 +24,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
     let lengthText: String = "Comprimento"
     let hiredText: String = "Contratado em"
     let estimatedDeliveryDateText: String = "Data de entrega prevista"
+    let deliveryDateText: String = "Data efetiva da entrega"
     let totalValueText: String = "Valor total"
     let cloathesPhotos: String = "Peças modelo"
     let editText: String = "EDITAR"
@@ -35,11 +34,58 @@ final class MAOrderDetailsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var order: MAOrderModel?
     @Published var fixes: [String] = []
+    @Published var isCompletedOrder: Bool = false
+    
+    @Published var headerText: String = ""
+    @Published var subheaderText: String = ""
     
     let orderID: String
     
     init(orderID: String) {
         self.orderID = orderID
+    }
+    
+    func complete() {
+        guard let order = order else { return }
+        isLoading = true
+        let db = Firestore.firestore()
+        let ref = db.collection("Orders").document(order.id)
+        
+        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                     "status": OrderStatus.completed.rawValue,
+                     "serviceType": order.serviceType.rawValue,
+                     "clientId": order.client.id,
+                     "clientName": order.client.fullName,
+                     "clientPhone": order.client.phone,
+                     "clientEmail": order.client.email,
+                     "cloathesName": order.cloathesName,
+                     "cloathesDescription": order.cloathesDescription,
+                     "estimatedDeliveryDate": order.estimatedDeliveryDate,
+                     "shoulderMeasurement": order.shoulderMeasurement,
+                     "bustMeasurement": order.bustMeasurement,
+                     "lengthMeasurement": order.lengthMeasurement,
+                     "waistMeasurement": order.waistMeasurement,
+                     "abdomenMeasurement": order.abdomenMeasurement,
+                     "hipsMeasurement": order.hipsMeasurement,
+                     "waistFix": order.waistFix,
+                     "lengthFix": order.lengthFix,
+                     "hipsFix": order.hipsFix,
+                     "barFix": order.barFix,
+                     "shoulderFix": order.shoulderFix,
+                     "wristFix": order.wristFix,
+                     "legFix": order.legFix,
+                     "totalValue": order.totalValue,
+                     "hiredDate": order.hiredDate,
+                     "deliveryDate": Date.now.formatted()]
+        ) { error in
+            self.isLoading = false
+            if let error {
+                print("some error occured on creating data for order: \(error)")
+                return
+            }
+            
+            self.fetchOrder()
+        }
     }
     
     func deleteOrder(_ dismiss: DismissAction) {
@@ -82,10 +128,12 @@ final class MAOrderDetailsViewModel: ObservableObject {
                     let userId = data["userId"] as? String ?? ""
                     
                     if document.documentID == self.orderID {
+                        let status = data["status"] as? String ?? ""
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientId = data["clientId"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
+                        let clientEmail = data["clientEmail"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
                         let cloathesDescription = data["cloathesDescription"] as? String ?? ""
                         let estimatedDeliveryDate = data["estimatedDeliveryDate"] as? String ?? ""
@@ -104,13 +152,16 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         let legFix = data["legFix"] as? Bool ?? false
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
+                        let deliveryDate = data["deliveryDate"] as? String ?? ""
                         
                         self.order = MAOrderModel(id: document.documentID,
+                                                  status: OrderStatus(rawValue: status) ?? .onGoing,
                                                   serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                   client: MAClientModel(userId: userId,
                                                                         id: clientId,
                                                                         fullName: clientName,
-                                                                        phone: clientPhone),
+                                                                        phone: clientPhone,
+                                                                        email: clientEmail),
                                                   cloathesName: cloathesName,
                                                   cloathesDescription: cloathesDescription,
                                                   estimatedDeliveryDate: String(estimatedDeliveryDate.prefix(10)),
@@ -128,7 +179,8 @@ final class MAOrderDetailsViewModel: ObservableObject {
                                                   wristFix: wristFix,
                                                   legFix: legFix,
                                                   totalValue: totalValue,
-                                                  hiredDate: String(hiredDate.prefix(10)))
+                                                  hiredDate: String(hiredDate.prefix(10)),
+                                                  deliveryDate: String(deliveryDate.prefix(10)))
                         
                         if self.order?.serviceType == .fixes {
                             let mirror = Mirror(reflecting: self.order!)
@@ -143,6 +195,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                             self.setList(fixes: selectedFixes)
                         }
                         
+                        self.updateUI()
                     }
                 }
             }
@@ -165,6 +218,20 @@ final class MAOrderDetailsViewModel: ObservableObject {
             if fixes.contains(key) {
                 self.fixes.append(value)
             }
+        }
+    }
+    
+    private func updateUI() {
+        guard let order = order else { return }
+        
+        if order.status == .onGoing {
+            self.isCompletedOrder = false
+            headerText = "Detalhes"
+            subheaderText = "DO PEDIDO"
+        } else {
+            self.isCompletedOrder = true
+            headerText = "Pedido"
+            subheaderText = "FINALIZADO"
         }
     }
     

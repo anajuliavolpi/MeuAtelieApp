@@ -14,5 +14,6 @@ struct MAClientModel: Identifiable {
     let id: String
     let fullName: String
     let phone: String
+    let email: String
     
 }

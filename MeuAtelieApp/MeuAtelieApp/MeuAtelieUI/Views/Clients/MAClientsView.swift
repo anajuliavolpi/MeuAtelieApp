@@ -10,16 +10,32 @@ import SwiftUI
 struct MAClientsView: View {
     
     @ObservedObject private var viewModel = MAClientsViewModel()
+    @State var textToSearch: String = ""
+    
+    var searchResults: [MAClientModel] {
+        if textToSearch.isEmpty {
+            return viewModel.clients
+        } else {
+            return viewModel.clients.filter(
+                {
+                    $0.fullName.lowercased().contains(textToSearch.lowercased()) ||
+                    $0.email.lowercased().contains(textToSearch.lowercased()) ||
+                    $0.phone.lowercased().contains(textToSearch.lowercased())
+                }
+            )
+        }
+    }
     
     var body: some View {
         NavigationView {
-            List(viewModel.clients, id: \.id) { client in
+            List(self.searchResults, id: \.id) { client in
                 NavigationLink {
                     MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId))
                         .navigationTitle("Dados do Cliente")
                 } label: {
                     MAClientListRow(clientName: client.fullName,
-                                    clientPhone: client.phone)
+                                    clientPhone: client.phone,
+                                    clientEmail: client.email)
                     .padding()
                 }
                 .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
@@ -28,6 +44,7 @@ struct MAClientsView: View {
                 .listRowInsets(EdgeInsets())
                 .padding(.trailing, 18)
             }
+            .searchable(text: $textToSearch)
             .navigationTitle(viewModel.viewTitle)
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
@@ -43,7 +60,7 @@ struct MAClientsView: View {
                 }
             }
             .overlay {
-                if viewModel.clients.isEmpty {
+                if self.searchResults.isEmpty {
                     VStack {
                         Text("OPS  ;(")
                             .foregroundColor(.MAColors.MAPinkText)

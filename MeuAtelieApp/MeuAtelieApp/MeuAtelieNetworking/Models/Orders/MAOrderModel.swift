@@ -12,10 +12,16 @@ enum ServiceType: String {
     case fixes = "Ajuste/Conserto de roupa"
 }
 
+enum OrderStatus: String {
+    case onGoing = "Em progresso"
+    case completed = "Finalizado"
+}
+
 struct MAOrderModel: Identifiable, Hashable {
     
     let uuid = UUID()
     let id: String
+    let status: OrderStatus
     let serviceType: ServiceType
     let client: MAClientModel
     let cloathesName: String
@@ -36,6 +42,7 @@ struct MAOrderModel: Identifiable, Hashable {
     let legFix: Bool
     let totalValue: Double
     let hiredDate: String
+    let deliveryDate: String
     
     static func == (lhs: MAOrderModel, rhs: MAOrderModel) -> Bool {
         lhs.id == rhs.id

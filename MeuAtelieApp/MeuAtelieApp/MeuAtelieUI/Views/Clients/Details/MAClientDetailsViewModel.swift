@@ -13,6 +13,7 @@ final class MAClientDetailsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var fullName: String = ""
     @Published var phone: String = ""
+    @Published var email: String = ""
     @Published var order: [MAOrderModel] = []
     
     var clientID: String
@@ -47,9 +48,11 @@ final class MAClientDetailsViewModel: ObservableObject {
                     if userId == Auth.auth().currentUser?.uid && document.documentID == self.clientID {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
+                        let clientEmail = data["email"] as? String ?? ""
                         
                         self.fullName = clientFullName
                         self.phone = clientPhone
+                        self.email = clientEmail
                     }
                 }
             }
@@ -98,9 +101,11 @@ final class MAClientDetailsViewModel: ObservableObject {
                     let clientOrderID = data["clientId"] as? String ?? ""
                     
                     if self.clientID == clientOrderID {
+                        let status = data["status"] as? String ?? ""
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
+                        let clientEmail = data["clientEmail"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
                         let cloathesDescription = data["cloathesDescription"] as? String ?? ""
                         let estimatedDeliveryDate = data["estimatedDeliveryDate"] as? String ?? ""
@@ -119,13 +124,16 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let legFix = data["legFix"] as? Bool ?? false
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
+                        let deliveryDate = data["deliveryDate"] as? String ?? ""
                         
                         self.order.append(MAOrderModel(id: document.documentID,
+                                                       status: OrderStatus(rawValue: status) ?? .onGoing,
                                                        serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                        client: MAClientModel(userId: userId,
                                                                              id: clientOrderID,
                                                                              fullName: clientName,
-                                                                             phone: clientPhone),
+                                                                             phone: clientPhone,
+                                                                             email: clientEmail),
                                                        cloathesName: cloathesName,
                                                        cloathesDescription: cloathesDescription,
                                                        estimatedDeliveryDate: String(estimatedDeliveryDate.prefix(10)),
@@ -143,7 +151,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                                                        wristFix: wristFix,
                                                        legFix: legFix,
                                                        totalValue: totalValue,
-                                                       hiredDate: String(hiredDate.prefix(10))))
+                                                       hiredDate: String(hiredDate.prefix(10)),
+                                                       deliveryDate: String(deliveryDate.prefix(10))))
                     }
                 }
             }

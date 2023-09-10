@@ -12,6 +12,7 @@ struct MAClientListRow: View {
     var clientImage: Image = Image.MAImages.Login.loginTopImage
     var clientName: String
     var clientPhone: String
+    var clientEmail: String
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
@@ -32,6 +33,9 @@ struct MAClientListRow: View {
                 
                 Text("Telefone: \(clientPhone)")
                     .font(.system(size: 14))
+                
+                Text("Email: \(clientEmail)")
+                    .font(.system(size: 14))
             }
         }
     }
@@ -41,6 +45,7 @@ struct MAClientListRow: View {
 struct MAClientListRow_Previews: PreviewProvider {
     static var previews: some View {
         MAClientListRow(clientName: "Ana Júlia Volpi",
-                        clientPhone: "47 9 9603 1059")
+                        clientPhone: "47 9 9603 1059",
+                        clientEmail: "anajuliavolpi45@gmail.com")
     }
 }

@@ -32,7 +32,7 @@ struct MAProfileView: View {
                         print(#function)
                     }
                     .disabled(true)
-                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
                                                     fontColor: .white))
                 }
                 

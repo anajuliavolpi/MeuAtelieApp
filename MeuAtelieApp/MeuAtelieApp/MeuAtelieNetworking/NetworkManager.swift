@@ -11,6 +11,7 @@ import Firebase
 class NetworkManager: ObservableObject {
     
     @Published var isLoggedIn: Bool = false
+    @State var selectedTab: Int = 0
     
     init() {
         isUserLoggedIn()
@@ -21,6 +22,7 @@ class NetworkManager: ObservableObject {
     }
     
     func signOut() {
+        selectedTab = 0
         isLoggedIn = Auth.auth().currentUser != nil
     }
 }

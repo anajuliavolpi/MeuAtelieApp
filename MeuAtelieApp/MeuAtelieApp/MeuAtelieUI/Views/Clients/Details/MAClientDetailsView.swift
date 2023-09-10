@@ -40,6 +40,23 @@ struct MAClientDetailsView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
+            .overlay {
+                if viewModel.order.isEmpty {
+                    VStack {
+                        Text("OPS  ;(")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
+                            .padding(.top, 10)
+                        
+                        Text("Esse cliente não\npossui serviços cadastrados")
+                            .foregroundColor(.MAColors.MAPinkText)
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .padding(.top, 20)
+                    }
+                }
+            }
             
             Spacer()
             
@@ -70,8 +87,12 @@ struct MAClientDetailsView: View {
                 Text("Telefone: \(viewModel.phone)")
                     .foregroundColor(.MAColors.MAPinkMedium)
                     .font(.system(size: 20, design: .rounded))
+                
+                Text("Email: \(viewModel.email)")
+                    .foregroundColor(.MAColors.MAPinkMedium)
+                    .font(.system(size: 20, design: .rounded))
             }
-            .frame(width: 325, height: 120)
+            .frame(width: 325, height: 140)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(Color.MAColors.MAPinkBackground)

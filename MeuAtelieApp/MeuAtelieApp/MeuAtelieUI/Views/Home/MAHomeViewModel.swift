@@ -10,7 +10,6 @@ import Firebase
 
 final class MAHomeViewModel: ObservableObject {
     
-    @Published var navigationPath: NavigationPath = .init()
     @Published var isLoading: Bool = false
     @Published var orders: [MAOrderModel] = []
     
@@ -35,9 +34,11 @@ final class MAHomeViewModel: ObservableObject {
                     let userId = data["userId"] as? String ?? ""
 
                     if userId == Auth.auth().currentUser?.uid {
+                        let status = data["status"] as? String ?? ""
                         let serviceType = data["serviceType"] as? String ?? ""
                         let clientName = data["clientName"] as? String ?? ""
                         let clientPhone = data["clientPhone"] as? String ?? ""
+                        let clientEmail = data["clientEmail"] as? String ?? ""
                         let cloathesName = data["cloathesName"] as? String ?? ""
                         let cloathesDescription = data["cloathesDescription"] as? String ?? ""
                         let estimatedDeliveryDate = data["estimatedDeliveryDate"] as? String ?? ""
@@ -56,13 +57,16 @@ final class MAHomeViewModel: ObservableObject {
                         let legFix = data["legFix"] as? Bool ?? false
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
+                        let deliveryDate = data["deliveryDate"] as? String ?? ""
 
                         self.orders.append(MAOrderModel(id: document.documentID,
+                                                        status: OrderStatus(rawValue: status) ?? .onGoing,
                                                         serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
                                                         client: MAClientModel(userId: "",
                                                                               id: "",
                                                                               fullName: clientName,
-                                                                              phone: clientPhone),
+                                                                              phone: clientPhone,
+                                                                              email: clientEmail),
                                                         cloathesName: cloathesName,
                                                         cloathesDescription: cloathesDescription,
                                                         estimatedDeliveryDate: String(estimatedDeliveryDate.prefix(10)),
@@ -80,7 +84,8 @@ final class MAHomeViewModel: ObservableObject {
                                                         wristFix: wristFix,
                                                         legFix: legFix,
                                                         totalValue: totalValue,
-                                                        hiredDate: hiredDate))
+                                                        hiredDate: hiredDate,
+                                                        deliveryDate: String(deliveryDate.prefix(10))))
                     }
                 }
             }

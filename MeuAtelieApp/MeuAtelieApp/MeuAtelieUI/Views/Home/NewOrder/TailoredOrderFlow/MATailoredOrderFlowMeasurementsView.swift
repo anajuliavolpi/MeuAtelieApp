@@ -50,6 +50,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
                 
                 Button(viewModel.finishActionButtonText) {
                     viewModel.create(order: MAOrderModel(id: viewModel.model.id,
+                                                         status: .onGoing,
                                                          serviceType: viewModel.model.serviceType,
                                                          client: viewModel.model.client,
                                                          cloathesName: viewModel.model.cloathesName,
@@ -69,7 +70,8 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                                          wristFix: false,
                                                          legFix: false,
                                                          totalValue: 0.0, // total value 0 for now
-                                                         hiredDate: Date.now.formatted()))
+                                                         hiredDate: Date.now.formatted(),
+                                                         deliveryDate: ""))
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -186,8 +188,9 @@ struct MATailoredOrderFlowMeasurementsView: View {
 struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowMeasurementsView(viewModel: .init(.init(id: UUID().uuidString,
+                                                                   status: .onGoing,
                                                                    serviceType: .tailored,
-                                                                   client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
+                                                                   client: MAClientModel(userId: "", id: "", fullName: "", phone: "", email: ""),
                                                                    cloathesName: "",
                                                                    cloathesDescription: "",
                                                                    estimatedDeliveryDate: "",
@@ -205,7 +208,8 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    wristFix: false,
                                                                    legFix: false,
                                                                    totalValue: 0.0,
-                                                                   hiredDate: ""),
+                                                                   hiredDate: "",
+                                                                   deliveryDate: ""),
                                                              path: Binding.constant(.init())))
     }
 }
