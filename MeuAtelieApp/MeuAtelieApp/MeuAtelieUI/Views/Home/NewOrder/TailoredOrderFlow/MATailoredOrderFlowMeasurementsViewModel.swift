@@ -37,10 +37,12 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
         let ref = db.collection("Orders").document(order.id)
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                     "status": order.status.rawValue,
                      "serviceType": order.serviceType.rawValue,
                      "clientId": order.client.id,
                      "clientName": order.client.fullName,
                      "clientPhone": order.client.phone,
+                     "clientEmail": order.client.email,
                      "cloathesName": order.cloathesName,
                      "cloathesDescription": order.cloathesDescription,
                      "estimatedDeliveryDate": order.estimatedDeliveryDate,

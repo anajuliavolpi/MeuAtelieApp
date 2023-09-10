@@ -41,11 +41,13 @@ final class MAClientsViewModel: ObservableObject {
                     if userId == Auth.auth().currentUser?.uid {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
+                        let clientEmail = data["email"] as? String ?? ""
                         
                         self.clients.append(MAClientModel(userId: userId,
                                                           id: document.documentID,
                                                           fullName: clientFullName,
-                                                          phone: clientPhone))
+                                                          phone: clientPhone,
+                                                          email: clientEmail))
                     }
                 }
             }

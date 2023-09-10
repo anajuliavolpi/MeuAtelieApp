@@ -27,6 +27,7 @@ struct MATailoredOrderFlowView: View {
                 
                 Button(viewModel.continueActionButtonText) {
                     path.append(MANavigationRoutes.HomeRoutes.tailoredFlowMeasurements(order: MAOrderModel(id: viewModel.model.id,
+                                                                                                           status: .onGoing,
                                                                                                            serviceType: viewModel.model.serviceType,
                                                                                                            client: viewModel.model.client,
                                                                                                            cloathesName: viewModel.cloathesName,
@@ -46,7 +47,8 @@ struct MATailoredOrderFlowView: View {
                                                                                                            wristFix: false,
                                                                                                            legFix: false,
                                                                                                            totalValue: 0.0,
-                                                                                                           hiredDate: "")))
+                                                                                                           hiredDate: "",
+                                                                                                           deliveryDate: "")))
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                 fontColor: .white))
@@ -160,8 +162,9 @@ struct MATailoredOrderFlowView: View {
 struct MATailoredOrderFlowView_Previews: PreviewProvider {
     static var previews: some View {
         MATailoredOrderFlowView(viewModel: .init(.init(id: UUID().uuidString,
+                                                       status: .onGoing,
                                                        serviceType: .tailored,
-                                                       client: MAClientModel(userId: "", id: "", fullName: "", phone: ""),
+                                                       client: MAClientModel(userId: "", id: "", fullName: "", phone: "", email: ""),
                                                        cloathesName: "",
                                                        cloathesDescription: "",
                                                        estimatedDeliveryDate: "",
@@ -179,7 +182,8 @@ struct MATailoredOrderFlowView_Previews: PreviewProvider {
                                                        wristFix: false,
                                                        legFix: false,
                                                        totalValue: 0.0,
-                                                       hiredDate: "")),
+                                                       hiredDate: "",
+                                                       deliveryDate: "")),
                                 path: Binding.constant(.init()))
     }
 }

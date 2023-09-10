@@ -16,7 +16,11 @@ final class MAOrderListRowViewModel {
     }()
 
     lazy var dateText: String = {
-        "Entrega: \(order.estimatedDeliveryDate)"
+        if order.status == .onGoing {
+            return "Entrega: \(order.estimatedDeliveryDate)"
+        } else {
+            return "Entregue em: \(order.deliveryDate)"
+        }
     }()
 
     init(order: MAOrderModel) {

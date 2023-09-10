@@ -13,6 +13,7 @@ final class MAEditClientViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var fullName: String = ""
     @Published var phone: String = ""
+    @Published var email: String = ""
     
     var clientID: String
     
@@ -21,6 +22,7 @@ final class MAEditClientViewModel: ObservableObject {
     let saveText: String = "SALVAR"
     let fullNameText: String = "Nome completo"
     let phoneText: String = "Telefone"
+    let emailText: String = "Email"
     
     init(clientID: String) {
         self.clientID = clientID
@@ -48,9 +50,11 @@ final class MAEditClientViewModel: ObservableObject {
                     if userId == Auth.auth().currentUser?.uid && document.documentID == self.clientID {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
+                        let clientEmail = data["email"] as? String ?? ""
                         
                         self.fullName = clientFullName
                         self.phone = clientPhone
+                        self.email = clientEmail
                     }
                 }
             }
@@ -64,7 +68,8 @@ final class MAEditClientViewModel: ObservableObject {
         
         ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
                      "fullname": self.fullName,
-                     "phone": self.phone]) { error in
+                     "phone": self.phone,
+                     "email": self.email]) { error in
             self.isLoading = false
             if let error {
                 print("some error occured on creating data for order: \(error)")

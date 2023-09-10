@@ -6,54 +6,82 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MAOrderDetailsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) var scenePhase
     
     @ObservedObject var viewModel: MAOrderDetailsViewModel
     @State private var showDeletionAlert: Bool = false
+    @State private var showCompletionAlert: Bool = false
+    @State private var isBarHidden = false
     @Binding var path: NavigationPath
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                MAHeaderView(text: viewModel.headerText, subtext: viewModel.subheaderText)
-                    .padding(.horizontal, -40)
-                
-                clientView
-                    .padding(.top, 30)
-                
-                serviceView
-                    .padding(.top, 30)
-                
-                if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
-                    fixesView
+        ScrollViewReader { value in
+            ScrollView {
+                VStack(alignment: .leading) {
+                    MAHeaderView(text: viewModel.headerText, subtext: viewModel.subheaderText)
+                        .padding(.horizontal, -40)
+                        .id(1)
+                    
+                    clientView
+                        .padding(.top, 30)
+                    
+                    serviceView
+                        .padding(.top, 30)
+                    
+                    if viewModel.order?.serviceType == .fixes && !viewModel.fixes.isEmpty {
+                        fixesView
+                            .padding(.top, 10)
+                    } else if viewModel.order?.serviceType == .tailored {
+                        measurementsView
+                            .padding(.top, 10)
+                    }
+                    
+                    moreInfoView
                         .padding(.top, 10)
-                } else if viewModel.order?.serviceType == .tailored {
-                    measurementsView
-                        .padding(.top, 10)
+                    
+                    if !viewModel.isCompletedOrder {
+                        bottomButtonsView
+                            .padding([.top, .bottom], 30)
+                    } else {
+                        shareButtons
+                            .padding([.top, .bottom], 30)
+                    }
                 }
-                
-                moreInfoView
-                    .padding(.top, 10)
-                
-                bottomButtonsView
-                    .padding([.top, .bottom], 30)
+                .padding(.horizontal, 40)
             }
-            .padding(.horizontal, 40)
+            .toolbar(isBarHidden ? .hidden : .visible)
+            .onAppear {
+                isBarHidden = true
+                viewModel.fetchOrder()
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    viewModel.fetchOrder()
+                }
+            }
+            .ignoresSafeArea(edges: .top)
+            .addMALoading(state: viewModel.isLoading)
+            .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
+                viewModel.deleteOrder(dismiss)
+                showDeletionAlert = false
+            } backAction: {
+                showDeletionAlert = false
+            }
+            .addMAAlert(state: showCompletionAlert, message: "Deseja finalizar o pedido?") {
+                viewModel.complete()
+                showCompletionAlert = false
+                
+                withAnimation {
+                    value.scrollTo(1)
+                }
+            } backAction: {
+                showCompletionAlert = false
+            }
         }
-        .onAppear {
-            viewModel.fetchOrder()
-        }
-        .ignoresSafeArea(edges: .top)
-        .addMALoading(state: viewModel.isLoading)
-        .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
-            viewModel.deleteOrder(dismiss)
-            showDeletionAlert = false
-        } backAction: {
-            showDeletionAlert = false
-        }
-
     }
     
     var clientView: some View {
@@ -215,6 +243,16 @@ struct MAOrderDetailsView: View {
                 .font(.system(size: 18, design: .rounded))
                 .foregroundColor(.MAColors.MAWinePink)
             
+            if viewModel.isCompletedOrder {
+                Text(viewModel.deliveryDateText)
+                    .font(.system(size: 18, design: .rounded))
+                    .padding(.top, 10)
+                
+                Text(viewModel.order?.deliveryDate ?? "")
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+            }
+            
             if viewModel.order?.serviceType == .tailored {
                 Text(viewModel.cloathesPhotos)
                     .font(.system(size: 18, design: .rounded))
@@ -270,9 +308,66 @@ struct MAOrderDetailsView: View {
             }
             
             Button(viewModel.finishText) {
-                print("tapped finalizar")
+                showCompletionAlert = true
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
+                                            fontColor: .white))
+        }
+    }
+    
+    var shareButtons: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Button("Compartilhar no WhatsApp!") {
+                let phone = viewModel.order?.client.phone ?? ""
+                let text = """
+                            O seu pedido está pronto:
+                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
+                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
+                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
+                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
+                            Esperamos sua visita!
+                            """
+                
+                var urlComponents = URLComponents(string: "https://wa.me/55\(phone)")
+                urlComponents?.queryItems = [
+                    URLQueryItem(name: "text", value: text)
+                ]
+                
+                if let url = urlComponents?.url {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
+                                            fontColor: .white))
+            
+            Button("Compartilhar via Email") {
+                let email = viewModel.order?.client.email ?? ""
+                let text = """
+                            O seu pedido está pronto:
+                                Pedido: \(viewModel.order?.cloathesDescription ?? "")
+                                Tipo: \(viewModel.order?.serviceType.rawValue ?? "")
+                                Data prevista: \(viewModel.order?.estimatedDeliveryDate ?? "")
+                                Data de entrega: \(viewModel.order?.deliveryDate ?? "")
+                            Esperamos sua visita!
+                            """
+                
+                var urlComponents = URLComponents(string: "mailto:\(email)")
+                urlComponents?.queryItems = [
+                    URLQueryItem(name: "subject", value: "Seu pedido está pronto - Meu AteliêApp"),
+                    URLQueryItem(name: "body", value: text)
+                ]
+                
+                if let url = urlComponents?.url {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkStrong,
+                                            fontColor: .white))
+            
+            Button(viewModel.deleteText) {
+                showDeletionAlert = true
+            }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
                                             fontColor: .white))
         }
     }

@@ -12,7 +12,7 @@ struct MANewOrder: View {
     
     @ObservedObject var viewModel: MANewOrderViewModel = MANewOrderViewModel()
     @State var showNewClientView: Bool = false
-    @State var clientSelected: MAClientModel = MAClientModel(userId: "", id: "", fullName: "", phone: "")
+    @State var clientSelected: MAClientModel = MAClientModel(userId: "", id: "", fullName: "", phone: "", email: "")
     @Binding var path: NavigationPath
     
     var body: some View {
@@ -34,6 +34,7 @@ struct MANewOrder: View {
             Button(viewModel.continueActionText) {
                 if viewModel.orderService == viewModel.service1Text {
                     path.append(MANavigationRoutes.HomeRoutes.newTailored(order: MAOrderModel(id: UUID().uuidString,
+                                                                                              status: .onGoing,
                                                                                               serviceType: .tailored,
                                                                                               client: clientSelected,
                                                                                               cloathesName: "",
@@ -53,9 +54,11 @@ struct MANewOrder: View {
                                                                                               wristFix: false,
                                                                                               legFix: false,
                                                                                               totalValue: 0.0,
-                                                                                              hiredDate: "")))
+                                                                                              hiredDate: "",
+                                                                                              deliveryDate: "")))
                 } else {
                     path.append(MANavigationRoutes.HomeRoutes.newFixes(order: MAOrderModel(id: UUID().uuidString,
+                                                                                           status: .onGoing,
                                                                                            serviceType: .fixes,
                                                                                            client: clientSelected,
                                                                                            cloathesName: "",
@@ -75,7 +78,8 @@ struct MANewOrder: View {
                                                                                            wristFix: false,
                                                                                            legFix: false,
                                                                                            totalValue: 0.0,
-                                                                                           hiredDate: ""),
+                                                                                           hiredDate: "",
+                                                                                           deliveryDate: ""),
                                                                        pieces: Int(viewModel.piecesNumber) ?? 1))
                 }
             }
