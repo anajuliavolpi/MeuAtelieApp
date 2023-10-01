@@ -57,12 +57,18 @@ struct MeuAtelieAppApp: App {
                             }
                             .tag(1)
                         
+                        MACalendarView()
+                            .tabItem {
+                                Label("Agenda", systemImage: "calendar")
+                            }
+                            .tag(2)
+                        
                         MAProfileView()
                             .environmentObject(networkManager)
                             .tabItem {
                                 Label("Perfil", systemImage: "person")
                             }
-                            .tag(2)
+                            .tag(3)
                     }
                 } else {
                     MALoginView()
