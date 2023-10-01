@@ -58,8 +58,16 @@ struct CalendarView: View {
 //                                            Color.MAColors.MAPinkLight
 //                                        }
     
-                                        if hasOrderIn(date: date) {
-                                            Color.MAColors.MAPinkMediumLight
+                                        if let order = hasOrderIn(date: date) {
+                                            if order.status == .completed {
+                                                Color.green
+                                            } else {
+                                                if order.date < CalendarView.now {
+                                                    Color.MAColors.MAPinkStrong
+                                                } else {
+                                                    Color.MAColors.MAPinkMediumLight
+                                                }
+                                            }
                                         }
                                     }
                                 )
@@ -136,9 +144,9 @@ struct CalendarView: View {
         .padding()
     }
     
-    private func hasOrderIn(date: Date) -> Bool {
+    private func hasOrderIn(date: Date) -> (date: Date, status: OrderStatus)? {
         let hasOrder = dates.first(where: { calendar.isDate(date, inSameDayAs: $0.date) })
-        return hasOrder != nil
+        return hasOrder
     }
 }
 
@@ -259,11 +267,31 @@ private extension Date {
 // MARK: - Previews
 #if DEBUG
 struct CalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
+    
+    struct GregorianCalendar: View {
+        
+        private let dateFormatter = DateFormatter(dateFormat: "dd/MM/yy", calendar: .init(identifier: .gregorian))
+        private var dates: [(date: Date, status: OrderStatus)] = []
+        
+        init() {
+            dates.append((date: dateFormatter.date(from: "01/10/2023")!, status: .onGoing))
+            dates.append((date: dateFormatter.date(from: "05/10/2023")!, status: .onGoing))
+            dates.append((date: dateFormatter.date(from: "10/10/2023")!, status: .completed))
+            dates.append((date: dateFormatter.date(from: "05/09/2023")!, status: .completed))
+            dates.append((date: dateFormatter.date(from: "15/09/2023")!, status: .onGoing))
+        }
+        
+        var body: some View {
             CalendarView(calendar: Calendar(identifier: .gregorian),
                          selectedDate: Binding.constant(.now),
-                         dates: [])
+                         dates: self.dates)
+        }
+        
+    }
+    
+    static var previews: some View {
+        Group {
+            GregorianCalendar()
             
             CalendarView(calendar: Calendar(identifier: .islamicUmmAlQura),
                          selectedDate: Binding.constant(.now),
