@@ -12,7 +12,7 @@ import SwiftUI
 
 struct CalendarView: View {
     private let calendar: Calendar
-    private let monthFormatter: DateFormatter
+    private let monthYearFormatter: DateFormatter
     private let dayFormatter: DateFormatter
     private let weekDayFormatter: DateFormatter
     private let fullFormatter: DateFormatter
@@ -25,7 +25,7 @@ struct CalendarView: View {
         self.calendar = calendar
         self._selectedDate = selectedDate
         self.dates = dates
-        self.monthFormatter = DateFormatter(dateFormat: "MMMM", calendar: calendar)
+        self.monthYearFormatter = DateFormatter(dateFormat: "MMMM yyyy", calendar: calendar)
         self.dayFormatter = DateFormatter(dateFormat: "d", calendar: calendar)
         self.weekDayFormatter = DateFormatter(dateFormat: "EEEEE", calendar: calendar)
         self.fullFormatter = DateFormatter(dateFormat: "MMMM dd, yyyy", calendar: calendar)
@@ -50,9 +50,9 @@ struct CalendarView: View {
                                 .foregroundColor(.clear)
                                 .background(
                                     Group {
-//                                        if calendar.isDate(date, inSameDayAs: selectedDate) {
-//                                            Color.MAColors.MAPinkLight
-//                                        }
+                                        if calendar.isDate(date, inSameDayAs: selectedDate) {
+                                            Color.MAColors.MAPinkLight
+                                        }
     
 //                                        if calendar.isDateInToday(date) {
 //                                            Color.MAColors.MAPinkLight
@@ -63,7 +63,7 @@ struct CalendarView: View {
                                                 Color.green
                                             } else {
                                                 if order.date < CalendarView.now {
-                                                    Color.MAColors.MAPinkStrong
+                                                    Color.MAColors.MAWinePink
                                                 } else {
                                                     Color.MAColors.MAPinkMediumLight
                                                 }
@@ -75,7 +75,7 @@ struct CalendarView: View {
                                 .accessibilityHidden(true)
                                 .overlay(
                                     Text(dayFormatter.string(from: date))
-                                        .foregroundColor(.black)
+                                        .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .black)
                                 )
                         }
                     }
@@ -89,10 +89,16 @@ struct CalendarView: View {
                 },
                 title: { date in
                     HStack {
-                        Text(monthFormatter.string(from: date))
+                        Text(monthYearFormatter.string(from: date))
                             .font(.headline)
                             .padding()
+                        
                         Spacer()
+                        
+                        Button("hoje") {
+                            selectedDate = .now
+                        }
+                        
                         Button {
 //                            withAnimation {
                                 guard let newDate = calendar.date(
