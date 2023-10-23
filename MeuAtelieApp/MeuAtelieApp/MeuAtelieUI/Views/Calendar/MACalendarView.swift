@@ -46,6 +46,14 @@ struct MACalendarView: View {
                         .onTapGesture {
                             navigationPath.append(MANavigationRoutes.CalendarRoutes.orderDetails(order: order))
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            if order.status == .onGoing {
+                                Button("Finalizar") {
+                                    viewModel.complete(order: order)
+                                }
+                                .tint(.green)
+                            }
+                        }
                 }
                 .listStyle(.plain)
                 .navigationDestination(for: MANavigationRoutes.CalendarRoutes.self, destination: { routes in

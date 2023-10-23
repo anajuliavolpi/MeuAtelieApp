@@ -22,6 +22,48 @@ final class MACalendarViewModel: ObservableObject {
         fetchOrders()
     }
     
+    func complete(order: MAOrderModel) {
+        isLoading = true
+        let db = Firestore.firestore()
+        let ref = db.collection("Orders").document(order.id)
+        
+        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                     "status": OrderStatus.completed.rawValue,
+                     "serviceType": order.serviceType.rawValue,
+                     "clientId": order.client.id,
+                     "clientName": order.client.fullName,
+                     "clientPhone": order.client.phone,
+                     "clientEmail": order.client.email,
+                     "cloathesName": order.cloathesName,
+                     "cloathesDescription": order.cloathesDescription,
+                     "estimatedDeliveryDate": order.estimatedDeliveryDate,
+                     "shoulderMeasurement": order.shoulderMeasurement,
+                     "bustMeasurement": order.bustMeasurement,
+                     "lengthMeasurement": order.lengthMeasurement,
+                     "waistMeasurement": order.waistMeasurement,
+                     "abdomenMeasurement": order.abdomenMeasurement,
+                     "hipsMeasurement": order.hipsMeasurement,
+                     "waistFix": order.waistFix,
+                     "lengthFix": order.lengthFix,
+                     "hipsFix": order.hipsFix,
+                     "barFix": order.barFix,
+                     "shoulderFix": order.shoulderFix,
+                     "wristFix": order.wristFix,
+                     "legFix": order.legFix,
+                     "totalValue": order.totalValue,
+                     "hiredDate": order.hiredDate,
+                     "deliveryDate": Date.now.formatted()]
+        ) { error in
+            self.isLoading = false
+            if let error {
+                print("some error occured on creating data for order: \(error)")
+                return
+            }
+            
+            self.fetchOrders()
+        }
+    }
+    
     func fetchOrders() {
         isLoading = true
         orders.removeAll()
