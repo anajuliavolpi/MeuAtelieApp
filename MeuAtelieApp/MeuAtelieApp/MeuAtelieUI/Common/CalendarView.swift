@@ -58,14 +58,23 @@ struct CalendarView: View {
 //                                            Color.MAColors.MAPinkLight
 //                                        }
     
-                                        if let order = hasOrderIn(date: date) {
-                                            if order.status == .completed {
+                                        let orders = ordersIn(date: date)
+                                        if orders.count > 1 {
+                                            if orders.allSatisfy({ $0.status == .completed }) {
                                                 Color.green
                                             } else {
-                                                if order.date < CalendarView.now {
-                                                    Color.MAColors.MAWinePink
+                                                Color.yellow
+                                            }
+                                        } else {
+                                            if let order = hasOrderIn(date: date) {
+                                                if order.status == .completed {
+                                                    Color.green
                                                 } else {
-                                                    Color.MAColors.MAPinkMediumLight
+                                                    if order.date <= CalendarView.now {
+                                                        Color.MAColors.MAWinePink
+                                                    } else {
+                                                        Color.MAColors.MAPinkMediumLight
+                                                    }
                                                 }
                                             }
                                         }
@@ -153,6 +162,11 @@ struct CalendarView: View {
     private func hasOrderIn(date: Date) -> (date: Date, status: OrderStatus)? {
         let hasOrder = dates.first(where: { calendar.isDate(date, inSameDayAs: $0.date) })
         return hasOrder
+    }
+    
+    private func ordersIn(date: Date) -> [(date: Date, status: OrderStatus)] {
+        let orders = dates.filter({ calendar.isDate(date, inSameDayAs: $0.date) })
+        return orders
     }
 }
 
