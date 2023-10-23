@@ -22,4 +22,9 @@ struct MANavigationRoutes {
         case tailoredFlowMeasurements(order: MAOrderModel)
     }
     
+    enum CalendarRoutes: Hashable {
+        case orderDetails(order: MAOrderModel)
+        case editOrder(order: MAOrderModel)
+    }
+    
 }

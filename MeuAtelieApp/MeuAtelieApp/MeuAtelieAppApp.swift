@@ -13,6 +13,7 @@ struct MeuAtelieAppApp: App {
     
     @StateObject var networkManager: NetworkManager = NetworkManager()
     @State var homePath: NavigationPath = .init()
+    @State var calendarPath: NavigationPath = .init()
     
     var handler: Binding<Int> { Binding(
         get: { self.networkManager.selectedTab },
@@ -57,7 +58,7 @@ struct MeuAtelieAppApp: App {
                             }
                             .tag(1)
                         
-                        MACalendarView()
+                        MACalendarView(navigationPath: $calendarPath)
                             .tabItem {
                                 Label("Agenda", systemImage: "calendar")
                             }

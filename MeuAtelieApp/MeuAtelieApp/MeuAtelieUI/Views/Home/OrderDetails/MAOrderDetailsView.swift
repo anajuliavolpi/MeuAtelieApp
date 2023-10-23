@@ -17,6 +17,7 @@ struct MAOrderDetailsView: View {
     @State private var showCompletionAlert: Bool = false
     @State private var isBarHidden = false
     @Binding var path: NavigationPath
+    var isFromCalendar: Bool = false
     
     var body: some View {
         ScrollViewReader { value in
@@ -294,7 +295,11 @@ struct MAOrderDetailsView: View {
             HStack(spacing: 10) {
                 Button(viewModel.editText) {
                     if let model = viewModel.order {
-                        path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
+                        if isFromCalendar {
+                            path.append(MANavigationRoutes.CalendarRoutes.editOrder(order: model))
+                        } else {
+                            path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
+                        }
                     }
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
