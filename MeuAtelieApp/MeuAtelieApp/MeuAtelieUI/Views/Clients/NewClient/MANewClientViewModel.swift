@@ -7,10 +7,12 @@
 
 import SwiftUI
 import Firebase
+import Contacts
 
 final class MANewClientViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
+    @Published var contacts: [CNContact] = []
     
     let createText: String = "Adicionar"
     let newClientText: String = "novo cliente"
@@ -37,6 +39,20 @@ final class MANewClientViewModel: ObservableObject {
             }
             
             dismiss()
+        }
+    }
+    
+    func fetchContacts() async {
+        let store = CNContactStore()
+        let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactEmailAddressesKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
+        
+        do {
+            try store.enumerateContacts(with: fetchRequest) { contact, result in
+                self.contacts.append(contact)
+            }
+        } catch {
+            print("some error: \(error)")
         }
     }
     
