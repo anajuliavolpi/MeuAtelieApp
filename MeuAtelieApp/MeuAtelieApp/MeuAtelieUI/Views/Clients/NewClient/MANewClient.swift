@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 struct MANewClient: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,7 +15,7 @@ struct MANewClient: View {
     @State var clientFullName: String = ""
     @State var clientPhone: String = ""
     @State var clientEmail: String = ""
-    @State var showImportClientAlert: Bool = false
+    @State var showImportClientSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -33,8 +34,29 @@ struct MANewClient: View {
         .padding(.horizontal, 20)
         .hideKeyboard()
         .addMALoading(state: viewModel.isLoading)
-        .addMAError(state: showImportClientAlert, message: "Work in progress...") {
-            showImportClientAlert = false
+        .sheet(isPresented: $showImportClientSheet) {
+            VStack {
+                MAHeaderView(text: "Importar",
+                             subtext: "CONTATO")
+                
+                List($viewModel.contacts, id: \.self) { contact in
+                    MAClientListRow(clientName: "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))",
+                                    clientPhone: getPhoneNumber(of: contact.wrappedValue),
+                                    clientEmail: getEmailAddress(of: contact.wrappedValue))
+                    .padding()
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
+                    .listRowInsets(EdgeInsets())
+                    .padding(.trailing, 18)
+                    .onTapGesture {
+                        self.clientFullName = "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))"
+                        self.clientPhone = getPhoneNumber(of: contact.wrappedValue)
+                        self.clientEmail = getEmailAddress(of: contact.wrappedValue)
+                        
+                        showImportClientSheet = false
+                    }
+                }
+                .listStyle(.plain)
+            }
         }
     }
     
@@ -71,7 +93,10 @@ struct MANewClient: View {
     var buttonsView: some View {
         VStack {
             Button(viewModel.importClientActionText) {
-                showImportClientAlert = true
+                Task {
+                    await viewModel.fetchContacts()
+                    self.showImportClientSheet = true
+                }
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
                                             fontColor: .white))
@@ -88,6 +113,27 @@ struct MANewClient: View {
                                             fontColor: .white))
             .padding(.bottom, 40)
         }
+    }
+    
+}
+
+// MARK: - Format contact information
+extension MANewClient {
+    
+    func getFirstName(of contact: CNContact) -> String {
+        return contact.givenName
+    }
+    
+    func getLastName(of contact: CNContact) -> String {
+        return contact.familyName
+    }
+    
+    func getPhoneNumber(of contact: CNContact) -> String {
+        return contact.phoneNumbers.first?.value.stringValue ?? "N/A"
+    }
+    
+    func getEmailAddress(of contact: CNContact) -> String {
+        return contact.emailAddresses.first?.value.lowercased ?? "N/A"
     }
     
 }

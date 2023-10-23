@@ -49,6 +49,10 @@
 		3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */; };
 		3856D26B29E0755100D68516 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26A29E0755100D68516 /* View+Ext.swift */; };
 		3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3856D26C29E0CD9A00D68516 /* MAErrorView.swift */; };
+		385C97022AAE0AFD00DE0F89 /* MACalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385C97012AAE0AFD00DE0F89 /* MACalendarView.swift */; };
+		385C97042AAE0E8C00DE0F89 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385C97032AAE0E8C00DE0F89 /* CalendarView.swift */; };
+		385C97062AAE17C000DE0F89 /* MACalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385C97052AAE17C000DE0F89 /* MACalendarViewModel.swift */; };
+		385C97082AAE1C5A00DE0F89 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385C97072AAE1C5A00DE0F89 /* Date+Ext.swift */; };
 		386D92BB2A5894AA004181EE /* MAStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D92BA2A5894AA004181EE /* MAStrings.swift */; };
 		386D92BD2A58A7A4004181EE /* MANavigationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */; };
 		3872D64129ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */; };
@@ -128,6 +132,10 @@
 		3856D26829E06C9A00D68516 /* MANewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordViewModel.swift; sourceTree = "<group>"; };
 		3856D26A29E0755100D68516 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		3856D26C29E0CD9A00D68516 /* MAErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAErrorView.swift; sourceTree = "<group>"; };
+		385C97012AAE0AFD00DE0F89 /* MACalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MACalendarView.swift; sourceTree = "<group>"; };
+		385C97032AAE0E8C00DE0F89 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		385C97052AAE17C000DE0F89 /* MACalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MACalendarViewModel.swift; sourceTree = "<group>"; };
+		385C97072AAE1C5A00DE0F89 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		386D92BA2A5894AA004181EE /* MAStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAStrings.swift; sourceTree = "<group>"; };
 		386D92BC2A58A7A4004181EE /* MANavigationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANavigationRoutes.swift; sourceTree = "<group>"; };
 		3872D64029ABFC65001F180D /* MeuAtelieLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeuAtelieLaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -321,6 +329,7 @@
 				383B718929AD39D800A465D8 /* Home */,
 				3822E4BA29DB6F8F00FE8348 /* Profile */,
 				3853F52B2A070A0300FD2DB3 /* Clients */,
+				385C97002AAE0AE200DE0F89 /* Calendar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -423,6 +432,15 @@
 			path = OrderListRow;
 			sourceTree = "<group>";
 		};
+		385C97002AAE0AE200DE0F89 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				385C97012AAE0AFD00DE0F89 /* MACalendarView.swift */,
+				385C97052AAE17C000DE0F89 /* MACalendarViewModel.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		3872D63E29ABFC1F001F180D /* MeuAtelieUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +498,7 @@
 				38D0810F2A07E9CB00B0DB99 /* MAHeaderView.swift */,
 				38D0811C2A081F4800B0DB99 /* MAAlertView.swift */,
 				383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */,
+				385C97032AAE0E8C00DE0F89 /* CalendarView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -490,6 +509,7 @@
 				388A076E29AEC55D00FCE962 /* Colors+Ext.swift */,
 				388A077029AECD6500FCE962 /* Image+Ext.swift */,
 				3856D26A29E0755100D68516 /* View+Ext.swift */,
+				385C97072AAE1C5A00DE0F89 /* Date+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -666,7 +686,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					38D7F7C929A42ED0009E0A6A = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -728,6 +748,7 @@
 			files = (
 				3856D26529E064B500D68516 /* MANewOrderViewModel.swift in Sources */,
 				3856D25929DFB63500D68516 /* MAHomeViewModel.swift in Sources */,
+				385C97022AAE0AFD00DE0F89 /* MACalendarView.swift in Sources */,
 				38D0811B2A08191100B0DB99 /* MAClientDetailsViewModel.swift in Sources */,
 				387F26532A096BFD00DC9BB9 /* MATailoredOrderFlowView.swift in Sources */,
 				38D081162A080EEF00B0DB99 /* MAClientDetailsView.swift in Sources */,
@@ -740,6 +761,7 @@
 				38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */,
 				386D92BD2A58A7A4004181EE /* MANavigationRoutes.swift in Sources */,
 				3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */,
+				385C97082AAE1C5A00DE0F89 /* Date+Ext.swift in Sources */,
 				3856D25129DFAE8C00D68516 /* MALoginViewModel.swift in Sources */,
 				3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */,
 				389951CD2A526F3B007D87FB /* MAOrderDetailsView.swift in Sources */,
@@ -755,6 +777,7 @@
 				387F26572A09808A00DC9BB9 /* MATailoredOrderFlowMeasurementsView.swift in Sources */,
 				3856D26329E0619500D68516 /* MAOrderListRowViewModel.swift in Sources */,
 				38D081202A0825A500B0DB99 /* MAEditClientView.swift in Sources */,
+				385C97042AAE0E8C00DE0F89 /* CalendarView.swift in Sources */,
 				3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */,
 				38D081132A07F62E00B0DB99 /* MAClientListRow.swift in Sources */,
 				3856D25F29DFBE4E00D68516 /* MAOrderListRow.swift in Sources */,
@@ -766,6 +789,7 @@
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,
 				3856D26129E05DAB00D68516 /* MAButton.swift in Sources */,
 				3853F5352A0747A700FD2DB3 /* MAClientModel.swift in Sources */,
+				385C97062AAE17C000DE0F89 /* MACalendarViewModel.swift in Sources */,
 				383DFBB22A0898C600FC4F42 /* MADropdownMenu.swift in Sources */,
 				38D0811D2A081F4800B0DB99 /* MAAlertView.swift in Sources */,
 				388A076C29AEC4EF00FCE962 /* MATextField.swift in Sources */,
@@ -852,6 +876,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -912,6 +937,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -943,11 +969,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -975,11 +1003,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = MeuAtelieLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1071,8 +1101,9 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				kind = versionRange;
+				maximumVersion = 11.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
