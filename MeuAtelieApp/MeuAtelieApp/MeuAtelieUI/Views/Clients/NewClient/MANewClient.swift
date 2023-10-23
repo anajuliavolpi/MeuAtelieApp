@@ -35,28 +35,11 @@ struct MANewClient: View {
         .hideKeyboard()
         .addMALoading(state: viewModel.isLoading)
         .sheet(isPresented: $showImportClientSheet) {
-            VStack {
-                MAHeaderView(text: "Importar",
-                             subtext: "CONTATO")
-                
-                List($viewModel.contacts, id: \.self) { contact in
-                    MAClientListRow(clientName: "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))",
-                                    clientPhone: getPhoneNumber(of: contact.wrappedValue),
-                                    clientEmail: getEmailAddress(of: contact.wrappedValue))
-                    .padding()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
-                    .listRowInsets(EdgeInsets())
-                    .padding(.trailing, 18)
-                    .onTapGesture {
-                        self.clientFullName = "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))"
-                        self.clientPhone = getPhoneNumber(of: contact.wrappedValue)
-                        self.clientEmail = getEmailAddress(of: contact.wrappedValue)
-                        
-                        showImportClientSheet = false
-                    }
-                }
-                .listStyle(.plain)
-            }
+            MAImportClientsView(contacts: viewModel.contacts,
+                                clientFullName: self.$clientFullName,
+                                clientPhone: self.$clientPhone,
+                                clientEmail: self.$clientEmail,
+                                showImportClientSheet: self.$showImportClientSheet)
         }
     }
     
@@ -113,27 +96,6 @@ struct MANewClient: View {
                                             fontColor: .white))
             .padding(.bottom, 40)
         }
-    }
-    
-}
-
-// MARK: - Format contact information
-extension MANewClient {
-    
-    func getFirstName(of contact: CNContact) -> String {
-        return contact.givenName
-    }
-    
-    func getLastName(of contact: CNContact) -> String {
-        return contact.familyName
-    }
-    
-    func getPhoneNumber(of contact: CNContact) -> String {
-        return contact.phoneNumbers.first?.value.stringValue ?? "N/A"
-    }
-    
-    func getEmailAddress(of contact: CNContact) -> String {
-        return contact.emailAddresses.first?.value.lowercased ?? "N/A"
     }
     
 }

@@ -43,6 +43,8 @@ final class MANewClientViewModel: ObservableObject {
     }
     
     func fetchContacts() async {
+        self.contacts.removeAll()
+        
         let store = CNContactStore()
         let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactEmailAddressesKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
         let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
