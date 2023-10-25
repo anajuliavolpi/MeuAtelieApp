@@ -38,7 +38,7 @@ struct MACalendarView: View {
                     .padding([.leading, .top], 20)
                 
                 List(self.ordersOnSelectedDate, id: \.id) { order in
-                    MAOrderListRow(viewModel: .init(order: order))
+                    MAOrderListRow(viewModel: .init(order: order), isFromCalendar: true, circleColor: viewModel.getBadgeColor(order: order))
                         .padding()
                         .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
                         .listRowInsets(EdgeInsets())

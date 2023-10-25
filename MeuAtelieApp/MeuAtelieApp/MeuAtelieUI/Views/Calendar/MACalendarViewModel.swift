@@ -22,6 +22,22 @@ final class MACalendarViewModel: ObservableObject {
         fetchOrders()
     }
     
+    func getBadgeColor(order: MAOrderModel) -> Color {
+        if order.status == .onGoing {
+            if let date = df.date(from: order.estimatedDeliveryDate) {
+                if date < Date.now {
+                    return .red
+                } else {
+                    return Color.MAColors.MAPinkLight
+                }
+            } else {
+                return .clear
+            }
+        } else {
+            return .green
+        }
+    }
+    
     func complete(order: MAOrderModel) {
         isLoading = true
         let db = Firestore.firestore()

@@ -10,6 +10,8 @@ import SwiftUI
 struct MAOrderListRow: View {
     
     var viewModel: MAOrderListRowViewModel
+    var isFromCalendar: Bool = false
+    var circleColor: Color = .clear
     
     var body: some View {
         HStack(spacing: 20) {
@@ -22,6 +24,14 @@ struct MAOrderListRow: View {
                     .resizable()
                     .frame(width: 86, height: 89)
                     .padding(.top, 8)
+            }
+            .overlay {
+                if isFromCalendar {
+                    Circle()
+                        .fill(circleColor)
+                        .frame(width: 20, height: 20)
+                        .offset(x: 55, y: -53)
+                }
             }
             
             VStack(alignment: .leading, spacing: 10) {
@@ -44,10 +54,10 @@ struct MAOrderListRow_Previews: PreviewProvider {
         MAOrderListRow(viewModel: .init(order: .init(id: UUID().uuidString,
                                                      status: .onGoing,
                                                      serviceType: .tailored,
-                                                     client: MAClientModel(userId: "", id: "", fullName: "", phone: "", email: ""),
+                                                     client: MAClientModel(userId: "", id: "", fullName: "Ana Júlia", phone: "", email: ""),
                                                      cloathesName: "",
                                                      cloathesDescription: "",
-                                                     estimatedDeliveryDate: "",
+                                                     estimatedDeliveryDate: "30/10/2023",
                                                      shoulderMeasurement: 0,
                                                      bustMeasurement: 0,
                                                      lengthMeasurement: 0,
@@ -63,6 +73,6 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      legFix: false,
                                                      totalValue: 0.0,
                                                      hiredDate: "",
-                                                     deliveryDate: "")))
+                                                     deliveryDate: "27/10/2023")))
     }
 }
