@@ -81,6 +81,7 @@
 		38D7F7CE29A42ED0009E0A6A /* MeuAtelieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D7F7CD29A42ED0009E0A6A /* MeuAtelieAppApp.swift */; };
 		38D7F7D229A42ED2009E0A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D129A42ED2009E0A6A /* Assets.xcassets */; };
 		38D7F7D529A42ED2009E0A6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */; };
+		38FB446E2AEABD2D0032CF22 /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB446D2AEABD2D0032CF22 /* CameraPicker.swift */; };
 		38FFE08429DB88FF006D6953 /* MANewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +169,7 @@
 		38D7F7D129A42ED2009E0A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38D7F7D429A42ED2009E0A6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38D7F7DA29A42ED2009E0A6A /* MeuAtelieAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeuAtelieAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		38FB446D2AEABD2D0032CF22 /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
 		38FFE08329DB88FF006D6953 /* MANewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -502,6 +504,7 @@
 				38D0811C2A081F4800B0DB99 /* MAAlertView.swift */,
 				383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */,
 				385C97032AAE0E8C00DE0F89 /* CalendarView.swift */,
+				38FB446D2AEABD2D0032CF22 /* CameraPicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 				38D081102A07E9CB00B0DB99 /* MAHeaderView.swift in Sources */,
 				388A077129AECD6500FCE962 /* Image+Ext.swift in Sources */,
 				3856D26D29E0CD9A00D68516 /* MAErrorView.swift in Sources */,
+				38FB446E2AEABD2D0032CF22 /* CameraPicker.swift in Sources */,
 				38D081192A08158800B0DB99 /* ClientDetailsServiceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,6 +985,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Habilite o acesso a camera para tirar foto das suas peças!";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1016,6 +1021,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Habilite o acesso a camera para tirar foto das suas peças!";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
