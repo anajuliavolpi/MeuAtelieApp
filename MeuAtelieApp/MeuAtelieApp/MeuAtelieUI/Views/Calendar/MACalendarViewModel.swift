@@ -26,15 +26,15 @@ final class MACalendarViewModel: ObservableObject {
         if order.status == .onGoing {
             if let date = df.date(from: order.estimatedDeliveryDate) {
                 if date < Date.now {
-                    return .red
+                    return .MAColors.MARed
                 } else {
-                    return Color.MAColors.MAPinkLight
+                    return .MAColors.MACalendarPink
                 }
             } else {
                 return .clear
             }
         } else {
-            return .green
+            return .MAColors.MAGreen
         }
     }
     

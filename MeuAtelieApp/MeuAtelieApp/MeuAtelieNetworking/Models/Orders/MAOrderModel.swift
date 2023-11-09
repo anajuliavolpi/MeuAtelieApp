@@ -5,7 +5,7 @@
 //  Created by Ana Júlia Volpi on 06/04/23.
 //
 
-import Foundation
+import SwiftUI
 
 enum ServiceType: String {
     case tailored = "Roupa sob medida"

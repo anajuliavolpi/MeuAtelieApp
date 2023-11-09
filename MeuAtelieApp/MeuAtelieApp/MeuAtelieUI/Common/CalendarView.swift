@@ -51,7 +51,7 @@ struct CalendarView: View {
                                 .background(
                                     Group {
                                         if calendar.isDate(date, inSameDayAs: selectedDate) {
-                                            Color.MAColors.MAPinkLight
+                                            Color.MAColors.MATodayPink
                                         }
     
 //                                        if calendar.isDateInToday(date) {
@@ -61,19 +61,21 @@ struct CalendarView: View {
                                         let orders = ordersIn(date: date)
                                         if orders.count > 1 {
                                             if orders.allSatisfy({ $0.status == .completed }) {
-                                                Color.green
+                                                Color.MAColors.MAGreen
+                                            } else if orders.allSatisfy({ $0.status == .onGoing }) {
+                                                Color.MAColors.MARed
                                             } else {
-                                                Color.yellow
+                                                Color.MAColors.MAYellow
                                             }
                                         } else {
                                             if let order = hasOrderIn(date: date) {
                                                 if order.status == .completed {
-                                                    Color.green
+                                                    Color.MAColors.MAGreen
                                                 } else {
                                                     if order.date <= CalendarView.now {
-                                                        Color.MAColors.MAWinePink
+                                                        Color.MAColors.MARed
                                                     } else {
-                                                        Color.MAColors.MAPinkMediumLight
+                                                        Color.MAColors.MACalendarPink
                                                     }
                                                 }
                                             }
@@ -84,7 +86,8 @@ struct CalendarView: View {
                                 .accessibilityHidden(true)
                                 .overlay(
                                     Text(dayFormatter.string(from: date))
-                                        .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .black)
+//                                        .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .black)
+                                        .foregroundColor(.black)
                                 )
                         }
                     }
