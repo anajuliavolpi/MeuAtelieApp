@@ -261,23 +261,22 @@ struct MAOrderDetailsView: View {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(1..<6) { _ in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(.MAColors.MAImageGray)
-                                    .frame(width: 116, height: 113)
-                                
-                                Image.MAImages.Login.loginTopImage
+                        ForEach(viewModel.order?.imagesURLs ?? [""], id: \.self) { url in
+                            AsyncImage(url: URL(string: url)) { image in
+                                image
                                     .resizable()
-                                    .frame(width: 86, height: 89)
-                                    .padding(.top, 8)
+                                    .scaledToFit()
+                                    .cornerRadius(8)
+                            } placeholder: {
+                                ProgressView()
                             }
+                            .frame(width: 116, height: 113)
+                            .padding(.top, 8)
                         }
                     }
                     .padding(.horizontal, 40)
                 }
                 .padding(.horizontal, -40)
-                .padding(.bottom, 20)
             } else {
                 Text(viewModel.totalValueText)
                     .font(.system(size: 18, design: .rounded))

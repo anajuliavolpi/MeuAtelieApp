@@ -35,7 +35,6 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     }
     
     func uploadImages(order: MAOrderModel) {
-        isLoading = true
         model = order
         
         var urls: [String] = []
@@ -78,7 +77,6 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     }
     
     func create(order: MAOrderModel) {
-        isLoading = true
         let db = Firestore.firestore()
         let ref = db.collection("Orders").document(order.id)
         

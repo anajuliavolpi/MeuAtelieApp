@@ -153,6 +153,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         let deliveryDate = data["deliveryDate"] as? String ?? ""
+                        let imagesURLs = data["imagesURLs"] as? [String] ?? []
                         
                         self.order = MAOrderModel(id: document.documentID,
                                                   status: OrderStatus(rawValue: status) ?? .onGoing,
@@ -180,7 +181,8 @@ final class MAOrderDetailsViewModel: ObservableObject {
                                                   legFix: legFix,
                                                   totalValue: totalValue,
                                                   hiredDate: String(hiredDate.prefix(10)),
-                                                  deliveryDate: String(deliveryDate.prefix(10)))
+                                                  deliveryDate: String(deliveryDate.prefix(10)),
+                                                  imagesURLs: imagesURLs)
                         
                         if self.order?.serviceType == .fixes {
                             let mirror = Mirror(reflecting: self.order!)

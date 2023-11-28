@@ -49,6 +49,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
                 secondPartFormView
                 
                 Button(viewModel.finishActionButtonText) {
+                    viewModel.isLoading = true
                     viewModel.uploadImages(order: MAOrderModel(id: viewModel.model.id,
                                                          status: .onGoing,
                                                          serviceType: viewModel.model.serviceType,
