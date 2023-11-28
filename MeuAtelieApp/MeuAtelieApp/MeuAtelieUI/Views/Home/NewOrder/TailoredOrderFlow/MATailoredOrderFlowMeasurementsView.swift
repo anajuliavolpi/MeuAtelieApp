@@ -49,30 +49,34 @@ struct MATailoredOrderFlowMeasurementsView: View {
                 secondPartFormView
                 
                 Button(viewModel.finishActionButtonText) {
-                    viewModel.isLoading = true
-                    viewModel.uploadImages(order: MAOrderModel(id: viewModel.model.id,
-                                                         status: .onGoing,
-                                                         serviceType: viewModel.model.serviceType,
-                                                         client: viewModel.model.client,
-                                                         cloathesName: viewModel.model.cloathesName,
-                                                         cloathesDescription: viewModel.model.cloathesDescription,
-                                                         estimatedDeliveryDate: viewModel.model.estimatedDeliveryDate,
-                                                         shoulderMeasurement: Int(self.shoulder) ?? 0,
-                                                         bustMeasurement: Int(self.bust) ?? 0,
-                                                         lengthMeasurement: Int(self.length) ?? 0,
-                                                         waistMeasurement: Int(self.waist) ?? 0,
-                                                         abdomenMeasurement: Int(self.abdomen) ?? 0,
-                                                         hipsMeasurement: Int(self.hips) ?? 0,
-                                                         waistFix: false,
-                                                         lengthFix: false,
-                                                         hipsFix: false,
-                                                         barFix: false,
-                                                         shoulderFix: false,
-                                                         wristFix: false,
-                                                         legFix: false,
-                                                         totalValue: 0.0, // total value 0 for now
-                                                         hiredDate: Date.now.formatted(),
-                                                         deliveryDate: ""))
+                    let order = MAOrderModel(id: viewModel.model.id,
+                                             status: .onGoing,
+                                             serviceType: viewModel.model.serviceType,
+                                             client: viewModel.model.client,
+                                             cloathesName: viewModel.model.cloathesName,
+                                             cloathesDescription: viewModel.model.cloathesDescription,
+                                             estimatedDeliveryDate: viewModel.model.estimatedDeliveryDate,
+                                             shoulderMeasurement: Int(self.shoulder) ?? 0,
+                                             bustMeasurement: Int(self.bust) ?? 0,
+                                             lengthMeasurement: Int(self.length) ?? 0,
+                                             waistMeasurement: Int(self.waist) ?? 0,
+                                             abdomenMeasurement: Int(self.abdomen) ?? 0,
+                                             hipsMeasurement: Int(self.hips) ?? 0,
+                                             waistFix: false,
+                                             lengthFix: false,
+                                             hipsFix: false,
+                                             barFix: false,
+                                             shoulderFix: false,
+                                             wristFix: false,
+                                             legFix: false,
+                                             totalValue: 0.0, // total value 0 for now
+                                             hiredDate: Date.now.formatted(),
+                                             deliveryDate: "",
+                                             imagesURLs: [])
+                    
+                    Task {
+                        await viewModel.uploadDocument(with: order)
+                    }
                 }
                 .opacity(isValid ? 1 : 0.3)
                 .disabled(!isValid)
@@ -82,6 +86,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.horizontal, 20)
         }
+        .addMALoading(state: viewModel.isLoading)
         .hideKeyboard()
         .ignoresSafeArea(edges: .top)
     }

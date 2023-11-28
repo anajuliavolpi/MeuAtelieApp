@@ -34,87 +34,78 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
         self.path = path
     }
     
-    func uploadImages(order: MAOrderModel) {
-        model = order
+    @MainActor func uploadDocument(with order: MAOrderModel) async {
+        self.model = order
+        self.isLoading = true
         
-        var urls: [String] = []
-        for (index, image) in images.enumerated() {
-            guard let imageData = image.uiImage.jpegData(compressionQuality: 0.5) else { return }
-            
-            let storageRef = Storage.storage().reference()
-            let fileRef = storageRef.child("\(order.client.id)/\(order.id)/\(Date.now.timeIntervalSince1970.description).jpg")
-            
-            DispatchQueue.main.async {
-                fileRef.putData(imageData) { _, error in
-                    if let error {
-                        self.isLoading = false
-                        self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
-                        
-                        print("Some error while trying to upload images: \(error)")
-                        return
-                    }
-                    
-                    fileRef.downloadURL { url, error in
-                        if let error {
-                            self.isLoading = false
-                            self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
-                            
-                            print("Some error while trying to get the image URL: \(error)")
-                            return
-                        }
-                        
-                        guard let urlString = url?.absoluteString else { return }
-                        urls.append(urlString)
-                        
-                        if index == self.images.count - 1 {
-                            self.model.imagesURLs = urls
-                            self.create(order: self.model)
-                        }
-                    }
-                }
-            }
+        await uploadMultipleImages()
+        await create()
+        
+        self.isLoading = false
+        self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+    }
+    
+    func uploadMultipleImages() async {
+        for orderImage in self.images {
+            let downloadURL = await self.upload(image: orderImage.uiImage, orderID: self.model.id)
+            self.model.imagesURLs?.append(downloadURL)
         }
     }
     
-    func create(order: MAOrderModel) {
-        let db = Firestore.firestore()
-        let ref = db.collection("Orders").document(order.id)
+    func upload(image: UIImage, orderID: String) async -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else { return "" }
         
-        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
-                     "status": order.status.rawValue,
-                     "serviceType": order.serviceType.rawValue,
-                     "clientId": order.client.id,
-                     "clientName": order.client.fullName,
-                     "clientPhone": order.client.phone,
-                     "clientEmail": order.client.email,
-                     "cloathesName": order.cloathesName,
-                     "cloathesDescription": order.cloathesDescription,
-                     "estimatedDeliveryDate": order.estimatedDeliveryDate,
-                     "shoulderMeasurement": order.shoulderMeasurement,
-                     "bustMeasurement": order.bustMeasurement,
-                     "lengthMeasurement": order.lengthMeasurement,
-                     "waistMeasurement": order.waistMeasurement,
-                     "abdomenMeasurement": order.abdomenMeasurement,
-                     "hipsMeasurement": order.hipsMeasurement,
-                     "waistFix": false,
-                     "lengthFix": false,
-                     "hipsFix": false,
-                     "barFix": false,
-                     "shoulderFix": false,
-                     "wristFix": false,
-                     "legFix": false,
-                     "totalValue": 0,
-                     "hiredDate": Date.now.formatted(),
-                     "imagesURLs": order.imagesURLs ?? []]
-        ) { error in
-            self.isLoading = false
-            if let error {
-                print("some error occured on creating data for order: \(error)")
-                return
-            }
-            
-            self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+        let ref = Storage.storage().reference()
+        let fileRef = ref.child("\(orderID)/\(UUID().uuidString).jpg")
+        
+        do {
+            let _ = try await fileRef.putDataAsync(imageData)
+            let url = try await fileRef.downloadURL()
+            return url.absoluteString
+        } catch {
+            print("Some error on uploading image: \(error)")
+            return ""
         }
+    }
+    
+    func create() async {
+        let db = Firestore.firestore()
+        let ref = db.collection("Orders").document(self.model.id)
+        
+        do {
+            try await ref.setData(setDocumentData())
+        } catch {
+            print("Some error trying to create document: \(error)")
+        }
+    }
+    
+    private func setDocumentData() -> [String: Any] {
+        return ["userId": Auth.auth().currentUser?.uid ?? "",
+                "status": self.model.status.rawValue,
+                "serviceType": self.model.serviceType.rawValue,
+                "clientId": self.model.client.id,
+                "clientName": self.model.client.fullName,
+                "clientPhone": self.model.client.phone,
+                "clientEmail": self.model.client.email,
+                "cloathesName": self.model.cloathesName,
+                "cloathesDescription": self.model.cloathesDescription,
+                "estimatedDeliveryDate": self.model.estimatedDeliveryDate,
+                "shoulderMeasurement": self.model.shoulderMeasurement,
+                "bustMeasurement": self.model.bustMeasurement,
+                "lengthMeasurement": self.model.lengthMeasurement,
+                "waistMeasurement": self.model.waistMeasurement,
+                "abdomenMeasurement": self.model.abdomenMeasurement,
+                "hipsMeasurement": self.model.hipsMeasurement,
+                "waistFix": false,
+                "lengthFix": false,
+                "hipsFix": false,
+                "barFix": false,
+                "shoulderFix": false,
+                "wristFix": false,
+                "legFix": false,
+                "totalValue": 0,
+                "hiredDate": Date.now.formatted(),
+                "imagesURLs": self.model.imagesURLs ?? []]
     }
     
 }
