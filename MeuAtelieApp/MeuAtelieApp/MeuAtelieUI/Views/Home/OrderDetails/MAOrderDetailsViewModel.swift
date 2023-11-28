@@ -76,7 +76,8 @@ final class MAOrderDetailsViewModel: ObservableObject {
                      "legFix": order.legFix,
                      "totalValue": order.totalValue,
                      "hiredDate": order.hiredDate,
-                     "deliveryDate": Date.now.formatted()]
+                     "deliveryDate": Date.now.formatted(),
+                     "imagesURLs": order.imagesURLs ?? []]
         ) { error in
             self.isLoading = false
             if let error {

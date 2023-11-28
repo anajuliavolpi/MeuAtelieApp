@@ -16,6 +16,8 @@ struct MAOrderDetailsView: View {
     @State private var showDeletionAlert: Bool = false
     @State private var showCompletionAlert: Bool = false
     @State private var isBarHidden = false
+    @State private var showImageSheet = false
+    @State private var selectedImage: Image?
     @Binding var path: NavigationPath
     var isFromCalendar: Bool = false
     
@@ -81,6 +83,11 @@ struct MAOrderDetailsView: View {
                 }
             } backAction: {
                 showCompletionAlert = false
+            }
+            .sheet(isPresented: $showImageSheet) {
+                selectedImage?
+                    .resizable()
+                    .scaledToFit()
             }
         }
     }
@@ -267,6 +274,10 @@ struct MAOrderDetailsView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .cornerRadius(8)
+                                    .onTapGesture {
+                                        self.selectedImage = image
+                                        self.showImageSheet = true
+                                    }
                             } placeholder: {
                                 ProgressView()
                             }
