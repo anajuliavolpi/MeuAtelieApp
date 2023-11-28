@@ -19,7 +19,7 @@ struct MANavigationRoutes {
         case newOrder
         case newTailored(order: MAOrderModel)
         case newFixes(order: MAOrderModel, pieces: Int)
-        case tailoredFlowMeasurements(order: MAOrderModel)
+        case tailoredFlowMeasurements(order: MAOrderModel, images: [OrderImages])
     }
     
     enum CalendarRoutes: Hashable {

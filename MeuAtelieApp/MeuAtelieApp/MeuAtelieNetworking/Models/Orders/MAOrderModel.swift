@@ -43,6 +43,7 @@ struct MAOrderModel: Identifiable, Hashable {
     let totalValue: Double
     let hiredDate: String
     let deliveryDate: String
+    var imagesURLs: [String]? = nil // We'll only populate this for tailored orders
     
     static func == (lhs: MAOrderModel, rhs: MAOrderModel) -> Bool {
         lhs.id == rhs.id

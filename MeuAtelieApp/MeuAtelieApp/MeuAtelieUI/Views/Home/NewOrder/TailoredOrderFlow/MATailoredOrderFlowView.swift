@@ -54,7 +54,8 @@ struct MATailoredOrderFlowView: View {
                                                                                                            legFix: false,
                                                                                                            totalValue: 0.0,
                                                                                                            hiredDate: "",
-                                                                                                           deliveryDate: "")))
+                                                                                                           deliveryDate: ""),
+                                                                                       images: viewModel.images))
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                 fontColor: .white))
@@ -78,14 +79,14 @@ struct MATailoredOrderFlowView: View {
         .photosPicker(isPresented: $showingImagePicker, selection: $imagePicked, matching: .images)
         .fullScreenCover(isPresented: $showingCameraPicker) {
             CameraPicker(sourceType: .camera) { image in
-                viewModel.images.append(.init(image: Image(uiImage: image)))
+                viewModel.images.append(.init(image: Image(uiImage: image), uiImage: image))
             }
         }
         .onChange(of: imagePicked) { _, _ in
             Task {
                 if let data = try? await imagePicked?.loadTransferable(type: Data.self) {
                     if let uiImage = UIImage(data: data) {
-                        viewModel.images.append(.init(image: Image(uiImage: uiImage)))
+                        viewModel.images.append(.init(image: Image(uiImage: uiImage), uiImage: uiImage))
                         return
                     }
                 }

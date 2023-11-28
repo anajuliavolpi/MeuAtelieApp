@@ -49,7 +49,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
                 secondPartFormView
                 
                 Button(viewModel.finishActionButtonText) {
-                    viewModel.create(order: MAOrderModel(id: viewModel.model.id,
+                    viewModel.uploadImages(order: MAOrderModel(id: viewModel.model.id,
                                                          status: .onGoing,
                                                          serviceType: viewModel.model.serviceType,
                                                          client: viewModel.model.client,
@@ -210,6 +210,7 @@ struct MATailoredOrderFlowMeasurementsView_Previews: PreviewProvider {
                                                                    totalValue: 0.0,
                                                                    hiredDate: "",
                                                                    deliveryDate: ""),
+                                                             images: [],
                                                              path: Binding.constant(.init())))
     }
 }

@@ -7,12 +7,14 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     
     var model: MAOrderModel
+    var images: [OrderImages]
     var path: Binding<NavigationPath>
     
     let cloathesText: String = "Roupa"
@@ -26,9 +28,53 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     let hipsText: String = "Quadril"
     let finishActionButtonText: String = "FINALIZAR"
     
-    init(_ model: MAOrderModel, path: Binding<NavigationPath>) {
+    init(_ model: MAOrderModel, images: [OrderImages], path: Binding<NavigationPath>) {
         self.model = model
+        self.images = images
         self.path = path
+    }
+    
+    func uploadImages(order: MAOrderModel) {
+        isLoading = true
+        model = order
+        
+        var urls: [String] = []
+        for (index, image) in images.enumerated() {
+            guard let imageData = image.uiImage.jpegData(compressionQuality: 0.5) else { return }
+            
+            let storageRef = Storage.storage().reference()
+            let fileRef = storageRef.child("\(order.client.id)/\(order.id)/\(Date.now.timeIntervalSince1970.description).jpg")
+            
+            DispatchQueue.main.async {
+                fileRef.putData(imageData) { _, error in
+                    if let error {
+                        self.isLoading = false
+                        self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+                        
+                        print("Some error while trying to upload images: \(error)")
+                        return
+                    }
+                    
+                    fileRef.downloadURL { url, error in
+                        if let error {
+                            self.isLoading = false
+                            self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+                            
+                            print("Some error while trying to get the image URL: \(error)")
+                            return
+                        }
+                        
+                        guard let urlString = url?.absoluteString else { return }
+                        urls.append(urlString)
+                        
+                        if index == self.images.count - 1 {
+                            self.model.imagesURLs = urls
+                            self.create(order: self.model)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func create(order: MAOrderModel) {
@@ -60,7 +106,8 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
                      "wristFix": false,
                      "legFix": false,
                      "totalValue": 0,
-                     "hiredDate": Date.now.formatted()]
+                     "hiredDate": Date.now.formatted(),
+                     "imagesURLs": order.imagesURLs ?? []]
         ) { error in
             self.isLoading = false
             if let error {

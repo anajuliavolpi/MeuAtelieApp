@@ -7,9 +7,18 @@
 
 import SwiftUI
 
-struct OrderImages: Identifiable {
+struct OrderImages: Hashable, Equatable {
     let id = UUID()
     let image: Image
+    let uiImage: UIImage
+    
+    static func == (lhs: OrderImages, rhs: OrderImages) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 final class MATailoredOrderFlowViewModel: ObservableObject {
