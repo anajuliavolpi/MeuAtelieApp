@@ -98,17 +98,30 @@ struct MAClientDetailsView: View {
                     .foregroundColor(Color.MAColors.MAPinkBackground)
             )
             
-            ZStack {
-                Circle()
-                    .foregroundColor(.MAColors.MAImageGray)
-                    .frame(width: 70, height: 70)
-                
-                Image.MAImages.Login.loginTopImage
-                    .resizable()
-                    .frame(width: 53, height: 58)
-                    .padding(.top, 8)
+            if let imageURL = viewModel.clientImageURL {
+                AsyncImage(url: URL(string: imageURL)) { image in
+                    image
+                        .resizable()
+                        .frame(width: 53, height: 58)
+                        .clipShape(Circle())
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
+                .padding(.top, -35)
+            } else {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 70, height: 70)
+                    
+                    Image.MAImages.Login.loginTopImage
+                        .resizable()
+                        .frame(width: 53, height: 58)
+                        .padding(.top, 8)
+                }
+                .padding(.top, -35)
             }
-            .padding(.top, -35)
         }
     }
     

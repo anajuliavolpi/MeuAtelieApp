@@ -16,14 +16,27 @@ struct MAOrderListRow: View {
     var body: some View {
         HStack(spacing: 20) {
             ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.MAColors.MAImageGray)
-                    .frame(width: 116, height: 113)
-                
-                Image.MAImages.Login.loginTopImage
-                    .resizable()
-                    .frame(width: 86, height: 89)
-                    .padding(.top, 8)
+                if let imageURL = viewModel.order.imagesURLs?.first {
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image
+                            .resizable()
+                            .frame(width: 116, height: 113)
+                            .scaledToFit()
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 116, height: 113)
+                    
+                    Image.MAImages.Login.loginTopImage
+                        .resizable()
+                        .frame(width: 86, height: 89)
+                        .padding(.top, 8)
+                }
             }
             .overlay {
                 if isFromCalendar {

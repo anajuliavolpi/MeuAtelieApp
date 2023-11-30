@@ -262,32 +262,34 @@ struct MAOrderDetailsView: View {
             }
             
             if viewModel.order?.serviceType == .tailored {
-                Text(viewModel.cloathesPhotos)
-                    .font(.system(size: 18, design: .rounded))
-                    .padding(.top, 10)
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(viewModel.order?.imagesURLs ?? [""], id: \.self) { url in
-                            AsyncImage(url: URL(string: url)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(8)
-                                    .onTapGesture {
-                                        self.selectedImage = image
-                                        self.showImageSheet = true
-                                    }
-                            } placeholder: {
-                                ProgressView()
+                if !(viewModel.order?.imagesURLs?.isEmpty ?? false) {
+                    Text(viewModel.cloathesPhotos)
+                        .font(.system(size: 18, design: .rounded))
+                        .padding(.top, 10)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(viewModel.order?.imagesURLs ?? [""], id: \.self) { url in
+                                AsyncImage(url: URL(string: url)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .cornerRadius(8)
+                                        .onTapGesture {
+                                            self.selectedImage = image
+                                            self.showImageSheet = true
+                                        }
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 116, height: 113)
+                                .padding(.top, 8)
                             }
-                            .frame(width: 116, height: 113)
-                            .padding(.top, 8)
                         }
+                        .padding(.horizontal, 40)
                     }
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, -40)
                 }
-                .padding(.horizontal, -40)
             } else {
                 Text(viewModel.totalValueText)
                     .font(.system(size: 18, design: .rounded))

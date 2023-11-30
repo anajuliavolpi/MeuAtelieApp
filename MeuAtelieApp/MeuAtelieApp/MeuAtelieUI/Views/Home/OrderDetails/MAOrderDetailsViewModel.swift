@@ -154,7 +154,7 @@ final class MAOrderDetailsViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         let deliveryDate = data["deliveryDate"] as? String ?? ""
-                        let imagesURLs = data["imagesURLs"] as? [String] ?? []
+                        let imagesURLs = data["imagesURLs"] as? [String]
                         
                         self.order = MAOrderModel(id: document.documentID,
                                                   status: OrderStatus(rawValue: status) ?? .onGoing,

@@ -15,5 +15,6 @@ struct MAClientModel: Identifiable {
     let fullName: String
     let phone: String
     let email: String
+    var imageURL: String?
     
 }

@@ -35,7 +35,8 @@ struct MAClientsView: View {
                 } label: {
                     MAClientListRow(clientName: client.fullName,
                                     clientPhone: client.phone,
-                                    clientEmail: client.email)
+                                    clientEmail: client.email,
+                                    clientImageURL: client.imageURL)
                     .padding()
                 }
                 .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in

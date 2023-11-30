@@ -18,6 +18,7 @@ final class MAClientDetailsViewModel: ObservableObject {
     
     var clientID: String
     var clientUserID: String
+    var clientImageURL: String?
     
     let clientServicesText: String = "SERVIÇOS CONTRATADOS"
     let editClientText: String = "EDITAR CLIENTE"
@@ -49,10 +50,12 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
                         let clientEmail = data["email"] as? String ?? ""
+                        let clientImageURL = data["imageURL"] as? String
                         
                         self.fullName = clientFullName
                         self.phone = clientPhone
                         self.email = clientEmail
+                        self.clientImageURL = clientImageURL
                     }
                 }
             }
@@ -125,6 +128,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         let deliveryDate = data["deliveryDate"] as? String ?? ""
+                        let imagesURLs = data["imagesURLs"] as? [String]
                         
                         self.order.append(MAOrderModel(id: document.documentID,
                                                        status: OrderStatus(rawValue: status) ?? .onGoing,
@@ -152,7 +156,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                                                        legFix: legFix,
                                                        totalValue: totalValue,
                                                        hiredDate: String(hiredDate.prefix(10)),
-                                                       deliveryDate: String(deliveryDate.prefix(10))))
+                                                       deliveryDate: String(deliveryDate.prefix(10)),
+                                                       imagesURLs: imagesURLs))
                     }
                 }
             }

@@ -8,11 +8,13 @@
 import SwiftUI
 import Firebase
 import Contacts
+import FirebaseStorage
 
 final class MANewClientViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var contacts: [CNContact] = []
+    @Published var showError: Bool = false
     
     let createText: String = "Adicionar"
     let newClientText: String = "novo cliente"
@@ -23,22 +25,53 @@ final class MANewClientViewModel: ObservableObject {
     let importClientActionText: String = "IMPORTAR CLIENTE"
     let backText: String = "Voltar"
     
-    func createClient(with client: MAClientModel, _ dismiss: DismissAction) {
-        isLoading = true
-        let db = Firestore.firestore()
-        let ref = db.collection("Clients").document(client.id)
+    private var model: MAClientModel?
+    
+    @MainActor func new(client: MAClientModel, image: UIImage) async throws {
+        self.isLoading = true
+        self.model = client
         
-        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
-                     "fullname": client.fullName,
-                     "phone": client.phone,
-                     "email": client.email]) { error in
-            self.isLoading = false
-            if let error {
-                print("some error occured on creating data for order: \(error)")
-                return
-            }
-            
-            dismiss()
+        self.model?.imageURL = await upload(image)
+        
+        do {
+            try await create()
+        } catch {
+            print("Some error ocurred while trying to create new client: \(error)")
+            self.showError = true
+            throw error
+        }
+    }
+    
+    private func upload(_ image: UIImage) async -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else { return "" }
+        
+        let ref = Storage.storage().reference()
+        let fileRef = ref.child("clients/\(UUID().uuidString).jpg")
+        
+        do {
+            let _ = try await fileRef.putDataAsync(imageData)
+            let url = try await fileRef.downloadURL()
+            return url.absoluteString
+        } catch {
+            print("Some error occured: \(error)")
+            self.showError = true
+            return ""
+        }
+    }
+    
+    private func create() async throws {
+        guard let model else { return }
+        let db = Firestore.firestore()
+        let ref = db.collection("Clients").document(model.id)
+        
+        do {
+            try await ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
+                                   "fullname": model.fullName,
+                                   "phone": model.phone,
+                                   "email": model.email,
+                                   "imageURL": model.imageURL ?? ""])
+        } catch {
+            throw error
         }
     }
     

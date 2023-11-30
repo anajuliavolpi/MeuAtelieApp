@@ -42,12 +42,14 @@ final class MAClientsViewModel: ObservableObject {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
                         let clientEmail = data["email"] as? String ?? ""
+                        let clientImageURL = data["imageURL"] as? String
                         
                         self.clients.append(MAClientModel(userId: userId,
                                                           id: document.documentID,
                                                           fullName: clientFullName,
                                                           phone: clientPhone,
-                                                          email: clientEmail))
+                                                          email: clientEmail,
+                                                          imageURL: clientImageURL))
                     }
                 }
             }
