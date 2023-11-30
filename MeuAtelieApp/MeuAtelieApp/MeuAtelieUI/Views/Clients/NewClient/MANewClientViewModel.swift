@@ -75,7 +75,7 @@ final class MANewClientViewModel: ObservableObject {
         }
     }
     
-    func fetchContacts() async {
+    @MainActor func fetchContacts() async {
         self.contacts.removeAll()
         
         let store = CNContactStore()

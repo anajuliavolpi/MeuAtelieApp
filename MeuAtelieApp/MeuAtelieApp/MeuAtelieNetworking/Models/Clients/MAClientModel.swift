@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MAClientModel: Identifiable {
+struct MAClientModel: Identifiable, Hashable {
     
     let uuid = UUID()
     let userId: String
@@ -16,5 +16,13 @@ struct MAClientModel: Identifiable {
     let phone: String
     let email: String
     var imageURL: String?
+    
+    static func == (lhs: MAClientModel, rhs: MAClientModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
 }

@@ -22,6 +22,11 @@ struct MANavigationRoutes {
         case tailoredFlowMeasurements(order: MAOrderModel, images: [OrderImages])
     }
     
+    enum ClientRoutes: Hashable {
+        case newClient
+        case client(details: MAClientModel)
+    }
+    
     enum CalendarRoutes: Hashable {
         case orderDetails(order: MAOrderModel)
         case editOrder(order: MAOrderModel)

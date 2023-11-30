@@ -10,6 +10,7 @@ import SwiftUI
 struct MAClientsView: View {
     
     @ObservedObject private var viewModel = MAClientsViewModel()
+    @Binding var navigationPath: NavigationPath
     @State var textToSearch: String = ""
     
     var searchResults: [MAClientModel] {
@@ -27,11 +28,10 @@ struct MAClientsView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             List(self.searchResults, id: \.id) { client in
-                NavigationLink {
-                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId))
-                        .navigationTitle("Dados do Cliente")
+                Button {
+                    navigationPath.append(MANavigationRoutes.ClientRoutes.client(details: client))
                 } label: {
                     MAClientListRow(clientName: client.fullName,
                                     clientPhone: client.phone,
@@ -51,9 +51,8 @@ struct MAClientsView: View {
             .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        MANewClient()
-                            .toolbar(.hidden)
+                    Button {
+                        self.navigationPath.append(MANavigationRoutes.ClientRoutes.newClient)
                     } label: {
                         Image(systemName: "person.fill.badge.plus")
                             .foregroundColor(.MAColors.MAPinkMedium)
@@ -83,8 +82,18 @@ struct MAClientsView: View {
                     }
                 }
             }
-            .onAppear {
-                viewModel.fetchClients()
+            .task {
+                await viewModel.fetch()
+            }
+            .navigationDestination(for: MANavigationRoutes.ClientRoutes.self) { route in
+                switch route {
+                case .newClient:
+                    MANewClient()
+                        .toolbar(.hidden)
+                case .client(let details):
+                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(details.id, clientUserID: details.userId))
+                        .navigationTitle("Dados do Cliente")
+                }
             }
         }
         .addMALoading(state: viewModel.isLoading)
@@ -93,6 +102,6 @@ struct MAClientsView: View {
 
 struct MAClientsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientsView()
+        MAClientsView(navigationPath: Binding.constant(NavigationPath()))
     }
 }
