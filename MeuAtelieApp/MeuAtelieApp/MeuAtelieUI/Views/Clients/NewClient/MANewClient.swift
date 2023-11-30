@@ -10,9 +10,10 @@ import Contacts
 import PhotosUI
 
 struct MANewClient: View {
-    @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel = MANewClientViewModel()
+    @Binding var path: NavigationPath
+    
     @State var clientFullName: String = ""
     @State var clientPhone: String = ""
     @State var clientEmail: String = ""
@@ -173,7 +174,7 @@ struct MANewClient: View {
                 Task {
                     do {
                         try await viewModel.new(client: model, image: uiImage ?? UIImage())
-                        dismiss()
+                        self.path.removeLast(self.path.count)
                     } catch {
                         print("Error: \(error)")
                     }
@@ -189,6 +190,6 @@ struct MANewClient: View {
 
 struct MANewClient_Previews: PreviewProvider {
     static var previews: some View {
-        MANewClient()
+        MANewClient(path: Binding.constant(NavigationPath()))
     }
 }

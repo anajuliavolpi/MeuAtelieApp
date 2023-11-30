@@ -24,7 +24,8 @@ struct MANavigationRoutes {
     
     enum ClientRoutes: Hashable {
         case newClient
-        case client(details: MAClientModel)
+        case details(client: MAClientModel)
+        case edit(clientID: String)
     }
     
     enum CalendarRoutes: Hashable {

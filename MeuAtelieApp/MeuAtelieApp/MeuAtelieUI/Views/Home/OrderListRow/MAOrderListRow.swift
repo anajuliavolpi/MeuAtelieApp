@@ -16,7 +16,7 @@ struct MAOrderListRow: View {
     var body: some View {
         HStack(spacing: 20) {
             ZStack {
-                if let imageURL = viewModel.order.imagesURLs?.first {
+                if let imageURL = viewModel.order.imagesURLs?.first, !imageURL.isEmpty {
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image
                             .resizable()

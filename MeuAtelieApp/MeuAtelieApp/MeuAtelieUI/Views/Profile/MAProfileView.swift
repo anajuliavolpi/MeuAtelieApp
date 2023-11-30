@@ -59,7 +59,7 @@ struct MAProfileView: View {
                 .frame(height: 200)
             
             HStack(spacing: 16) {
-                if let imageURL = viewModel.model?.imageURL {
+                if let imageURL = viewModel.model?.imageURL, !imageURL.isEmpty {
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image
                             .resizable()

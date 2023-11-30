@@ -18,7 +18,7 @@ struct MAClientListRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
             ZStack {
-                if let clientImageURL {
+                if let clientImageURL, !clientImageURL.isEmpty {
                     AsyncImage(url: URL(string: clientImageURL)) { image in
                         image
                             .resizable()
@@ -29,7 +29,6 @@ struct MAClientListRow: View {
                     } placeholder: {
                         ProgressView()
                     }
-
                 } else {
                     Circle()
                         .foregroundColor(.MAColors.MAImageGray)

@@ -13,7 +13,7 @@ struct ClientDetailsServiceRow: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
-            if let imageURL = model.imagesURLs?.first {
+            if let imageURL = model.imagesURLs?.first, !imageURL.isEmpty {
                 AsyncImage(url: URL(string: imageURL)) { image in
                     image
                         .resizable()

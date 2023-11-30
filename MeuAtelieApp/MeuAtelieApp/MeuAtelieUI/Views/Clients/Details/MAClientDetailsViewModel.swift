@@ -62,25 +62,23 @@ final class MAClientDetailsViewModel: ObservableObject {
         }
     }
     
-    func deleteClient(_ dismiss: DismissAction) {
-        isLoading = true
+    @MainActor func delete() async {
+        self.isLoading = true
+        
         let db = Firestore.firestore()
         let ref = db.collection("Clients")
         
-        ref.getDocuments { snapshot, error in
+        do {
+            let snapshot = try await ref.getDocuments()
+            
+            for document in snapshot.documents where document.documentID == self.clientID {
+                try await document.reference.delete()
+            }
+            
             self.isLoading = false
-            if let error {
-                print("some error occured on fetching orders: \(error)")
-                return
-            }
-            
-            if let snapshot {
-                for document in snapshot.documents where document.documentID == self.clientID {
-                    document.reference.delete()
-                }
-            }
-            
-            dismiss()
+        } catch {
+            print("Some error occured on fetching or deleting client: \(error)")
+            self.isLoading = false
         }
     }
     

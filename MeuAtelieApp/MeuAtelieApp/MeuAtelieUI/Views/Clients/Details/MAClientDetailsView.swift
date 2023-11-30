@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MAClientDetailsView: View {
-    @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel: MAClientDetailsViewModel
+    @Binding var path: NavigationPath
     @State var showConfirmDeletion: Bool = false
     
     var body: some View {
@@ -65,8 +65,12 @@ struct MAClientDetailsView: View {
         }
         .addMALoading(state: viewModel.isLoading)
         .addMAAlert(state: showConfirmDeletion, message: "Deseja deletar o cliente?") {
-            viewModel.deleteClient(dismiss)
+            Task {
+                await viewModel.delete()
+            }
+            
             showConfirmDeletion = false
+            self.path.removeLast(self.path.count)
         } backAction: {
             showConfirmDeletion = false
         }
@@ -98,7 +102,7 @@ struct MAClientDetailsView: View {
                     .foregroundColor(Color.MAColors.MAPinkBackground)
             )
             
-            if let imageURL = viewModel.clientImageURL {
+            if let imageURL = viewModel.clientImageURL, !imageURL.isEmpty {
                 AsyncImage(url: URL(string: imageURL)) { image in
                     image
                         .resizable()
@@ -127,17 +131,11 @@ struct MAClientDetailsView: View {
     
     var buttonsView: some View {
         VStack {
-            NavigationLink {
-                MAEditClientView(viewModel: MAEditClientViewModel(clientID: viewModel.clientID))
-                    .toolbar(.hidden)
-            } label: {
-                Button(viewModel.editClientText) {
-                    print(#function)
-                }
-                .disabled(true)
-                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
-                                                fontColor: .white))
+            Button(viewModel.editClientText) {
+                self.path.append(MANavigationRoutes.ClientRoutes.edit(clientID: viewModel.clientID))
             }
+            .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
+                                            fontColor: .white))
             
             Button(viewModel.deleteClientText) {
                 showConfirmDeletion = true
@@ -152,6 +150,6 @@ struct MAClientDetailsView: View {
 
 struct MAClientDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientDetailsView(viewModel: MAClientDetailsViewModel("", clientUserID: ""))
+        MAClientDetailsView(viewModel: MAClientDetailsViewModel("", clientUserID: ""), path: Binding.constant(NavigationPath()))
     }
 }

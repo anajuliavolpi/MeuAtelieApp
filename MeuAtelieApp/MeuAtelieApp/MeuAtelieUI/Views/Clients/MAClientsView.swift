@@ -31,7 +31,7 @@ struct MAClientsView: View {
         NavigationStack(path: $navigationPath) {
             List(self.searchResults, id: \.id) { client in
                 Button {
-                    navigationPath.append(MANavigationRoutes.ClientRoutes.client(details: client))
+                    navigationPath.append(MANavigationRoutes.ClientRoutes.details(client: client))
                 } label: {
                     MAClientListRow(clientName: client.fullName,
                                     clientPhone: client.phone,
@@ -82,17 +82,22 @@ struct MAClientsView: View {
                     }
                 }
             }
-            .task {
-                await viewModel.fetch()
+            .onAppear {
+                Task {
+                    await viewModel.fetch()
+                }
             }
             .navigationDestination(for: MANavigationRoutes.ClientRoutes.self) { route in
                 switch route {
                 case .newClient:
-                    MANewClient()
+                    MANewClient(path: $navigationPath)
                         .toolbar(.hidden)
-                case .client(let details):
-                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(details.id, clientUserID: details.userId))
+                case .details(let client):
+                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId), path: $navigationPath)
                         .navigationTitle("Dados do Cliente")
+                case .edit(let clientID):
+                    MAEditClientView(viewModel: MAEditClientViewModel(clientID: clientID))
+                        .toolbar(.hidden)
                 }
             }
         }
