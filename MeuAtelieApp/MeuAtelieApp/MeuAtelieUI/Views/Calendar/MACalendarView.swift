@@ -10,11 +10,13 @@ import SwiftUI
 struct MACalendarView: View {
     
     @ObservedObject var viewModel: MACalendarViewModel = .init()
-    @State var selectedDate: Date = .now
+//    @State var selectedDate: Date = .now
     @Binding var navigationPath: NavigationPath
     
     var ordersOnSelectedDate: [MAOrderModel] {
         return viewModel.orders.filter { order in
+            guard let selectedDate = viewModel.df.date(from: viewModel.selectedDate.formatted(date: .numeric, time: .omitted)) else { return false }
+            
             if order.status == .completed {
                 guard let date = viewModel.df.date(from: order.deliveryDate) else { return false }
                 return date == selectedDate
@@ -29,10 +31,10 @@ struct MACalendarView: View {
         NavigationStack(path: $navigationPath) {
             VStack(alignment: .leading, spacing: 0) {
                 CalendarView(calendar: Calendar(identifier: .gregorian),
-                             selectedDate: $selectedDate,
+                             selectedDate: $viewModel.selectedDate,
                              dates: viewModel.ordersDate)
                 
-                Text("\(DateFormatter(dateFormat: "EEEE, MMM d, yyyy", calendar: .init(identifier: .gregorian)).string(from: selectedDate))")
+                Text("\(DateFormatter(dateFormat: "EEEE, MMM d, yyyy", calendar: .init(identifier: .gregorian)).string(from: viewModel.selectedDate))")
                     .foregroundColor(.MAColors.MAPinkText)
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
                     .padding([.leading, .top], 20)
@@ -91,7 +93,9 @@ struct MACalendarView: View {
                 }
             }
             .onAppear {
-                viewModel.fetchOrders()
+                Task {
+                    await viewModel.fetch()
+                }
             }
             .addMALoading(state: viewModel.isLoading)
         }
