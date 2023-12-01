@@ -13,5 +13,6 @@ struct MARegisterModel {
     var password: String
     var firstName: String
     var lastName: String
+    var imageURL: String?
     
 }

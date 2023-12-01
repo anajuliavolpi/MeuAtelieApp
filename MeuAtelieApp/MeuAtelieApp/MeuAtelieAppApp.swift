@@ -13,13 +13,22 @@ struct MeuAtelieAppApp: App {
     
     @StateObject var networkManager: NetworkManager = NetworkManager()
     @State var homePath: NavigationPath = .init()
+    @State var clientPath: NavigationPath = .init()
+    @State var calendarPath: NavigationPath = .init()
     
     var handler: Binding<Int> { Binding(
         get: { self.networkManager.selectedTab },
         set: {
             if $0 == self.networkManager.selectedTab {
-                if $0 == 0 {
+                switch $0 {
+                case 0:
                     homePath.removeLast(homePath.count)
+                case 1:
+                    clientPath.removeLast(clientPath.count)
+                case 2:
+                    calendarPath.removeLast(calendarPath.count)
+                default:
+                    break
                 }
             }
             
@@ -51,13 +60,13 @@ struct MeuAtelieAppApp: App {
                             }
                             .tag(0)
                         
-                        MAClientsView()
+                        MAClientsView(navigationPath: $clientPath)
                             .tabItem {
                                 Label("Clientes", systemImage: "person.3.fill")
                             }
                             .tag(1)
                         
-                        MACalendarView()
+                        MACalendarView(navigationPath: $calendarPath)
                             .tabItem {
                                 Label("Agenda", systemImage: "calendar")
                             }

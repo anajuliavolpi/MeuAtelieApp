@@ -59,15 +59,28 @@ struct MAProfileView: View {
                 .frame(height: 200)
             
             HStack(spacing: 16) {
-                ZStack {
-                    Circle()
-                        .foregroundColor(.MAColors.MAImageGray)
-                        .frame(width: 100, height: 94)
-                    
-                    Image.MAImages.Login.loginTopImage
-                        .resizable()
-                        .frame(width: 74, height: 81)
-                        .padding(.top, 8)
+                if let imageURL = viewModel.model?.imageURL, !imageURL.isEmpty {
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 100)
+                            .scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                } else {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(.MAColors.MAImageGray)
+                            .frame(width: 100, height: 94)
+                        
+                        Image.MAImages.Login.loginTopImage
+                            .resizable()
+                            .frame(width: 74, height: 81)
+                            .padding(.top, 8)
+                    }
                 }
                 
                 VStack(alignment: .leading) {

@@ -7,12 +7,14 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     
     var model: MAOrderModel
+    var images: [OrderImages]
     var path: Binding<NavigationPath>
     
     let cloathesText: String = "Roupa"
@@ -26,50 +28,84 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     let hipsText: String = "Quadril"
     let finishActionButtonText: String = "FINALIZAR"
     
-    init(_ model: MAOrderModel, path: Binding<NavigationPath>) {
+    init(_ model: MAOrderModel, images: [OrderImages], path: Binding<NavigationPath>) {
         self.model = model
+        self.images = images
         self.path = path
     }
     
-    func create(order: MAOrderModel) {
-        isLoading = true
-        let db = Firestore.firestore()
-        let ref = db.collection("Orders").document(order.id)
+    @MainActor func uploadDocument(with order: MAOrderModel) async {
+        self.model = order
+        self.isLoading = true
         
-        ref.setData(["userId": Auth.auth().currentUser?.uid ?? "",
-                     "status": order.status.rawValue,
-                     "serviceType": order.serviceType.rawValue,
-                     "clientId": order.client.id,
-                     "clientName": order.client.fullName,
-                     "clientPhone": order.client.phone,
-                     "clientEmail": order.client.email,
-                     "cloathesName": order.cloathesName,
-                     "cloathesDescription": order.cloathesDescription,
-                     "estimatedDeliveryDate": order.estimatedDeliveryDate,
-                     "shoulderMeasurement": order.shoulderMeasurement,
-                     "bustMeasurement": order.bustMeasurement,
-                     "lengthMeasurement": order.lengthMeasurement,
-                     "waistMeasurement": order.waistMeasurement,
-                     "abdomenMeasurement": order.abdomenMeasurement,
-                     "hipsMeasurement": order.hipsMeasurement,
-                     "waistFix": false,
-                     "lengthFix": false,
-                     "hipsFix": false,
-                     "barFix": false,
-                     "shoulderFix": false,
-                     "wristFix": false,
-                     "legFix": false,
-                     "totalValue": 0,
-                     "hiredDate": Date.now.formatted()]
-        ) { error in
-            self.isLoading = false
-            if let error {
-                print("some error occured on creating data for order: \(error)")
-                return
-            }
-            
-            self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+        await uploadMultipleImages()
+        await create()
+        
+        self.isLoading = false
+        self.path.wrappedValue.removeLast(self.path.wrappedValue.count)
+    }
+    
+    func uploadMultipleImages() async {
+        for orderImage in self.images {
+            let downloadURL = await self.upload(image: orderImage.uiImage, orderID: self.model.id)
+            self.model.imagesURLs?.append(downloadURL)
         }
+    }
+    
+    func upload(image: UIImage, orderID: String) async -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else { return "" }
+        
+        let ref = Storage.storage().reference()
+        let fileRef = ref.child("\(orderID)/\(UUID().uuidString).jpg")
+        
+        do {
+            let _ = try await fileRef.putDataAsync(imageData)
+            let url = try await fileRef.downloadURL()
+            return url.absoluteString
+        } catch {
+            print("Some error on uploading image: \(error)")
+            return ""
+        }
+    }
+    
+    func create() async {
+        let db = Firestore.firestore()
+        let ref = db.collection("Orders").document(self.model.id)
+        
+        do {
+            try await ref.setData(setDocumentData())
+        } catch {
+            print("Some error trying to create document: \(error)")
+        }
+    }
+    
+    private func setDocumentData() -> [String: Any] {
+        return ["userId": Auth.auth().currentUser?.uid ?? "",
+                "status": self.model.status.rawValue,
+                "serviceType": self.model.serviceType.rawValue,
+                "clientId": self.model.client.id,
+                "clientName": self.model.client.fullName,
+                "clientPhone": self.model.client.phone,
+                "clientEmail": self.model.client.email,
+                "cloathesName": self.model.cloathesName,
+                "cloathesDescription": self.model.cloathesDescription,
+                "estimatedDeliveryDate": self.model.estimatedDeliveryDate,
+                "shoulderMeasurement": self.model.shoulderMeasurement,
+                "bustMeasurement": self.model.bustMeasurement,
+                "lengthMeasurement": self.model.lengthMeasurement,
+                "waistMeasurement": self.model.waistMeasurement,
+                "abdomenMeasurement": self.model.abdomenMeasurement,
+                "hipsMeasurement": self.model.hipsMeasurement,
+                "waistFix": false,
+                "lengthFix": false,
+                "hipsFix": false,
+                "barFix": false,
+                "shoulderFix": false,
+                "wristFix": false,
+                "legFix": false,
+                "totalValue": 0,
+                "hiredDate": Date.now.formatted(),
+                "imagesURLs": self.model.imagesURLs ?? []]
     }
     
 }

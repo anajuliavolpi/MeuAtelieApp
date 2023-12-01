@@ -10,18 +10,41 @@ import SwiftUI
 struct MAOrderListRow: View {
     
     var viewModel: MAOrderListRowViewModel
+    var isFromCalendar: Bool = false
+    var circleColor: Color = .clear
     
     var body: some View {
         HStack(spacing: 20) {
             ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.MAColors.MAImageGray)
-                    .frame(width: 116, height: 113)
-                
-                Image.MAImages.Login.loginTopImage
-                    .resizable()
-                    .frame(width: 86, height: 89)
-                    .padding(.top, 8)
+                if let imageURL = viewModel.order.imagesURLs?.first, !imageURL.isEmpty {
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image
+                            .resizable()
+                            .frame(width: 116, height: 113)
+                            .scaledToFit()
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 116, height: 113)
+                    
+                    Image.MAImages.Login.loginTopImage
+                        .resizable()
+                        .frame(width: 86, height: 89)
+                        .padding(.top, 8)
+                }
+            }
+            .overlay {
+                if isFromCalendar {
+                    Circle()
+                        .fill(circleColor)
+                        .frame(width: 20, height: 20)
+                        .offset(x: 55, y: -53)
+                }
             }
             
             VStack(alignment: .leading, spacing: 10) {
@@ -44,10 +67,10 @@ struct MAOrderListRow_Previews: PreviewProvider {
         MAOrderListRow(viewModel: .init(order: .init(id: UUID().uuidString,
                                                      status: .onGoing,
                                                      serviceType: .tailored,
-                                                     client: MAClientModel(userId: "", id: "", fullName: "", phone: "", email: ""),
+                                                     client: MAClientModel(userId: "", id: "", fullName: "Ana Júlia", phone: "", email: ""),
                                                      cloathesName: "",
                                                      cloathesDescription: "",
-                                                     estimatedDeliveryDate: "",
+                                                     estimatedDeliveryDate: "30/10/2023",
                                                      shoulderMeasurement: 0,
                                                      bustMeasurement: 0,
                                                      lengthMeasurement: 0,
@@ -63,6 +86,6 @@ struct MAOrderListRow_Previews: PreviewProvider {
                                                      legFix: false,
                                                      totalValue: 0.0,
                                                      hiredDate: "",
-                                                     deliveryDate: "")))
+                                                     deliveryDate: "27/10/2023")))
     }
 }

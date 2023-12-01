@@ -6,11 +6,17 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct MATailoredOrderFlowView: View {
     
     @ObservedObject var viewModel: MATailoredOrderFlowViewModel
     @Binding var path: NavigationPath
+    
+    @State var showingActionSheet: Bool = false
+    @State var showingImagePicker: Bool = false
+    @State var showingCameraPicker: Bool = false
+    @State var imagePicked: PhotosPickerItem?
     
     var body: some View {
         ScrollView {
@@ -48,7 +54,8 @@ struct MATailoredOrderFlowView: View {
                                                                                                            legFix: false,
                                                                                                            totalValue: 0.0,
                                                                                                            hiredDate: "",
-                                                                                                           deliveryDate: "")))
+                                                                                                           deliveryDate: ""),
+                                                                                       images: viewModel.images))
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                 fontColor: .white))
@@ -60,6 +67,33 @@ struct MATailoredOrderFlowView: View {
         }
         .ignoresSafeArea(edges: .top)
         .hideKeyboard()
+        .confirmationDialog("Tirar uma foto ou selecionar da galeria", isPresented: $showingActionSheet, actions: {
+            Button("Escolher da galeria") {
+                showingImagePicker = true
+            }
+            
+            Button("Tirar foto") {
+                showingCameraPicker = true
+            }
+        })
+        .photosPicker(isPresented: $showingImagePicker, selection: $imagePicked, matching: .images)
+        .fullScreenCover(isPresented: $showingCameraPicker) {
+            CameraPicker(sourceType: .camera) { image in
+                viewModel.images.append(.init(image: Image(uiImage: image), uiImage: image))
+            }
+        }
+        .onChange(of: imagePicked) { _, _ in
+            Task {
+                if let data = try? await imagePicked?.loadTransferable(type: Data.self) {
+                    if let uiImage = UIImage(data: data) {
+                        viewModel.images.append(.init(image: Image(uiImage: uiImage), uiImage: uiImage))
+                        return
+                    }
+                }
+                
+                print("Failed to get image from imagePicker")
+            }
+        }
     }
     
     var galleryView: some View {
@@ -75,17 +109,25 @@ struct MATailoredOrderFlowView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(1..<6) { _ in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundColor(.MAColors.MAImageGray)
-                                .frame(width: 116, height: 113)
-                            
-                            Image.MAImages.Login.loginTopImage
-                                .resizable()
-                                .frame(width: 86, height: 89)
-                                .padding(.top, 8)
-                        }
+                    ForEach(viewModel.images, id: \.id) { image in
+                        image.image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 116, height: 113)
+                    }
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(.MAColors.MAImageGray)
+                            .frame(width: 116, height: 113)
+                        
+                        Image(systemName: "plus")
+                            .resizable()
+                            .foregroundStyle(.white)
+                            .frame(width: 46, height: 49)
+                    }
+                    .onTapGesture {
+                        showingActionSheet = true
                     }
                 }
                 .padding(.horizontal, 20)

@@ -18,6 +18,7 @@ final class MAClientDetailsViewModel: ObservableObject {
     
     var clientID: String
     var clientUserID: String
+    var clientImageURL: String?
     
     let clientServicesText: String = "SERVIÇOS CONTRATADOS"
     let editClientText: String = "EDITAR CLIENTE"
@@ -49,35 +50,35 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let clientFullName = data["fullname"] as? String ?? ""
                         let clientPhone = data["phone"] as? String ?? ""
                         let clientEmail = data["email"] as? String ?? ""
+                        let clientImageURL = data["imageURL"] as? String
                         
                         self.fullName = clientFullName
                         self.phone = clientPhone
                         self.email = clientEmail
+                        self.clientImageURL = clientImageURL
                     }
                 }
             }
         }
     }
     
-    func deleteClient(_ dismiss: DismissAction) {
-        isLoading = true
+    @MainActor func delete() async {
+        self.isLoading = true
+        
         let db = Firestore.firestore()
         let ref = db.collection("Clients")
         
-        ref.getDocuments { snapshot, error in
+        do {
+            let snapshot = try await ref.getDocuments()
+            
+            for document in snapshot.documents where document.documentID == self.clientID {
+                try await document.reference.delete()
+            }
+            
             self.isLoading = false
-            if let error {
-                print("some error occured on fetching orders: \(error)")
-                return
-            }
-            
-            if let snapshot {
-                for document in snapshot.documents where document.documentID == self.clientID {
-                    document.reference.delete()
-                }
-            }
-            
-            dismiss()
+        } catch {
+            print("Some error occured on fetching or deleting client: \(error)")
+            self.isLoading = false
         }
     }
     
@@ -125,6 +126,7 @@ final class MAClientDetailsViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         let deliveryDate = data["deliveryDate"] as? String ?? ""
+                        let imagesURLs = data["imagesURLs"] as? [String]
                         
                         self.order.append(MAOrderModel(id: document.documentID,
                                                        status: OrderStatus(rawValue: status) ?? .onGoing,
@@ -152,7 +154,8 @@ final class MAClientDetailsViewModel: ObservableObject {
                                                        legFix: legFix,
                                                        totalValue: totalValue,
                                                        hiredDate: String(hiredDate.prefix(10)),
-                                                       deliveryDate: String(deliveryDate.prefix(10))))
+                                                       deliveryDate: String(deliveryDate.prefix(10)),
+                                                       imagesURLs: imagesURLs))
                     }
                 }
             }

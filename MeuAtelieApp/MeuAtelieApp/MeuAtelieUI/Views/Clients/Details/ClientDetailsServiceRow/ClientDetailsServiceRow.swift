@@ -13,15 +13,27 @@ struct ClientDetailsServiceRow: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.MAColors.MAImageGray)
-                    .frame(width: 116, height: 113)
-                
-                Image.MAImages.Login.loginTopImage
-                    .resizable()
-                    .frame(width: 86, height: 89)
-                    .padding(.top, 8)
+            if let imageURL = model.imagesURLs?.first, !imageURL.isEmpty {
+                AsyncImage(url: URL(string: imageURL)) { image in
+                    image
+                        .resizable()
+                        .frame(width: 116, height: 113)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
+            } else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 116, height: 113)
+                    
+                    Image.MAImages.Login.loginTopImage
+                        .resizable()
+                        .frame(width: 86, height: 89)
+                        .padding(.top, 8)
+                }
             }
             
             VStack(alignment: .leading, spacing: 10) {

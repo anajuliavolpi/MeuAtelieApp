@@ -58,6 +58,7 @@ final class MAHomeViewModel: ObservableObject {
                         let totalValue = data["totalValue"] as? Double ?? 0.0
                         let hiredDate = data["hiredDate"] as? String ?? ""
                         let deliveryDate = data["deliveryDate"] as? String ?? ""
+                        let imagesURLs = data["imagesURLs"] as? [String]
 
                         self.orders.append(MAOrderModel(id: document.documentID,
                                                         status: OrderStatus(rawValue: status) ?? .onGoing,
@@ -85,7 +86,8 @@ final class MAHomeViewModel: ObservableObject {
                                                         legFix: legFix,
                                                         totalValue: totalValue,
                                                         hiredDate: hiredDate,
-                                                        deliveryDate: String(deliveryDate.prefix(10))))
+                                                        deliveryDate: String(deliveryDate.prefix(10)),
+                                                        imagesURLs: imagesURLs))
                     }
                 }
             }

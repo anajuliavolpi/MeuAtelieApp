@@ -5,7 +5,21 @@
 //  Created by Ana Júlia Volpi on 08/05/23.
 //
 
-import Foundation
+import SwiftUI
+
+struct OrderImages: Hashable, Equatable {
+    let id = UUID()
+    let image: Image
+    let uiImage: UIImage
+    
+    static func == (lhs: OrderImages, rhs: OrderImages) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 
 final class MATailoredOrderFlowViewModel: ObservableObject {
     
@@ -23,6 +37,7 @@ final class MATailoredOrderFlowViewModel: ObservableObject {
     @Published var cloathesName: String = ""
     @Published var cloathesDescription: String = ""
     @Published var dateNow = Date.now
+    @Published var images: [OrderImages] = []
     
     var isValid: Bool {
         !cloathesName.isEmpty && !cloathesDescription.isEmpty
@@ -32,7 +47,6 @@ final class MATailoredOrderFlowViewModel: ObservableObject {
         self.model = model
     }
     
-    // needs to finish this implementation
     private func setUpEditing() {
         cloathesText = "Editar"
         tailoredText = "PEDIDO"

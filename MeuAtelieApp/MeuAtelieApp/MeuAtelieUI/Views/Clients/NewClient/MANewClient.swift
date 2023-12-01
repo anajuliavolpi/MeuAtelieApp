@@ -7,15 +7,24 @@
 
 import SwiftUI
 import Contacts
+import PhotosUI
 
 struct MANewClient: View {
-    @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel = MANewClientViewModel()
+    @Binding var path: NavigationPath
+    
     @State var clientFullName: String = ""
     @State var clientPhone: String = ""
     @State var clientEmail: String = ""
+    @State var userImage: Image?
+    
     @State var showImportClientSheet: Bool = false
+    @State var showingActionSheet: Bool = false
+    @State var showingImagePicker: Bool = false
+    @State var showingCameraPicker: Bool = false
+    @State var imagePicked: PhotosPickerItem?
+    @State var uiImage: UIImage?
     
     var body: some View {
         VStack {
@@ -33,29 +42,45 @@ struct MANewClient: View {
         }
         .padding(.horizontal, 20)
         .hideKeyboard()
+        .addMAError(state: viewModel.showError,
+                    message: "Cadastro incorreto", action: {
+            viewModel.showError = false
+        })
         .addMALoading(state: viewModel.isLoading)
         .sheet(isPresented: $showImportClientSheet) {
-            VStack {
-                MAHeaderView(text: "Importar",
-                             subtext: "CONTATO")
-                
-                List($viewModel.contacts, id: \.self) { contact in
-                    MAClientListRow(clientName: "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))",
-                                    clientPhone: getPhoneNumber(of: contact.wrappedValue),
-                                    clientEmail: getEmailAddress(of: contact.wrappedValue))
-                    .padding()
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in return 0 })
-                    .listRowInsets(EdgeInsets())
-                    .padding(.trailing, 18)
-                    .onTapGesture {
-                        self.clientFullName = "\(getFirstName(of: contact.wrappedValue)) \(getLastName(of: contact.wrappedValue))"
-                        self.clientPhone = getPhoneNumber(of: contact.wrappedValue)
-                        self.clientEmail = getEmailAddress(of: contact.wrappedValue)
-                        
-                        showImportClientSheet = false
+            MAImportClientsView(contacts: viewModel.contacts,
+                                clientFullName: self.$clientFullName,
+                                clientPhone: self.$clientPhone,
+                                clientEmail: self.$clientEmail,
+                                showImportClientSheet: self.$showImportClientSheet)
+        }
+        .confirmationDialog("Tirar uma foto ou selecionar da galeria", isPresented: $showingActionSheet, actions: {
+            Button("Escolher da galeria") {
+                showingImagePicker = true
+            }
+            
+            Button("Tirar foto") {
+                showingCameraPicker = true
+            }
+        })
+        .photosPicker(isPresented: $showingImagePicker, selection: $imagePicked, matching: .images)
+        .fullScreenCover(isPresented: $showingCameraPicker) {
+            CameraPicker(sourceType: .camera) { image in
+                self.userImage = Image(uiImage: image)
+                self.uiImage = image
+            }
+        }
+        .onChange(of: imagePicked) { _, _ in
+            Task {
+                if let data = try? await imagePicked?.loadTransferable(type: Data.self) {
+                    if let uiImage = UIImage(data: data) {
+                        self.userImage = Image(uiImage: uiImage)
+                        self.uiImage = uiImage
+                        return
                     }
                 }
-                .listStyle(.plain)
+                
+                print("Failed to get image from imagePicker")
             }
         }
     }
@@ -87,6 +112,44 @@ struct MANewClient: View {
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
                 .padding(.top, 16)
+            
+            HStack(spacing: 30) {
+                if let userImage {
+                    userImage
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .frame(width: 116, height: 113)
+                        .padding()
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(.MAColors.MAImageGray)
+                            .frame(width: 116, height: 113)
+                        
+                        Image.MAImages.Login.loginTopImage
+                            .resizable()
+                            .foregroundStyle(.white)
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                }
+                
+                Text("Inserir foto do cliente")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color.MAColors.MAPinkStrong)
+                    .multilineTextAlignment(.center)
+                    .padding(.trailing, 20)
+            }
+            .frame(maxWidth: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundStyle(Color.MAColors.MAImageGray.opacity(0.1))
+            }
+            .padding(.top, 14)
+            .onTapGesture {
+                showingActionSheet = true
+            }
         }
     }
     
@@ -102,12 +165,20 @@ struct MANewClient: View {
                                             fontColor: .white))
             
             Button(viewModel.createActionText) {
-                viewModel.createClient(with: MAClientModel(userId: "",
-                                                           id: UUID().uuidString,
-                                                           fullName: clientFullName,
-                                                           phone: clientPhone,
-                                                           email: clientEmail),
-                                       dismiss)
+                let model = MAClientModel(userId: "",
+                                          id: UUID().uuidString,
+                                          fullName: clientFullName,
+                                          phone: clientPhone,
+                                          email: clientEmail)
+                
+                Task {
+                    do {
+                        try await viewModel.new(client: model, image: uiImage ?? UIImage())
+                        self.path.removeLast(self.path.count)
+                    } catch {
+                        print("Error: \(error)")
+                    }
+                }
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                             fontColor: .white))
@@ -117,29 +188,8 @@ struct MANewClient: View {
     
 }
 
-// MARK: - Format contact information
-extension MANewClient {
-    
-    func getFirstName(of contact: CNContact) -> String {
-        return contact.givenName
-    }
-    
-    func getLastName(of contact: CNContact) -> String {
-        return contact.familyName
-    }
-    
-    func getPhoneNumber(of contact: CNContact) -> String {
-        return contact.phoneNumbers.first?.value.stringValue ?? "N/A"
-    }
-    
-    func getEmailAddress(of contact: CNContact) -> String {
-        return contact.emailAddresses.first?.value.lowercased ?? "N/A"
-    }
-    
-}
-
 struct MANewClient_Previews: PreviewProvider {
     static var previews: some View {
-        MANewClient()
+        MANewClient(path: Binding.constant(NavigationPath()))
     }
 }
