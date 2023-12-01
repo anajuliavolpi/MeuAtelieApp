@@ -13,18 +13,32 @@ struct MAClientListRow: View {
     var clientName: String
     var clientPhone: String
     var clientEmail: String
+    var clientImageURL: String?
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
             ZStack {
-                Circle()
-                    .foregroundColor(.MAColors.MAImageGray)
-                    .frame(width: 70, height: 70)
-                
-                clientImage
-                    .resizable()
-                    .frame(width: 53, height: 58)
-                    .padding(.top, 8)
+                if let clientImageURL, !clientImageURL.isEmpty {
+                    AsyncImage(url: URL(string: clientImageURL)) { image in
+                        image
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .clipShape(Circle())
+                            .scaledToFit()
+                            .padding(.top, 8)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    Circle()
+                        .foregroundColor(.MAColors.MAImageGray)
+                        .frame(width: 70, height: 70)
+                    
+                    clientImage
+                        .resizable()
+                        .frame(width: 53, height: 58)
+                        .padding(.top, 8)
+                }
             }
             
             VStack(alignment: .leading, spacing: 8) {

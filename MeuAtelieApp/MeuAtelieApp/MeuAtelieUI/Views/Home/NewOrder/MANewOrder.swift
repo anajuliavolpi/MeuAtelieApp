@@ -96,7 +96,7 @@ struct MANewOrder: View {
         .sheet(isPresented: $showNewClientView, onDismiss: {
             viewModel.fetchClients()
         }, content: {
-            MANewClient()
+            MANewClient(path: Binding.constant(NavigationPath()))
         })
         .addMALoading(state: viewModel.isLoading)
         .hideKeyboard()

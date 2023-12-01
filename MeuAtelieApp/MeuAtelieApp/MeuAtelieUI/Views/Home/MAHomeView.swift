@@ -112,8 +112,8 @@ struct MAHomeView: View {
                 case .newFixes(let order, let pieces):
                     MAFixesOrderFlowView(viewModel: .init(order, pieces: pieces, path: $navigationPath))
                         .toolbar(.hidden)
-                case .tailoredFlowMeasurements(let order):
-                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, path: $navigationPath))
+                case .tailoredFlowMeasurements(let order, let images):
+                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, images: images, path: $navigationPath))
                         .toolbar(.hidden)
                 }
             }

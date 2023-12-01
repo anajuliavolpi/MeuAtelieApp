@@ -38,7 +38,8 @@ final class MAProfileViewModel: ObservableObject {
                 self.model = MARegisterModel(emailAddress: Auth.auth().currentUser?.email ?? "",
                                              password: "",
                                              firstName: data?["name"] as? String ?? "",
-                                             lastName: data?["lastname"] as? String ?? "")
+                                             lastName: data?["lastname"] as? String ?? "",
+                                             imageURL: data?["imageURL"] as? String ?? nil)
             }
         }
     }

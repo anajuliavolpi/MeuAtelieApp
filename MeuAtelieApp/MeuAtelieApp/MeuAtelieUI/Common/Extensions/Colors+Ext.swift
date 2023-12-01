@@ -22,9 +22,14 @@ extension Color {
         static let MAPinkTextField: Color = Color("MAPinkTextField")
         static let MAPinkBackground: Color = Color("MAPinkBackground")
         static let MAWinePink: Color = Color("MAWinePink")
+        static let MACalendarPink: Color = Color("MACalendarPink")
+        static let MATodayPink: Color = Color("MATodayPink")
         
         static let MAImageGray: Color = Color("MAImageGray")
         
+        static let MAYellow: Color = Color("MAYellow")
+        static let MARed: Color = Color("MARed")
+        static let MAGreen: Color = Color("MAGreen")
     }
     
 }

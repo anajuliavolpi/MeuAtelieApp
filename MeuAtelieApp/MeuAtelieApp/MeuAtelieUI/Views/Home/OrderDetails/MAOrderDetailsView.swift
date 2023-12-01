@@ -16,7 +16,10 @@ struct MAOrderDetailsView: View {
     @State private var showDeletionAlert: Bool = false
     @State private var showCompletionAlert: Bool = false
     @State private var isBarHidden = false
+    @State private var showImageSheet = false
+    @State private var selectedImage: Image?
     @Binding var path: NavigationPath
+    var isFromCalendar: Bool = false
     
     var body: some View {
         ScrollViewReader { value in
@@ -80,6 +83,11 @@ struct MAOrderDetailsView: View {
                 }
             } backAction: {
                 showCompletionAlert = false
+            }
+            .sheet(isPresented: $showImageSheet) {
+                selectedImage?
+                    .resizable()
+                    .scaledToFit()
             }
         }
     }
@@ -254,29 +262,34 @@ struct MAOrderDetailsView: View {
             }
             
             if viewModel.order?.serviceType == .tailored {
-                Text(viewModel.cloathesPhotos)
-                    .font(.system(size: 18, design: .rounded))
-                    .padding(.top, 10)
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(1..<6) { _ in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(.MAColors.MAImageGray)
-                                    .frame(width: 116, height: 113)
-                                
-                                Image.MAImages.Login.loginTopImage
-                                    .resizable()
-                                    .frame(width: 86, height: 89)
-                                    .padding(.top, 8)
+                if !(viewModel.order?.imagesURLs?.isEmpty ?? false) {
+                    Text(viewModel.cloathesPhotos)
+                        .font(.system(size: 18, design: .rounded))
+                        .padding(.top, 10)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(viewModel.order?.imagesURLs ?? [""], id: \.self) { url in
+                                AsyncImage(url: URL(string: url)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .cornerRadius(8)
+                                        .onTapGesture {
+                                            self.selectedImage = image
+                                            self.showImageSheet = true
+                                        }
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 116, height: 113)
+                                .padding(.top, 8)
                             }
                         }
+                        .padding(.horizontal, 40)
                     }
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, -40)
                 }
-                .padding(.horizontal, -40)
-                .padding(.bottom, 20)
             } else {
                 Text(viewModel.totalValueText)
                     .font(.system(size: 18, design: .rounded))
@@ -294,7 +307,11 @@ struct MAOrderDetailsView: View {
             HStack(spacing: 10) {
                 Button(viewModel.editText) {
                     if let model = viewModel.order {
-                        path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
+                        if isFromCalendar {
+                            path.append(MANavigationRoutes.CalendarRoutes.editOrder(order: model))
+                        } else {
+                            path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
+                        }
                     }
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPink,
