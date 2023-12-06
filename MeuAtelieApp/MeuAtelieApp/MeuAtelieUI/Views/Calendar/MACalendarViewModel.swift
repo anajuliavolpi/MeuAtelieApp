@@ -13,6 +13,7 @@ final class MACalendarViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var orders: [MAOrderModel] = []
     @Published var selectedDate: Date = .now
+    @Published var navigationPath: NavigationPath = .init()
     
     var ordersDate: [(date: Date, status: OrderStatus)] = []
     

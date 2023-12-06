@@ -12,6 +12,7 @@ final class MAHomeViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var orders: [MAOrderModel] = []
+    @Published var navigationPath: NavigationPath = .init()
     
     let viewTitle: String = "Pedidos"
     

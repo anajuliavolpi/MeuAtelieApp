@@ -12,29 +12,6 @@ import Firebase
 struct MeuAtelieAppApp: App {
     
     @StateObject var networkManager: NetworkManager = NetworkManager()
-    @State var homePath: NavigationPath = .init()
-    @State var clientPath: NavigationPath = .init()
-    @State var calendarPath: NavigationPath = .init()
-    
-    var handler: Binding<Int> { Binding(
-        get: { self.networkManager.selectedTab },
-        set: {
-            if $0 == self.networkManager.selectedTab {
-                switch $0 {
-                case 0:
-                    homePath.removeLast(homePath.count)
-                case 1:
-                    clientPath.removeLast(clientPath.count)
-                case 2:
-                    calendarPath.removeLast(calendarPath.count)
-                default:
-                    break
-                }
-            }
-            
-            self.networkManager.selectedTab = $0
-        }
-    )}
     
     init() {
         FirebaseApp.configure()
@@ -53,32 +30,8 @@ struct MeuAtelieAppApp: App {
         WindowGroup {
             ZStack {
                 if networkManager.isLoggedIn {
-                    TabView(selection: handler) {
-                        MAHomeView(navigationPath: $homePath)
-                            .tabItem {
-                                Label("Pedidos", systemImage: "list.dash")
-                            }
-                            .tag(0)
-                        
-                        MAClientsView(navigationPath: $clientPath)
-                            .tabItem {
-                                Label("Clientes", systemImage: "person.3.fill")
-                            }
-                            .tag(1)
-                        
-                        MACalendarView(navigationPath: $calendarPath)
-                            .tabItem {
-                                Label("Agenda", systemImage: "calendar")
-                            }
-                            .tag(2)
-                        
-                        MAProfileView()
-                            .environmentObject(networkManager)
-                            .tabItem {
-                                Label("Perfil", systemImage: "person")
-                            }
-                            .tag(3)
-                    }
+                    MATabBarView()
+                        .environmentObject(networkManager)
                 } else {
                     MALoginView()
                         .environmentObject(networkManager)

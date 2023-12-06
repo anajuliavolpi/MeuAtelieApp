@@ -12,6 +12,7 @@ final class MAClientsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var clients: [MAClientModel] = []
+    @Published var navigationPath: NavigationPath = .init()
     
     var viewTitle: String = "Clientes"
     var newClientText: String = "+"

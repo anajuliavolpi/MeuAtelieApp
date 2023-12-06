@@ -29,6 +29,8 @@
 		3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4B829DB663500FE8348 /* MARegisterView.swift */; };
 		3822E4BC29DB6F9E00FE8348 /* MAProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */; };
 		3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */; };
+		3837F2F02B20ED0F00530644 /* MATabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837F2EF2B20ED0F00530644 /* MATabBarView.swift */; };
+		3837F2F22B20ED3500530644 /* MATabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837F2F12B20ED3500530644 /* MATabBarViewModel.swift */; };
 		383B718B29AD39E800A465D8 /* MAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B718A29AD39E800A465D8 /* MAHomeView.swift */; };
 		383DFBB22A0898C600FC4F42 /* MADropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */; };
 		3853F52D2A070A4D00FD2DB3 /* MAClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */; };
@@ -121,6 +123,8 @@
 		3822E4B829DB663500FE8348 /* MARegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARegisterView.swift; sourceTree = "<group>"; };
 		3822E4BB29DB6F9E00FE8348 /* MAProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAProfileView.swift; sourceTree = "<group>"; };
 		3822E4BE29DB7C8A00FE8348 /* MANewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANewOrder.swift; sourceTree = "<group>"; };
+		3837F2EF2B20ED0F00530644 /* MATabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATabBarView.swift; sourceTree = "<group>"; };
+		3837F2F12B20ED3500530644 /* MATabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MATabBarViewModel.swift; sourceTree = "<group>"; };
 		383B718A29AD39E800A465D8 /* MAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAHomeView.swift; sourceTree = "<group>"; };
 		383DFBB12A0898C600FC4F42 /* MADropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MADropdownMenu.swift; sourceTree = "<group>"; };
 		3853F52C2A070A4D00FD2DB3 /* MAClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAClientsView.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 		3822E4B729DB661F00FE8348 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3837F2EE2B20ED0300530644 /* TabBar */,
 				3872D63F29ABFC45001F180D /* LaunchScreen */,
 				3822E4B629DB661000FE8348 /* Register */,
 				3872D64429AC04D8001F180D /* Login */,
@@ -371,6 +376,15 @@
 				3856D26429E064B500D68516 /* MANewOrderViewModel.swift */,
 			);
 			path = NewOrder;
+			sourceTree = "<group>";
+		};
+		3837F2EE2B20ED0300530644 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				3837F2EF2B20ED0F00530644 /* MATabBarView.swift */,
+				3837F2F12B20ED3500530644 /* MATabBarViewModel.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		383B718929AD39D800A465D8 /* Home */ = {
@@ -802,6 +816,7 @@
 				3853F5372A07480D00FD2DB3 /* MANewClientViewModel.swift in Sources */,
 				389951CD2A526F3B007D87FB /* MAOrderDetailsView.swift in Sources */,
 				386D92BB2A5894AA004181EE /* MAStrings.swift in Sources */,
+				3837F2F02B20ED0F00530644 /* MATabBarView.swift in Sources */,
 				3822E4B529DB64E400FE8348 /* NetworkManager.swift in Sources */,
 				3856D26729E0681E00D68516 /* MAProfileViewModel.swift in Sources */,
 				387F26592A0980C000DC9BB9 /* MATailoredOrderFlowMeasurementsViewModel.swift in Sources */,
@@ -820,6 +835,7 @@
 				3856D25329DFB29F00D68516 /* MARegisterViewModel.swift in Sources */,
 				3822E4B929DB663500FE8348 /* MARegisterView.swift in Sources */,
 				3853F52F2A0712EA00FD2DB3 /* MAClientsViewModel.swift in Sources */,
+				3837F2F22B20ED3500530644 /* MATabBarViewModel.swift in Sources */,
 				38D081222A0860ED00B0DB99 /* MAEditClientViewModel.swift in Sources */,
 				3822E4BF29DB7C8A00FE8348 /* MANewOrder.swift in Sources */,
 				3856D26929E06C9A00D68516 /* MANewPasswordViewModel.swift in Sources */,

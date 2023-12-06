@@ -10,7 +10,6 @@ import SwiftUI
 struct MAClientsView: View {
     
     @ObservedObject private var viewModel = MAClientsViewModel()
-    @Binding var navigationPath: NavigationPath
     @State var textToSearch: String = ""
     
     var searchResults: [MAClientModel] {
@@ -28,10 +27,10 @@ struct MAClientsView: View {
     }
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack(path: $viewModel.navigationPath) {
             List(self.searchResults, id: \.id) { client in
                 Button {
-                    navigationPath.append(MANavigationRoutes.ClientRoutes.details(client: client))
+                    viewModel.navigationPath.append(MANavigationRoutes.ClientRoutes.details(client: client))
                 } label: {
                     MAClientListRow(clientName: client.fullName,
                                     clientPhone: client.phone,
@@ -52,7 +51,7 @@ struct MAClientsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        self.navigationPath.append(MANavigationRoutes.ClientRoutes.newClient)
+                        self.viewModel.navigationPath.append(MANavigationRoutes.ClientRoutes.newClient)
                     } label: {
                         Image(systemName: "person.fill.badge.plus")
                             .foregroundColor(.MAColors.MAPinkMedium)
@@ -90,10 +89,10 @@ struct MAClientsView: View {
             .navigationDestination(for: MANavigationRoutes.ClientRoutes.self) { route in
                 switch route {
                 case .newClient:
-                    MANewClient(path: $navigationPath)
+                    MANewClient(path: $viewModel.navigationPath)
                         .toolbar(.hidden)
                 case .details(let client):
-                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId), path: $navigationPath)
+                    MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId), path: $viewModel.navigationPath)
                         .navigationTitle("Dados do Cliente")
                 case .edit(let clientID):
                     MAEditClientView(viewModel: MAEditClientViewModel(clientID: clientID))
@@ -107,6 +106,6 @@ struct MAClientsView: View {
 
 struct MAClientsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientsView(navigationPath: Binding.constant(NavigationPath()))
+        MAClientsView()
     }
 }

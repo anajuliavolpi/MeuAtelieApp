@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MAHomeView: View {
     
-    @ObservedObject var viewModel: MAHomeViewModel = MAHomeViewModel()
-    @Binding var navigationPath: NavigationPath
+    @ObservedObject var viewModel: MAHomeViewModel = .init()
     @State private var textToSearch: String = ""
     @State private var filterStatus: OrderStatus? = nil
     
@@ -27,7 +27,7 @@ struct MAHomeView: View {
     }
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack(path: $viewModel.navigationPath) {
             List(self.searchResults, id: \.id) { order in
                 MAOrderListRow(viewModel: MAOrderListRowViewModel(order: order))
                     .padding()
@@ -35,7 +35,7 @@ struct MAHomeView: View {
                     .listRowInsets(EdgeInsets())
                     .padding(.trailing, 18)
                     .onTapGesture {
-                        navigationPath.append(MANavigationRoutes.HomeRoutes.orderDetails(order: order))
+                        viewModel.navigationPath.append(MANavigationRoutes.HomeRoutes.orderDetails(order: order))
                     }
             }
             .searchable(text: $textToSearch)
@@ -45,7 +45,7 @@ struct MAHomeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        navigationPath.append(MANavigationRoutes.HomeRoutes.newOrder)
+                        viewModel.navigationPath.append(MANavigationRoutes.HomeRoutes.newOrder)
                     } label: {
                         Image(systemName: "note.text.badge.plus")
                     }
@@ -94,26 +94,26 @@ struct MAHomeView: View {
             .navigationDestination(for: MANavigationRoutes.HomeRoutes.self) { path in
                 switch path {
                 case .orderDetails(let order):
-                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id), path: $navigationPath)
+                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id), path: $viewModel.navigationPath)
                 case .editOrder(let order):
                     if order.serviceType == .fixes {
-                        MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $navigationPath, editing: true))
+                        MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))
                             .toolbar(.hidden)
                     } else {
-                        MATailoredOrderFlowView(viewModel: .init(order), path: $navigationPath)
+                        MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
                             .toolbar(.hidden)
                     }
                 case .newOrder:
-                    MANewOrder(path: $navigationPath)
+                    MANewOrder(path: $viewModel.navigationPath)
                         .toolbar(.hidden)
                 case .newTailored(let order):
-                    MATailoredOrderFlowView(viewModel: .init(order), path: $navigationPath)
+                    MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
                         .toolbar(.hidden)
                 case .newFixes(let order, let pieces):
-                    MAFixesOrderFlowView(viewModel: .init(order, pieces: pieces, path: $navigationPath))
+                    MAFixesOrderFlowView(viewModel: .init(order, pieces: pieces, path: $viewModel.navigationPath))
                         .toolbar(.hidden)
                 case .tailoredFlowMeasurements(let order, let images):
-                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, images: images, path: $navigationPath))
+                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, images: images, path: $viewModel.navigationPath))
                         .toolbar(.hidden)
                 }
             }
@@ -140,6 +140,6 @@ extension MAHomeView {
 
 struct MAHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        MAHomeView(navigationPath: Binding.constant(.init()))
+        MAHomeView()
     }
 }
