@@ -94,7 +94,8 @@ final class MACalendarViewModel: ObservableObject {
                      "legFix": order.legFix,
                      "totalValue": order.totalValue,
                      "hiredDate": order.hiredDate,
-                     "deliveryDate": Date.now.formatted()]
+                     "deliveryDate": Date.now.formatted(),
+                     "imagesURLs": order.imagesURLs ?? []]
         ) { error in
             self.isLoading = false
             if let error {
@@ -116,6 +117,7 @@ final class MACalendarViewModel: ObservableObject {
             if userId == Auth.auth().currentUser?.uid {
                 let status = data["status"] as? String ?? ""
                 let serviceType = data["serviceType"] as? String ?? ""
+                let clientId = data["clientId"] as? String ?? ""
                 let clientName = data["clientName"] as? String ?? ""
                 let clientPhone = data["clientPhone"] as? String ?? ""
                 let clientEmail = data["clientEmail"] as? String ?? ""
@@ -138,12 +140,13 @@ final class MACalendarViewModel: ObservableObject {
                 let totalValue = data["totalValue"] as? Double ?? 0.0
                 let hiredDate = data["hiredDate"] as? String ?? ""
                 let deliveryDate = data["deliveryDate"] as? String ?? ""
+                let imagesURLs = data["imagesURLs"] as? [String]
                 
                 self.orders.append(MAOrderModel(id: document.documentID,
                                                 status: OrderStatus(rawValue: status) ?? .onGoing,
                                                 serviceType: ServiceType(rawValue: serviceType) ?? .tailored,
-                                                client: MAClientModel(userId: "",
-                                                                      id: "",
+                                                client: MAClientModel(userId: userId,
+                                                                      id: clientId,
                                                                       fullName: clientName,
                                                                       phone: clientPhone,
                                                                       email: clientEmail),
@@ -165,7 +168,8 @@ final class MACalendarViewModel: ObservableObject {
                                                 legFix: legFix,
                                                 totalValue: totalValue,
                                                 hiredDate: hiredDate,
-                                                deliveryDate: String(deliveryDate.prefix(10))))
+                                                deliveryDate: String(deliveryDate.prefix(10)),
+                                                imagesURLs: imagesURLs))
                 
                 if OrderStatus(rawValue: status) == .completed {
                     guard let date = self.df.date(from: String(deliveryDate.prefix(10))) else { return }
