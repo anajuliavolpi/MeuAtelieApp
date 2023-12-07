@@ -1022,6 +1022,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Meu Ateliê";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Habilite o acesso a camera para tirar foto das suas peças!";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1058,6 +1059,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeuAtelieApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Meu Ateliê";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Habilite o acesso a camera para tirar foto das suas peças!";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Precisamos do acesso aos seus contatos para conseguir importar para o app :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

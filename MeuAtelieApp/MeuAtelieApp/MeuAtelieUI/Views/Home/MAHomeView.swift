@@ -53,16 +53,22 @@ struct MAHomeView: View {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Menu {
-                        Button("Em progresso") {
+                        Button {
                             self.filterStatus = .onGoing
+                        } label: {
+                            Label("Em progresso", systemImage: filterStatus == .onGoing ? "checkmark.circle" : "")
                         }
                         
-                        Button("Finalizados") {
+                        Button {
                             self.filterStatus = .completed
+                        } label: {
+                            Label("Finalizados", systemImage: filterStatus == .completed ? "checkmark.circle" : "")
                         }
                         
-                        Button("Todos") {
+                        Button {
                             self.filterStatus = nil
+                        } label: {
+                            Label("Todos", systemImage: filterStatus == nil ? "checkmark.circle" : "")
                         }
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
