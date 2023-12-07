@@ -55,7 +55,7 @@ struct CalendarView: View {
                                             if orders.allSatisfy({ $0.status == .completed }) {
                                                 Color.MAColors.MAGreen
                                             } else if orders.allSatisfy({ $0.status == .onGoing }) {
-                                                Color.MAColors.MARed
+                                                Color.MAColors.MACalendarPink
                                             } else {
                                                 Color.MAColors.MAYellow
                                             }
