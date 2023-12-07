@@ -218,6 +218,36 @@ struct MAOrderDetailsView: View {
                     .font(.system(size: 18, design: .rounded))
                     .foregroundColor(.MAColors.MAWinePink)
             }
+            
+            HStack {
+                Text(viewModel.abdomenText)
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+                
+                Rectangle()
+                    .frame(height: 1)
+                    .padding(.horizontal, 4)
+                    .opacity(0.15)
+                
+                Text("\(viewModel.order?.abdomenMeasurement ?? 0)cm")
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+            }
+            
+            HStack {
+                Text(viewModel.shoulderText)
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+                
+                Rectangle()
+                    .frame(height: 1)
+                    .padding(.horizontal, 4)
+                    .opacity(0.15)
+                
+                Text("\(viewModel.order?.shoulderMeasurement ?? 0)cm")
+                    .font(.system(size: 18, design: .rounded))
+                    .foregroundColor(.MAColors.MAWinePink)
+            }
         }
     }
     

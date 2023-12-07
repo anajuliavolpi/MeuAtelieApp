@@ -22,6 +22,8 @@ final class MAOrderDetailsViewModel: ObservableObject {
     let waistText: String = "Cintura"
     let hipsText: String = "Quadril"
     let lengthText: String = "Comprimento"
+    let shoulderText: String = "Ombro"
+    let abdomenText: String = "Abdomên"
     let hiredText: String = "Contratado em"
     let estimatedDeliveryDateText: String = "Data de entrega prevista"
     let deliveryDateText: String = "Data efetiva da entrega"

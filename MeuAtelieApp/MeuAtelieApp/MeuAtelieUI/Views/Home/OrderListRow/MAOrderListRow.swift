@@ -54,6 +54,9 @@ struct MAOrderListRow: View {
                 Text(viewModel.serviceType)
                     .font(.system(size: 18, design: .rounded))
                 
+                Text(viewModel.titleDescription)
+                    .font(.system(size: 18, design: .rounded))
+                
                 Text(viewModel.dateText)
                     .font(.system(size: 18, design: .rounded))
             }

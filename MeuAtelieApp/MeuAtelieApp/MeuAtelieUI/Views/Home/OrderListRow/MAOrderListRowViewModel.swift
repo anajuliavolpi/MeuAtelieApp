@@ -14,6 +14,10 @@ final class MAOrderListRowViewModel {
     lazy var serviceType: String = {
         "Serviço: \(order.serviceType.rawValue)"
     }()
+    
+    lazy var titleDescription: String = {
+        "Peça: \(order.cloathesName)"
+    }()
 
     lazy var dateText: String = {
         if order.status == .onGoing {
