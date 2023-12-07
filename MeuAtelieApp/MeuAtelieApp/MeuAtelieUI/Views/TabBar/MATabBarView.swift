@@ -28,7 +28,7 @@ struct MATabBarView: View {
                 }
                 .tag(MATabBarViewModel.Tabs.clients)
             
-            MACalendarView()
+            MACalendarView(viewModel: .init(path: $viewModel.calendarPath))
                 .tabItem {
                     Label(MATabBarViewModel.Tabs.calendar.title,
                           systemImage: MATabBarViewModel.Tabs.calendar.systemImage)
@@ -60,7 +60,9 @@ struct MATabBarView: View {
                             viewModel.clientsPath.removeLast(viewModel.clientsPath.count)
                         }
                     case .calendar:
-                        break
+                        withAnimation {
+                            viewModel.calendarPath.removeLast(viewModel.calendarPath.count)
+                        }
                     case .profile:
                         withAnimation {
                             viewModel.profilePath.removeLast(viewModel.profilePath.count)

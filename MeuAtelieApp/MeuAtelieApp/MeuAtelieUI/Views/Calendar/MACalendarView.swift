@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MACalendarView: View {
     
-    @ObservedObject var viewModel: MACalendarViewModel = .init()
+    @ObservedObject var viewModel: MACalendarViewModel
 //    @State var selectedDate: Date = .now
     
     var ordersOnSelectedDate: [MAOrderModel] {
@@ -61,12 +61,13 @@ struct MACalendarView: View {
                     switch routes {
                     case .orderDetails(let order):
                         MAOrderDetailsView(viewModel: .init(path: $viewModel.navigationPath, orderID: order.id), isFromCalendar: true)
+                            .toolbar(.hidden)
                     case .editOrder(let order):
                         if order.serviceType == .fixes {
                             MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))
                                 .toolbar(.hidden)
                         } else {
-                            MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
+                            MATailoredOrderFlowView(viewModel: .init(order, editing: true), path: $viewModel.navigationPath)
                                 .toolbar(.hidden)
                         }
                     }
@@ -91,11 +92,6 @@ struct MACalendarView: View {
                     }
                 }
             }
-            .onAppear {
-                Task {
-                    await viewModel.fetch()
-                }
-            }
             .addMALoading(state: viewModel.isLoading)
         }
     }
@@ -104,6 +100,6 @@ struct MACalendarView: View {
 
 struct MACalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        MACalendarView()
+        MACalendarView(viewModel: .init(path: .constant(.init())))
     }
 }

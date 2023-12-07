@@ -13,12 +13,21 @@ final class MACalendarViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var orders: [MAOrderModel] = []
     @Published var selectedDate: Date = .now
-    @Published var navigationPath: NavigationPath = .init()
+    
+    @Binding var navigationPath: NavigationPath
     
     var ordersDate: [(date: Date, status: OrderStatus)] = []
     
     let viewTitle: String = "Pedidos"
     let df = DateFormatter(dateFormat: "dd/MM/yy", calendar: .init(identifier: .gregorian))
+    
+    init(path: Binding<NavigationPath>) {
+        self._navigationPath = path
+        
+        Task {
+            await fetch()
+        }
+    }
     
     func getBadgeColor(order: MAOrderModel) -> Color {
         if order.status == .onGoing {
