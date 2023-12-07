@@ -33,4 +33,8 @@ struct MANavigationRoutes {
         case editOrder(order: MAOrderModel)
     }
     
+    enum ProfileRoutes: Hashable {
+        case changePassword
+    }
+    
 }

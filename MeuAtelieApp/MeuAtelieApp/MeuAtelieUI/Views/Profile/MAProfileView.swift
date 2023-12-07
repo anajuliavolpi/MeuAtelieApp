@@ -11,10 +11,10 @@ import Firebase
 struct MAProfileView: View {
     
     @EnvironmentObject var networkManager: NetworkManager
-    @ObservedObject var viewModel: MAProfileViewModel = MAProfileViewModel()
+    @ObservedObject var viewModel: MAProfileViewModel
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.path) {
             VStack(alignment: .leading) {
                 headerView
                     .padding(.horizontal, -30)
@@ -24,17 +24,11 @@ struct MAProfileView: View {
                 
                 Spacer()
                 
-                NavigationLink {
-                    MANewPasswordView()
-                        .toolbar(.hidden)
-                } label: {
-                    Button(viewModel.changePasswordText) {
-                        print(#function)
-                    }
-                    .disabled(true)
-                    .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
-                                                    fontColor: .white))
+                Button(viewModel.changePasswordText) {
+                    viewModel.path.append(MANavigationRoutes.ProfileRoutes.changePassword)
                 }
+                .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
+                                                fontColor: .white))
                 
                 Button(viewModel.exitText) {
                     viewModel.signOutWith(networkManager)
@@ -45,6 +39,13 @@ struct MAProfileView: View {
             }
             .padding(.horizontal, 30)
             .ignoresSafeArea(edges: .top)
+            .navigationDestination(for: MANavigationRoutes.ProfileRoutes.self, destination: { path in
+                switch path {
+                case .changePassword:
+                    MANewPasswordView(viewModel: .init(path: $viewModel.path))
+                        .toolbar(.hidden)
+                }
+            })
             .addMALoading(state: viewModel.isLoading)
         }
     }
@@ -133,6 +134,6 @@ struct MAProfileView: View {
 
 struct MAProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        MAProfileView()
+        MAProfileView(viewModel: .init(path: .constant(NavigationPath())))
     }
 }

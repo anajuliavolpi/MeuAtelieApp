@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct MANewPasswordView: View {
-    @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var viewModel: MANewPasswordViewModel = MANewPasswordViewModel()
+    @ObservedObject var viewModel: MANewPasswordViewModel
     @State var newPassword: String = ""
     @State var showConfirmationAlert: Bool = false
     
@@ -35,7 +34,7 @@ struct MANewPasswordView: View {
             Spacer()
             
             Button(viewModel.cancelText) {
-                dismiss()
+                viewModel.path.removeLast()
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
                                             fontColor: .white))
@@ -51,8 +50,10 @@ struct MANewPasswordView: View {
         .addMALoading(state: viewModel.isLoading)
         .hideKeyboard()
         .addMAAlert(state: showConfirmationAlert, message: viewModel.confirmationAlertText) {
-            viewModel.change(password: newPassword, dismiss)
-            showConfirmationAlert = false
+            Task {
+                await viewModel.change(password: newPassword)
+                showConfirmationAlert = false
+            }
         } backAction: {
             showConfirmationAlert = false
         }
@@ -66,6 +67,6 @@ struct MANewPasswordView: View {
 
 struct MANewPassword_Previews: PreviewProvider {
     static var previews: some View {
-        MANewPasswordView()
+        MANewPasswordView(viewModel: .init(path: Binding.constant(NavigationPath())))
     }
 }

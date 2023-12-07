@@ -35,7 +35,7 @@ struct MATabBarView: View {
                 }
                 .tag(MATabBarViewModel.Tabs.calendar)
             
-            MAProfileView()
+            MAProfileView(viewModel: .init(path: $viewModel.profilePath))
                 .environmentObject(networkManager)
                 .tabItem {
                     Label(MATabBarViewModel.Tabs.profile.title,
@@ -60,7 +60,9 @@ struct MATabBarView: View {
                     case .calendar:
                         break
                     case .profile:
-                        break
+                        withAnimation {
+                            viewModel.profilePath.removeLast(viewModel.profilePath.count)
+                        }
                     }
                 }
                 

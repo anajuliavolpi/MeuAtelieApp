@@ -21,16 +21,22 @@ final class MAProfileViewModel: ObservableObject {
     let changePasswordText: String = "ALTERAR SENHA"
     let exitText: String = "SAIR"
     
-    init() {
+    @Binding var path: NavigationPath
+    
+    init(path: Binding<NavigationPath>) {
+        self._path = path
+        
         Task {
             await fetchUser()
         }
     }
     
     @MainActor func fetchUser() async {
+        guard let authUser = Auth.auth().currentUser else { return }
         self.isLoading = true
+        
         let db = Firestore.firestore()
-        let ref = db.collection("Users").document(Auth.auth().currentUser?.uid ?? "")
+        let ref = db.collection("Users").document(authUser.uid)
         
         do {
             let snapshot = try await ref.getDocument()
@@ -53,7 +59,7 @@ final class MAProfileViewModel: ObservableObject {
         do {
             self.isLoading = false
             try Auth.auth().signOut()
-            networkManager.signOut()
+            networkManager.checkUserStatus()
         } catch {
             print("Some error on signing out: \(error)")
         }

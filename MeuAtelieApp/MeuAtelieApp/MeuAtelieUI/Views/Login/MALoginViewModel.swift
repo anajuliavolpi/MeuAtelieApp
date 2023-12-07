@@ -32,7 +32,7 @@ final class MALoginViewModel: ObservableObject {
         
         do {
             let _ = try await Auth.auth().signIn(withEmail: textFields.login, password: textFields.password)
-            networkManager.isUserLoggedIn()
+            networkManager.checkUserStatus()
         } catch {
             switch AuthErrorCode.Code(rawValue: (error as NSError).code) {
             case .wrongPassword:

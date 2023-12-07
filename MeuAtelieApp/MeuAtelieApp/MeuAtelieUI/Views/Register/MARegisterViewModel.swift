@@ -41,7 +41,7 @@ final class MARegisterViewModel: ObservableObject {
             try await saveUserOnDB()
             
             self.isLoading = false
-            networkManager.isUserLoggedIn()
+            networkManager.checkUserStatus()
         } catch RegisterError.errorTransformingToData {
             print("Error on trying to transform UIImage to Data")
             self.showError = true
