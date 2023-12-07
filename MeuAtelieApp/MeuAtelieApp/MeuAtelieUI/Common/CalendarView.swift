@@ -18,13 +18,13 @@ struct CalendarView: View {
     private let fullFormatter: DateFormatter
     
     @Binding var selectedDate: Date
-    var dates: [(date: Date, status: OrderStatus)]
+    @Binding var dates: [(date: Date, status: OrderStatus)]
     private static var now = Date() // Cache now
     
-    init(calendar: Calendar, selectedDate: Binding<Date>, dates: [(date: Date, status: OrderStatus)]) {
+    init(calendar: Calendar, selectedDate: Binding<Date>, dates: Binding<[(date: Date, status: OrderStatus)]>) {
         self.calendar = calendar
         self._selectedDate = selectedDate
-        self.dates = dates
+        self._dates = dates
         self.monthYearFormatter = DateFormatter(dateFormat: "MMMM yyyy", calendar: calendar)
         self.dayFormatter = DateFormatter(dateFormat: "d", calendar: calendar)
         self.weekDayFormatter = DateFormatter(dateFormat: "EEEEE", calendar: calendar)
@@ -33,9 +33,6 @@ struct CalendarView: View {
     
     var body: some View {
         VStack {
-//            Text("Selected date: \(fullFormatter.string(from: selectedDate))")
-//                .bold()
-//                .foregroundColor(.red)
             CalendarViewOptions(
                 calendar: calendar,
                 date: $selectedDate,
@@ -43,7 +40,6 @@ struct CalendarView: View {
                     ZStack {
                         Button(action: {
                             selectedDate = date
-    //                        print("selected date: \(selectedDate)")
                         }) {
                             Text("00")
                                 .padding(8)
@@ -53,10 +49,6 @@ struct CalendarView: View {
                                         if calendar.isDate(date, inSameDayAs: selectedDate) {
                                             Color.MAColors.MATodayPink
                                         }
-    
-//                                        if calendar.isDateInToday(date) {
-//                                            Color.MAColors.MAPinkLight
-//                                        }
     
                                         let orders = ordersIn(date: date)
                                         if orders.count > 1 {
@@ -86,7 +78,6 @@ struct CalendarView: View {
                                 .accessibilityHidden(true)
                                 .overlay(
                                     Text(dayFormatter.string(from: date))
-//                                        .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .black)
                                         .foregroundColor(.black)
                                 )
                         }
@@ -112,17 +103,15 @@ struct CalendarView: View {
                         }
                         
                         Button {
-//                            withAnimation {
-                                guard let newDate = calendar.date(
-                                    byAdding: .month,
-                                    value: -1,
-                                    to: selectedDate
-                                ) else {
-                                    return
-                                }
-                                
-                                selectedDate = newDate
-//                            }
+                            guard let newDate = calendar.date(
+                                byAdding: .month,
+                                value: -1,
+                                to: selectedDate
+                            ) else {
+                                return
+                            }
+                            
+                            selectedDate = newDate
                         } label: {
                             Label(
                                 title: { Text("Previous") },
@@ -133,17 +122,15 @@ struct CalendarView: View {
                             .frame(maxHeight: .infinity)
                         }
                         Button {
-//                            withAnimation {
-                                guard let newDate = calendar.date(
-                                    byAdding: .month,
-                                    value: 1,
-                                    to: selectedDate
-                                ) else {
-                                    return
-                                }
-                                
-                                selectedDate = newDate
-//                            }
+                            guard let newDate = calendar.date(
+                                byAdding: .month,
+                                value: 1,
+                                to: selectedDate
+                            ) else {
+                                return
+                            }
+                            
+                            selectedDate = newDate
                         } label: {
                             Label(
                                 title: { Text("Next") },
@@ -294,7 +281,7 @@ struct CalendarView_Previews: PreviewProvider {
     struct GregorianCalendar: View {
         
         private let dateFormatter = DateFormatter(dateFormat: "dd/MM/yy", calendar: .init(identifier: .gregorian))
-        private var dates: [(date: Date, status: OrderStatus)] = []
+        @State private var dates: [(date: Date, status: OrderStatus)] = []
         
         init() {
             dates.append((date: dateFormatter.date(from: "01/10/2023")!, status: .onGoing))
@@ -307,7 +294,7 @@ struct CalendarView_Previews: PreviewProvider {
         var body: some View {
             CalendarView(calendar: Calendar(identifier: .gregorian),
                          selectedDate: Binding.constant(.now),
-                         dates: self.dates)
+                         dates: $dates)
         }
         
     }
@@ -318,15 +305,15 @@ struct CalendarView_Previews: PreviewProvider {
             
             CalendarView(calendar: Calendar(identifier: .islamicUmmAlQura),
                          selectedDate: Binding.constant(.now),
-                         dates: [])
+                         dates: .constant([]))
             
             CalendarView(calendar: Calendar(identifier: .hebrew),
                          selectedDate: Binding.constant(.now),
-                         dates: [])
+                         dates: .constant([]))
             
             CalendarView(calendar: Calendar(identifier: .indian),
                          selectedDate: Binding.constant(.now),
-                         dates: [])
+                         dates: .constant([]))
         }
     }
 }

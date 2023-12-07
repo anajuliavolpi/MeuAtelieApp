@@ -10,7 +10,6 @@ import SwiftUI
 struct MACalendarView: View {
     
     @ObservedObject var viewModel: MACalendarViewModel
-//    @State var selectedDate: Date = .now
     
     var ordersOnSelectedDate: [MAOrderModel] {
         return viewModel.orders.filter { order in
@@ -31,7 +30,7 @@ struct MACalendarView: View {
             VStack(alignment: .leading, spacing: 0) {
                 CalendarView(calendar: Calendar(identifier: .gregorian),
                              selectedDate: $viewModel.selectedDate,
-                             dates: viewModel.ordersDate)
+                             dates: $viewModel.ordersDate)
                 
                 Text("\(DateFormatter(dateFormat: "EEEE, MMM d, yyyy", calendar: .init(identifier: .gregorian)).string(from: viewModel.selectedDate))")
                     .foregroundColor(.MAColors.MAPinkText)

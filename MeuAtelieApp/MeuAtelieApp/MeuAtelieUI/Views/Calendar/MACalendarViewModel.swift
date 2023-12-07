@@ -16,7 +16,7 @@ final class MACalendarViewModel: ObservableObject {
     
     @Binding var navigationPath: NavigationPath
     
-    var ordersDate: [(date: Date, status: OrderStatus)] = []
+    @Published var ordersDate: [(date: Date, status: OrderStatus)] = []
     
     let viewTitle: String = "Pedidos"
     let df = DateFormatter(dateFormat: "dd/MM/yy", calendar: .init(identifier: .gregorian))
@@ -56,6 +56,7 @@ final class MACalendarViewModel: ObservableObject {
         do {
             let snapshot = try await ref.getDocuments()
             self.formatOrders(snapshot: snapshot)
+            self.selectedDate = .now
             self.isLoading = false
         } catch {
             print("Some error occured: \(error)")

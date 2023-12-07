@@ -188,7 +188,7 @@ struct MANewOrder: View {
             .padding(.top, 30)
             
             TextField(viewModel.piecesQuantityPlaceholder, text: $viewModel.piecesNumber)
-                .onChange(of: viewModel.piecesNumber, perform: { _ in
+                .onChange(of: viewModel.piecesNumber, { oldValue, newValue in
                     viewModel.validateFields()
                 })
                 .textFieldStyle(MABasicTextFieldStyle(image: Image(systemName: "plus.circle"),
