@@ -11,20 +11,13 @@ struct MATailoredOrderFlowMeasurementsView: View {
     
     @ObservedObject var viewModel: MATailoredOrderFlowMeasurementsViewModel
     
-    @State var shoulder: String = ""
-    @State var bust: String = ""
-    @State var length: String = ""
-    @State var waist: String = ""
-    @State var abdomen: String = ""
-    @State var hips: String = ""
-    
     private var isValid: Bool {
-        !shoulder.isEmpty &&
-        !bust.isEmpty &&
-        !length.isEmpty &&
-        !waist.isEmpty &&
-        !abdomen.isEmpty &&
-        !hips.isEmpty
+        !viewModel.shoulder.isEmpty &&
+        !viewModel.bust.isEmpty &&
+        !viewModel.length.isEmpty &&
+        !viewModel.waist.isEmpty &&
+        !viewModel.abdomen.isEmpty &&
+        !viewModel.hips.isEmpty
     }
     
     var body: some View {
@@ -56,12 +49,12 @@ struct MATailoredOrderFlowMeasurementsView: View {
                                              cloathesName: viewModel.model.cloathesName,
                                              cloathesDescription: viewModel.model.cloathesDescription,
                                              estimatedDeliveryDate: viewModel.model.estimatedDeliveryDate,
-                                             shoulderMeasurement: Int(self.shoulder) ?? 0,
-                                             bustMeasurement: Int(self.bust) ?? 0,
-                                             lengthMeasurement: Int(self.length) ?? 0,
-                                             waistMeasurement: Int(self.waist) ?? 0,
-                                             abdomenMeasurement: Int(self.abdomen) ?? 0,
-                                             hipsMeasurement: Int(self.hips) ?? 0,
+                                             shoulderMeasurement: Int(viewModel.shoulder) ?? 0,
+                                             bustMeasurement: Int(viewModel.bust) ?? 0,
+                                             lengthMeasurement: Int(viewModel.length) ?? 0,
+                                             waistMeasurement: Int(viewModel.waist) ?? 0,
+                                             abdomenMeasurement: Int(viewModel.abdomen) ?? 0,
+                                             hipsMeasurement: Int(viewModel.hips) ?? 0,
                                              waistFix: false,
                                              lengthFix: false,
                                              hipsFix: false,
@@ -102,7 +95,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.shoulderText, text: $shoulder)
+            TextField(viewModel.shoulderText, text: $viewModel.shoulder)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))
@@ -117,7 +110,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.bustText, text: $bust)
+            TextField(viewModel.bustText, text: $viewModel.bust)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))
@@ -132,7 +125,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.lengthText, text: $length)
+            TextField(viewModel.lengthText, text: $viewModel.length)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))
@@ -151,7 +144,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.waistText, text: $waist)
+            TextField(viewModel.waistText, text: $viewModel.waist)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))
@@ -166,7 +159,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.abdomenText, text: $abdomen)
+            TextField(viewModel.abdomenText, text: $viewModel.abdomen)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))
@@ -181,7 +174,7 @@ struct MATailoredOrderFlowMeasurementsView: View {
             }
             .padding(.top, 30)
             
-            TextField(viewModel.hipsText, text: $hips)
+            TextField(viewModel.hipsText, text: $viewModel.hips)
                 .textFieldStyle(MABasicTextFieldStyle(backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
                                                       keyboard: .numberPad))

@@ -34,10 +34,13 @@ final class MATailoredOrderFlowViewModel: ObservableObject {
     let estimatedDeliveryDateText: String = "Data de entrega prevista"
     var continueActionButtonText: String = "CONTINUAR"
     
+    @Published var isLoading: Bool = false
     @Published var cloathesName: String = ""
     @Published var cloathesDescription: String = ""
     @Published var dateNow = Date.now
     @Published var images: [OrderImages] = []
+    
+    var isEditing: Bool = false
     
     var isValid: Bool {
         !cloathesName.isEmpty && !cloathesDescription.isEmpty
@@ -45,6 +48,11 @@ final class MATailoredOrderFlowViewModel: ObservableObject {
     
     init(_ model: MAOrderModel, editing: Bool = false) {
         self.model = model
+        self.isEditing = editing
+        
+        if self.isEditing {
+            setUpEditing()
+        }
     }
     
     private func setUpEditing() {
@@ -53,12 +61,37 @@ final class MATailoredOrderFlowViewModel: ObservableObject {
         cloathesName = model.cloathesName
         cloathesDescription = model.cloathesDescription
         
+        if let urls = model.imagesURLs, !urls.isEmpty {
+            // Downloads images as Image and UIImage
+            // and save it to the images object array
+            self.isLoading = true
+            
+            for url in urls {
+                Task {
+                    await self.downloadImage(url: url)
+                }
+            }
+            
+            self.isLoading = false
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.date(from: model.estimatedDeliveryDate)
         dateNow = date ?? .now
+    }
+    
+    @MainActor private func downloadImage(url: String) async {
+        guard let url = URL(string: url) else { return }
         
-        continueActionButtonText = "ATUALIZAR"
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let uiImage = UIImage(data: data)! // In theory this will always successed
+            let image = Image(uiImage: uiImage)
+            self.images.append(.init(image: image, uiImage: uiImage))
+        } catch {
+            print("Some error: \(error)")
+        }
     }
     
 }

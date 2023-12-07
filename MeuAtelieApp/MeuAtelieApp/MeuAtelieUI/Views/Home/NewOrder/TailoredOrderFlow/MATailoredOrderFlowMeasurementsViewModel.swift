@@ -12,6 +12,12 @@ import FirebaseStorage
 final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
+    @Published var shoulder: String = ""
+    @Published var bust: String = ""
+    @Published var length: String = ""
+    @Published var waist: String = ""
+    @Published var abdomen: String = ""
+    @Published var hips: String = ""
     
     var model: MAOrderModel
     var images: [OrderImages]
@@ -28,10 +34,19 @@ final class MATailoredOrderFlowMeasurementsViewModel: ObservableObject {
     let hipsText: String = "Quadril"
     let finishActionButtonText: String = "FINALIZAR"
     
-    init(_ model: MAOrderModel, images: [OrderImages], path: Binding<NavigationPath>) {
+    init(_ model: MAOrderModel, images: [OrderImages], path: Binding<NavigationPath>, editing: Bool = false) {
         self.model = model
         self.images = images
         self.path = path
+        
+        if editing {
+            self.shoulder = String(model.shoulderMeasurement)
+            self.bust = String(model.bustMeasurement)
+            self.length = String(model.lengthMeasurement)
+            self.waist = String(model.waistMeasurement)
+            self.abdomen = String(model.abdomenMeasurement)
+            self.hips = String(model.hipsMeasurement)
+        }
     }
     
     @MainActor func uploadDocument(with order: MAOrderModel) async {

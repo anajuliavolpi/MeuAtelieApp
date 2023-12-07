@@ -102,7 +102,7 @@ struct MAHomeView: View {
                         MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))
                             .toolbar(.hidden)
                     } else {
-                        MATailoredOrderFlowView(viewModel: .init(order), path: $viewModel.navigationPath)
+                        MATailoredOrderFlowView(viewModel: .init(order, editing: true), path: $viewModel.navigationPath)
                             .toolbar(.hidden)
                     }
                 case .newOrder:
@@ -114,8 +114,8 @@ struct MAHomeView: View {
                 case .newFixes(let order, let pieces):
                     MAFixesOrderFlowView(viewModel: .init(order, pieces: pieces, path: $viewModel.navigationPath))
                         .toolbar(.hidden)
-                case .tailoredFlowMeasurements(let order, let images):
-                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, images: images, path: $viewModel.navigationPath))
+                case .tailoredFlowMeasurements(let order, let images, let editing):
+                    MATailoredOrderFlowMeasurementsView(viewModel: .init(order, images: images, path: $viewModel.navigationPath, editing: editing))
                         .toolbar(.hidden)
                 }
             }

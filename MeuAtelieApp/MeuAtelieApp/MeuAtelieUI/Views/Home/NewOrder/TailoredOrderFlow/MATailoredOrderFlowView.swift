@@ -39,12 +39,12 @@ struct MATailoredOrderFlowView: View {
                                                                                                            cloathesName: viewModel.cloathesName,
                                                                                                            cloathesDescription: viewModel.cloathesDescription,
                                                                                                            estimatedDeliveryDate: viewModel.dateNow.formatted(),
-                                                                                                           shoulderMeasurement: 0,
-                                                                                                           bustMeasurement: 0,
-                                                                                                           lengthMeasurement: 0,
-                                                                                                           waistMeasurement: 0,
-                                                                                                           abdomenMeasurement: 0,
-                                                                                                           hipsMeasurement: 0,
+                                                                                                           shoulderMeasurement: viewModel.isEditing ? viewModel.model.shoulderMeasurement : 0,
+                                                                                                           bustMeasurement: viewModel.isEditing ? viewModel.model.bustMeasurement : 0,
+                                                                                                           lengthMeasurement: viewModel.isEditing ? viewModel.model.lengthMeasurement : 0,
+                                                                                                           waistMeasurement: viewModel.isEditing ? viewModel.model.waistMeasurement : 0,
+                                                                                                           abdomenMeasurement: viewModel.isEditing ? viewModel.model.abdomenMeasurement : 0,
+                                                                                                           hipsMeasurement: viewModel.isEditing ? viewModel.model.hipsMeasurement : 0,
                                                                                                            waistFix: false,
                                                                                                            lengthFix: false,
                                                                                                            hipsFix: false,
@@ -55,7 +55,8 @@ struct MATailoredOrderFlowView: View {
                                                                                                            totalValue: 0.0,
                                                                                                            hiredDate: "",
                                                                                                            deliveryDate: ""),
-                                                                                       images: viewModel.images))
+                                                                                       images: viewModel.images,
+                                                                                       editing: viewModel.isEditing))
                 }
                 .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkMedium,
                                                 fontColor: .white))
@@ -94,6 +95,7 @@ struct MATailoredOrderFlowView: View {
                 print("Failed to get image from imagePicker")
             }
         }
+        .addMALoading(state: viewModel.isLoading)
     }
     
     var galleryView: some View {
