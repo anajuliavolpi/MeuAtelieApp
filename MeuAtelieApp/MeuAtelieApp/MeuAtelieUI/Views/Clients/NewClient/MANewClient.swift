@@ -11,24 +11,19 @@ import PhotosUI
 
 struct MANewClient: View {
     
-    @ObservedObject var viewModel = MANewClientViewModel()
+    @ObservedObject var viewModel: MANewClientViewModel
     @Binding var path: NavigationPath
-    
-    @State var clientFullName: String = ""
-    @State var clientPhone: String = ""
-    @State var clientEmail: String = ""
-    @State var userImage: Image?
     
     @State var showImportClientSheet: Bool = false
     @State var showingActionSheet: Bool = false
     @State var showingImagePicker: Bool = false
     @State var showingCameraPicker: Bool = false
     @State var imagePicked: PhotosPickerItem?
-    @State var uiImage: UIImage?
     
     @Binding var showNewClientView: Bool
     
-    init(path: Binding<NavigationPath>, fromNewClientView: Binding<Bool> = Binding.constant(false)) {
+    init(viewModel: MANewClientViewModel, path: Binding<NavigationPath>, fromNewClientView: Binding<Bool> = Binding.constant(false)) {
+        self.viewModel = viewModel
         self._path = path
         self._showNewClientView = fromNewClientView
     }
@@ -56,9 +51,9 @@ struct MANewClient: View {
         .addMALoading(state: viewModel.isLoading)
         .sheet(isPresented: $showImportClientSheet) {
             MAImportClientsView(contacts: viewModel.contacts,
-                                clientFullName: self.$clientFullName,
-                                clientPhone: self.$clientPhone,
-                                clientEmail: self.$clientEmail,
+                                clientFullName: self.$viewModel.clientFullName,
+                                clientPhone: self.$viewModel.clientPhone,
+                                clientEmail: self.$viewModel.clientEmail,
                                 showImportClientSheet: self.$showImportClientSheet)
         }
         .confirmationDialog("Tirar uma foto ou selecionar da galeria", isPresented: $showingActionSheet, actions: {
@@ -73,16 +68,16 @@ struct MANewClient: View {
         .photosPicker(isPresented: $showingImagePicker, selection: $imagePicked, matching: .images)
         .fullScreenCover(isPresented: $showingCameraPicker) {
             CameraPicker(sourceType: .camera) { image in
-                self.userImage = Image(uiImage: image)
-                self.uiImage = image
+                self.viewModel.userImage = Image(uiImage: image)
+                self.viewModel.uiImage = image
             }
         }
         .onChange(of: imagePicked) { _, _ in
             Task {
                 if let data = try? await imagePicked?.loadTransferable(type: Data.self) {
                     if let uiImage = UIImage(data: data) {
-                        self.userImage = Image(uiImage: uiImage)
-                        self.uiImage = uiImage
+                        self.viewModel.userImage = Image(uiImage: uiImage)
+                        self.viewModel.uiImage = uiImage
                         return
                     }
                 }
@@ -94,7 +89,7 @@ struct MANewClient: View {
     
     var fieldsView: some View {
         VStack {
-            TextField(viewModel.fullNameText, text: $clientFullName)
+            TextField(viewModel.fullNameText, text: $viewModel.clientFullName)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.personFill,
                                                       backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black))
@@ -102,7 +97,7 @@ struct MANewClient: View {
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.words)
             
-            TextField(viewModel.phoneText, text: $clientPhone)
+            TextField(viewModel.phoneText, text: $viewModel.clientPhone)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.phone,
                                                       backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
@@ -110,7 +105,7 @@ struct MANewClient: View {
                 .textContentType(.telephoneNumber)
                 .padding(.top, 16)
             
-            TextField(viewModel.emailText, text: $clientEmail)
+            TextField(viewModel.emailText, text: $viewModel.clientEmail)
                 .textFieldStyle(MABasicTextFieldStyle(image: .MAImages.SystemImages.email,
                                                       backgroundColor: .MAColors.MAPinkTextField,
                                                       foregroundTextColor: .black,
@@ -121,7 +116,7 @@ struct MANewClient: View {
                 .padding(.top, 16)
             
             HStack(spacing: 30) {
-                if let userImage {
+                if let userImage = viewModel.userImage {
                     userImage
                         .resizable()
                         .scaledToFit()
@@ -172,15 +167,15 @@ struct MANewClient: View {
                                             fontColor: .white))
             
             Button(viewModel.createActionText) {
-                let model = MAClientModel(userId: "",
-                                          id: UUID().uuidString,
-                                          fullName: clientFullName,
-                                          phone: clientPhone,
-                                          email: clientEmail)
+                let model = MAClientModel(userId: viewModel.model != nil ? viewModel.model?.userId ?? "" : "",
+                                          id: viewModel.model != nil ? viewModel.model?.id ?? "" : UUID().uuidString,
+                                          fullName: viewModel.clientFullName,
+                                          phone: viewModel.clientPhone,
+                                          email: viewModel.clientEmail)
                 
                 Task {
                     do {
-                        try await viewModel.new(client: model, image: uiImage ?? UIImage())
+                        try await viewModel.new(client: model, image: viewModel.uiImage ?? UIImage())
                         
                         if showNewClientView {
                             showNewClientView.toggle()
@@ -202,6 +197,6 @@ struct MANewClient: View {
 
 struct MANewClient_Previews: PreviewProvider {
     static var previews: some View {
-        MANewClient(path: Binding.constant(NavigationPath()))
+        MANewClient(viewModel: .init(), path: Binding.constant(NavigationPath()))
     }
 }

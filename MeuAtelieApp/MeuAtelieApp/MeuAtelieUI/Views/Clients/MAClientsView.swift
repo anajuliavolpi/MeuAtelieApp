@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MAClientsView: View {
     
-    @ObservedObject private var viewModel = MAClientsViewModel()
+    @ObservedObject var viewModel: MAClientsViewModel
     @State var textToSearch: String = ""
     
     var searchResults: [MAClientModel] {
@@ -81,21 +81,16 @@ struct MAClientsView: View {
                     }
                 }
             }
-            .onAppear {
-                Task {
-                    await viewModel.fetch()
-                }
-            }
             .navigationDestination(for: MANavigationRoutes.ClientRoutes.self) { route in
                 switch route {
                 case .newClient:
-                    MANewClient(path: $viewModel.navigationPath)
+                    MANewClient(viewModel: .init(), path: $viewModel.navigationPath)
                         .toolbar(.hidden)
                 case .details(let client):
                     MAClientDetailsView(viewModel: MAClientDetailsViewModel(client.id, clientUserID: client.userId), path: $viewModel.navigationPath)
                         .navigationTitle("Dados do Cliente")
-                case .edit(let clientID):
-                    MAEditClientView(viewModel: MAEditClientViewModel(clientID: clientID))
+                case .edit(let client):
+                    MANewClient(viewModel: .init(model: client), path: $viewModel.navigationPath)
                         .toolbar(.hidden)
                 }
             }
@@ -106,6 +101,6 @@ struct MAClientsView: View {
 
 struct MAClientsView_Previews: PreviewProvider {
     static var previews: some View {
-        MAClientsView()
+        MAClientsView(viewModel: .init(path: Binding.constant(NavigationPath())))
     }
 }

@@ -67,16 +67,11 @@ struct MAClientDetailsView: View {
         .addMAAlert(state: showConfirmDeletion, message: "Deseja deletar o cliente?") {
             Task {
                 await viewModel.delete()
+                showConfirmDeletion = false
+                self.path.removeLast(self.path.count)
             }
-            
-            showConfirmDeletion = false
-            self.path.removeLast(self.path.count)
         } backAction: {
             showConfirmDeletion = false
-        }
-        .onAppear {
-            viewModel.fetchClient()
-            viewModel.fetchClientOrders()
         }
     }
     
@@ -132,7 +127,12 @@ struct MAClientDetailsView: View {
     var buttonsView: some View {
         VStack {
             Button(viewModel.editClientText) {
-                self.path.append(MANavigationRoutes.ClientRoutes.edit(clientID: viewModel.clientID))
+                self.path.append(MANavigationRoutes.ClientRoutes.edit(client: .init(userId: viewModel.clientUserID,
+                                                                                    id: viewModel.clientID,
+                                                                                    fullName: viewModel.fullName,
+                                                                                    phone: viewModel.phone,
+                                                                                    email: viewModel.email,
+                                                                                    imageURL: viewModel.clientImageURL)))
             }
             .buttonStyle(MABasicButtonStyle(backgroundColor: .MAColors.MAPinkLight,
                                             fontColor: .white))

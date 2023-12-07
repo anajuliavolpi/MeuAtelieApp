@@ -21,7 +21,7 @@ struct MATabBarView: View {
                 }
                 .tag(MATabBarViewModel.Tabs.orders)
             
-            MAClientsView()
+            MAClientsView(viewModel: .init(path: $viewModel.clientsPath))
                 .tabItem {
                     Label(MATabBarViewModel.Tabs.clients.title,
                           systemImage: MATabBarViewModel.Tabs.clients.systemImage)
@@ -56,7 +56,9 @@ struct MATabBarView: View {
                             viewModel.homePath.removeLast(viewModel.homePath.count)
                         }
                     case .clients:
-                        break
+                        withAnimation {
+                            viewModel.clientsPath.removeLast(viewModel.clientsPath.count)
+                        }
                     case .calendar:
                         break
                     case .profile:

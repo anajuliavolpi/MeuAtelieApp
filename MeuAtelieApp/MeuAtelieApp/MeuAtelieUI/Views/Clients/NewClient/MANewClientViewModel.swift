@@ -15,17 +15,40 @@ final class MANewClientViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var contacts: [CNContact] = []
     @Published var showError: Bool = false
+    @Published var clientFullName: String = ""
+    @Published var clientPhone: String = ""
+    @Published var clientEmail: String = ""
+    @Published var userImage: Image?
+    @Published var uiImage: UIImage?
     
     let createText: String = "Adicionar"
     let newClientText: String = "novo cliente"
     let fullNameText: String = "Nome completo"
     let phoneText: String = "Telefone"
     let emailText: String = "Email"
-    let createActionText: String = "CADASTRAR"
+    var createActionText: String = "CADASTRAR"
     let importClientActionText: String = "IMPORTAR CLIENTE"
     let backText: String = "Voltar"
     
-    private var model: MAClientModel?
+    var model: MAClientModel?
+    
+    init(model: MAClientModel? = nil) {
+        self.model = model
+        
+        if let model {
+            // We are in editing mode
+            clientFullName = model.fullName
+            clientPhone = model.phone
+            clientEmail = model.email
+            
+            // Try to get user image
+            Task {
+                await getUserImage(with: model.imageURL ?? "")
+            }
+            
+            self.createActionText = "ATUALIZAR"
+        }
+    }
     
     @MainActor func new(client: MAClientModel, image: UIImage) async throws {
         self.isLoading = true
@@ -88,6 +111,18 @@ final class MANewClientViewModel: ObservableObject {
             }
         } catch {
             print("some error: \(error)")
+        }
+    }
+    
+    @MainActor private func getUserImage(with url: String) async {
+        guard let url = URL(string: url) else { return }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            self.uiImage = UIImage(data: data)
+            self.userImage = Image(uiImage: self.uiImage!) // Should not crash - at least in theory
+        } catch {
+            print("Some error: \(error)")
         }
     }
     

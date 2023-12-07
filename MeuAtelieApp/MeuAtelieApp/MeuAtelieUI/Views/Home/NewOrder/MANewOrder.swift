@@ -95,7 +95,7 @@ struct MANewOrder: View {
                 await viewModel.fetch()
             }
         }, content: {
-            MANewClient(path: $path, fromNewClientView: $showNewClientView)
+            MANewClient(viewModel: .init(), path: $path, fromNewClientView: $showNewClientView)
         })
         .addMALoading(state: viewModel.isLoading)
         .hideKeyboard()

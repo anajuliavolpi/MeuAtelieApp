@@ -12,10 +12,19 @@ final class MAClientsViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var clients: [MAClientModel] = []
-    @Published var navigationPath: NavigationPath = .init()
+    
+    @Binding var navigationPath: NavigationPath
     
     var viewTitle: String = "Clientes"
     var newClientText: String = "+"
+    
+    init(path: Binding<NavigationPath>) {
+        self._navigationPath = path
+        
+        Task {
+            await fetch()
+        }
+    }
     
     @MainActor func fetch() async {
         self.isLoading = true
