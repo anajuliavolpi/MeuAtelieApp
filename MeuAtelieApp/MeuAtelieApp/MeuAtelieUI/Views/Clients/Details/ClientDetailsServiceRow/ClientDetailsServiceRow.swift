@@ -49,8 +49,10 @@ struct ClientDetailsServiceRow: View {
                 Text("Previsão: \(model.estimatedDeliveryDate)")
                     .font(.system(size: 16))
                 
-                Text("Preço: R$ \(String(format: "%.2f", model.totalValue))")
-                    .font(.system(size: 16))
+                if model.serviceType == .fixes {
+                    Text("Preço: R$ \(String(format: "%.2f", model.totalValue))")
+                        .font(.system(size: 16))
+                }
             }
         }
     }
