@@ -10,7 +10,7 @@ import Combine
 
 struct MAHomeView: View {
     
-    @ObservedObject var viewModel: MAHomeViewModel = .init()
+    @ObservedObject var viewModel: MAHomeViewModel
     @State private var textToSearch: String = ""
     @State private var filterStatus: OrderStatus? = nil
     
@@ -60,6 +60,10 @@ struct MAHomeView: View {
                         Button("Finalizados") {
                             self.filterStatus = .completed
                         }
+                        
+                        Button("Todos") {
+                            self.filterStatus = nil
+                        }
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
@@ -88,13 +92,11 @@ struct MAHomeView: View {
                     }
                 }
             }
-            .onAppear {
-                viewModel.fetchOrders()
-            }
             .navigationDestination(for: MANavigationRoutes.HomeRoutes.self) { path in
                 switch path {
                 case .orderDetails(let order):
-                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(orderID: order.id), path: $viewModel.navigationPath)
+                    MAOrderDetailsView(viewModel: MAOrderDetailsViewModel(path: $viewModel.navigationPath, orderID: order.id))
+                        .toolbar(.hidden)
                 case .editOrder(let order):
                     if order.serviceType == .fixes {
                         MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))
@@ -140,6 +142,6 @@ extension MAHomeView {
 
 struct MAHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        MAHomeView()
+        MAHomeView(viewModel: .init(path: Binding.constant(NavigationPath())))
     }
 }

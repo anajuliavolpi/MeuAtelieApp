@@ -90,13 +90,12 @@ struct MANewOrder: View {
             .padding(.bottom, 40)
         }
         .padding(.horizontal, 20)
-        .onAppear {
-            viewModel.fetchClients()
-        }
         .sheet(isPresented: $showNewClientView, onDismiss: {
-            viewModel.fetchClients()
+            Task {
+                await viewModel.fetch()
+            }
         }, content: {
-            MANewClient(path: Binding.constant(NavigationPath()))
+            MANewClient(path: $path, fromNewClientView: $showNewClientView)
         })
         .addMALoading(state: viewModel.isLoading)
         .hideKeyboard()

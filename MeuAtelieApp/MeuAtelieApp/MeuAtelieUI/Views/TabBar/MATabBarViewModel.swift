@@ -43,4 +43,10 @@ final class MATabBarViewModel: ObservableObject {
         }
     }
     
+    @Published var selectedTab: MATabBarViewModel.Tabs = .orders
+    @Published var homePath: NavigationPath = .init()
+    @Published var clientsPath: NavigationPath = .init()
+    @Published var calendarPath: NavigationPath = .init()
+    @Published var profilePath: NavigationPath = .init()
+    
 }

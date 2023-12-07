@@ -21,26 +21,30 @@ final class MAProfileViewModel: ObservableObject {
     let changePasswordText: String = "ALTERAR SENHA"
     let exitText: String = "SAIR"
     
-    func fetchUserData() {
-        isLoading = true
+    init() {
+        Task {
+            await fetchUser()
+        }
+    }
+    
+    @MainActor func fetchUser() async {
+        self.isLoading = true
         let db = Firestore.firestore()
         let ref = db.collection("Users").document(Auth.auth().currentUser?.uid ?? "")
         
-        ref.getDocument { snapshot, error in
+        do {
+            let snapshot = try await ref.getDocument()
             self.isLoading = false
-            if let error {
-                print("some error occured on fetching user data: \(error)")
-                return
-            }
-            
-            if let snapshot {
-                let data = snapshot.data()
+            if let data = snapshot.data() {
                 self.model = MARegisterModel(emailAddress: Auth.auth().currentUser?.email ?? "",
                                              password: "",
-                                             firstName: data?["name"] as? String ?? "",
-                                             lastName: data?["lastname"] as? String ?? "",
-                                             imageURL: data?["imageURL"] as? String ?? nil)
+                                             firstName: data["name"] as? String ?? "",
+                                             lastName: data["lastname"] as? String ?? "",
+                                             imageURL: data["imageURL"] as? String)
             }
+        } catch {
+            print("Some error occured: \(error)")
+            self.isLoading = false
         }
     }
     

@@ -15,10 +15,9 @@ struct MAOrderDetailsView: View {
     @ObservedObject var viewModel: MAOrderDetailsViewModel
     @State private var showDeletionAlert: Bool = false
     @State private var showCompletionAlert: Bool = false
-    @State private var isBarHidden = false
     @State private var showImageSheet = false
     @State private var selectedImage: Image?
-    @Binding var path: NavigationPath
+    
     var isFromCalendar: Bool = false
     
     var body: some View {
@@ -56,30 +55,31 @@ struct MAOrderDetailsView: View {
                 }
                 .padding(.horizontal, 40)
             }
-            .toolbar(isBarHidden ? .hidden : .visible)
-            .onAppear {
-                isBarHidden = true
-                viewModel.fetchOrder()
-            }
-            .onChange(of: scenePhase) { newPhase in
-                if newPhase == .active {
-                    viewModel.fetchOrder()
+            .onChange(of: scenePhase, { oldValue, newValue in
+                if newValue == .active {
+                    Task {
+                        await viewModel.fetch()
+                    }
                 }
-            }
+            })
             .ignoresSafeArea(edges: .top)
             .addMALoading(state: viewModel.isLoading)
             .addMAAlert(state: showDeletionAlert, message: "Deseja deletar o pedido?") {
-                viewModel.deleteOrder(dismiss)
-                showDeletionAlert = false
+                Task {
+                    await viewModel.delete()
+                    showDeletionAlert = false
+                }
             } backAction: {
                 showDeletionAlert = false
             }
             .addMAAlert(state: showCompletionAlert, message: "Deseja finalizar o pedido?") {
-                viewModel.complete()
-                showCompletionAlert = false
-                
-                withAnimation {
-                    value.scrollTo(1)
+                Task {
+                    await viewModel.complete()
+                    showCompletionAlert = false
+                    
+                    withAnimation {
+                        value.scrollTo(1)
+                    }
                 }
             } backAction: {
                 showCompletionAlert = false
@@ -308,9 +308,9 @@ struct MAOrderDetailsView: View {
                 Button(viewModel.editText) {
                     if let model = viewModel.order {
                         if isFromCalendar {
-                            path.append(MANavigationRoutes.CalendarRoutes.editOrder(order: model))
+                            viewModel.path.append(MANavigationRoutes.CalendarRoutes.editOrder(order: model))
                         } else {
-                            path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
+                            viewModel.path.append(MANavigationRoutes.HomeRoutes.editOrder(order: model))
                         }
                     }
                 }
@@ -394,7 +394,7 @@ struct MAOrderDetailsView: View {
 struct MAOrderDetails_Previews: PreviewProvider {
     
     static var previews: some View {
-        MAOrderDetailsView(viewModel: .init(orderID: ""), path: Binding.constant(.init()))
+        MAOrderDetailsView(viewModel: .init(path: Binding.constant(NavigationPath()), orderID: ""))
     }
     
 }

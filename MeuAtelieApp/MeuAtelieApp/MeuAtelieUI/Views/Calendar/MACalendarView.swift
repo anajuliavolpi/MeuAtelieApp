@@ -60,7 +60,7 @@ struct MACalendarView: View {
                 .navigationDestination(for: MANavigationRoutes.CalendarRoutes.self, destination: { routes in
                     switch routes {
                     case .orderDetails(let order):
-                        MAOrderDetailsView(viewModel: .init(orderID: order.id), path: $viewModel.navigationPath, isFromCalendar: true)
+                        MAOrderDetailsView(viewModel: .init(path: $viewModel.navigationPath, orderID: order.id), isFromCalendar: true)
                     case .editOrder(let order):
                         if order.serviceType == .fixes {
                             MAFixesOrderFlowView(viewModel: .init(order, pieces: 1, path: $viewModel.navigationPath, editing: true))

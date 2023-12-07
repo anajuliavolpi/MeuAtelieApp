@@ -46,9 +46,6 @@ struct MAProfileView: View {
             .padding(.horizontal, 30)
             .ignoresSafeArea(edges: .top)
             .addMALoading(state: viewModel.isLoading)
-            .onAppear {
-                viewModel.fetchUserData()
-            }
         }
     }
     

@@ -26,6 +26,13 @@ struct MANewClient: View {
     @State var imagePicked: PhotosPickerItem?
     @State var uiImage: UIImage?
     
+    @Binding var showNewClientView: Bool
+    
+    init(path: Binding<NavigationPath>, fromNewClientView: Binding<Bool> = Binding.constant(false)) {
+        self._path = path
+        self._showNewClientView = fromNewClientView
+    }
+    
     var body: some View {
         VStack {
             MAHeaderView(text: viewModel.createText,
@@ -174,7 +181,12 @@ struct MANewClient: View {
                 Task {
                     do {
                         try await viewModel.new(client: model, image: uiImage ?? UIImage())
-                        self.path.removeLast(self.path.count)
+                        
+                        if showNewClientView {
+                            showNewClientView.toggle()
+                        } else {
+                            self.path.removeLast(self.path.count)
+                        }
                     } catch {
                         print("Error: \(error)")
                     }
